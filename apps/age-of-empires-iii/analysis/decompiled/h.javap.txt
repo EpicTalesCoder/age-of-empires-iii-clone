@@ -1,0 +1,110 @@
+// ClassFile version 45.3
+public final class h {
+
+  public void <init>(); // ()V
+    Code: stack=1, locals=1, len=5
+         0: aload_0
+         1: invokespecial #28 // java.lang.Object.<init>:()V
+         4: return
+  public static byte[] a(int); // (I)[B
+    Code: stack=2, locals=3, len=65
+         0: getstatic #17 // java.lang.System.out:Ljava/io/PrintStream;
+         3: invokevirtual #26 // java.io.PrintStream.println:()V
+         6: invokestatic #18 // f.c:()V
+         9: iload_0
+        10: iconst_m1
+        11: if_icmpne 16
+        14: aconst_null
+        15: areturn
+        16: iload_0
+        17: ldc #1 // 65535
+        19: iand
+        20: istore_1
+        21: iload_0
+        22: bipush 16
+        24: ishr
+        25: ldc #1 // 65535
+        27: iand
+        28: istore_0
+        29: aconst_null
+        30: astore_2
+        31: iload_0
+        32: ifne 59
+        35: new #14 // java.lang.StringBuffer.class
+        38: dup
+        39: invokespecial #30 // java.lang.StringBuffer.<init>:()V
+        42: iload_1
+        43: invokevirtual #31 // java.lang.StringBuffer.append:(I)Ljava/lang/StringBuffer;
+        46: ldc #4 // ".res"
+        48: invokevirtual #32 // java.lang.StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        51: invokevirtual #33 // java.lang.StringBuffer.toString:()Ljava/lang/String;
+        54: iconst_1
+        55: invokestatic #19 // h.a:(Ljava/lang/String;Z)[B
+        58: astore_2
+        59: goto 63
+        62: pop
+        63: aload_2
+        64: areturn
+    Exception table:
+      from=31 to=59 target=62 type=java.lang.Exception
+  public static byte[] a(String); // (Ljava/lang/String;)[B
+    Code: stack=2, locals=1, len=6
+         0: aload_0
+         1: iconst_0
+         2: invokestatic #19 // h.a:(Ljava/lang/String;Z)[B
+         5: areturn
+  private static byte[] a(String, boolean); // (Ljava/lang/String;Z)[B
+    Code: stack=3, locals=3, len=81
+         0: new #8 // java.io.ByteArrayOutputStream.class
+         3: dup
+         4: invokespecial #20 // java.io.ByteArrayOutputStream.<init>:()V
+         7: astore_2
+         8: getstatic #16 // f.a:LMain;
+        11: invokevirtual #29 // java.lang.Object.getClass:()Ljava/lang/Class;
+        14: new #14 // java.lang.StringBuffer.class
+        17: dup
+        18: invokespecial #30 // java.lang.StringBuffer.<init>:()V
+        21: ldc #5 // "/"
+        23: invokevirtual #32 // java.lang.StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        26: aload_0
+        27: invokevirtual #32 // java.lang.StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        30: invokevirtual #33 // java.lang.StringBuffer.toString:()Ljava/lang/String;
+        33: invokevirtual #27 // java.lang.Class.getResourceAsStream:(Ljava/lang/String;)Ljava/io/InputStream;
+        36: astore_0
+        37: iload_1
+        38: ifeq 49
+        41: aload_0
+        42: ldc2_w #2 // 4L
+        45: invokevirtual #25 // java.io.InputStream.skip:(J)J
+        48: pop2
+        49: iconst_0
+        50: istore_1
+        51: aload_0
+        52: invokevirtual #24 // java.io.InputStream.read:()I
+        55: dup
+        56: istore_1
+        57: iconst_m1
+        58: if_icmpeq 69
+        61: aload_2
+        62: iload_1
+        63: invokevirtual #22 // java.io.ByteArrayOutputStream.write:(I)V
+        66: goto 51
+        69: aload_0
+        70: invokevirtual #23 // java.io.InputStream.close:()V
+        73: aload_2
+        74: invokevirtual #21 // java.io.ByteArrayOutputStream.toByteArray:()[B
+        77: areturn
+        78: pop
+        79: aconst_null
+        80: areturn
+    Exception table:
+      from=0 to=77 target=78 type=java.lang.Exception
+  public static void a(); // ()V
+    Code: stack=0, locals=0, len=7
+         0: goto 3
+         3: invokestatic #34 // java.lang.System.gc:()V
+         6: return
+  static void <clinit>(); // ()V
+    Code: stack=0, locals=0, len=1
+         0: return
+}

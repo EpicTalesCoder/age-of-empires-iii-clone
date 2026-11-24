@@ -1,0 +1,1354 @@
+[
+  {
+    "id": 0,
+    "text": "1"
+  },
+  {
+    "id": 1,
+    "text": "Age of Empires III Mobile"
+  },
+  {
+    "id": 2,
+    "text": "Menu chinh"
+  },
+  {
+    "id": 3,
+    "text": "Chien dich"
+  },
+  {
+    "id": 4,
+    "text": "Giao tranh"
+  },
+  {
+    "id": 5,
+    "text": "Game da luu"
+  },
+  {
+    "id": 6,
+    "text": "Cai dat"
+  },
+  {
+    "id": 7,
+    "text": "Huong dan"
+  },
+  {
+    "id": 8,
+    "text": "Gioi thieu"
+  },
+  {
+    "id": 9,
+    "text": "Thoat"
+  },
+  {
+    "id": 10,
+    "text": "Menu game"
+  },
+  {
+    "id": 11,
+    "text": "Choi tiep"
+  },
+  {
+    "id": 12,
+    "text": "Chien dich moi"
+  },
+  {
+    "id": 13,
+    "text": "Chon nhiem vu"
+  },
+  {
+    "id": 14,
+    "text": "Nhiem vu"
+  },
+  {
+    "id": 15,
+    "text": "O trong"
+  },
+  {
+    "id": 16,
+    "text": "Ket thuc game"
+  },
+  {
+    "id": 17,
+    "text": "Ghi de?"
+  },
+  {
+    "id": 18,
+    "text": "Choi lai"
+  },
+  {
+    "id": 19,
+    "text": "Nhiem vu %U"
+  },
+  {
+    "id": 20,
+    "text": "Chon ban do"
+  },
+  {
+    "id": 21,
+    "text": "Phe"
+  },
+  {
+    "id": 22,
+    "text": "Do kho"
+  },
+  {
+    "id": 23,
+    "text": "Tuyen quan"
+  },
+  {
+    "id": 24,
+    "text": "Linh ky cuu"
+  },
+  {
+    "id": 25,
+    "text": "Bat am thanh?"
+  },
+  {
+    "id": 26,
+    "text": "Co"
+  },
+  {
+    "id": 27,
+    "text": "Khong"
+  },
+  {
+    "id": 28,
+    "text": "Thanh pho goc"
+  },
+  {
+    "id": 29,
+    "text": "Luu game"
+  },
+  {
+    "id": 30,
+    "text": "Muc tieu"
+  },
+  {
+    "id": 31,
+    "text": "Am thanh: Bat"
+  },
+  {
+    "id": 32,
+    "text": "Am thanh: Tat"
+  },
+  {
+    "id": 33,
+    "text": "Rung: Bat"
+  },
+  {
+    "id": 34,
+    "text": "Rung: Tat"
+  },
+  {
+    "id": 35,
+    "text": "Thuong"
+  },
+  {
+    "id": 36,
+    "text": "Cheo"
+  },
+  {
+    "id": 37,
+    "text": "Meo: Bat"
+  },
+  {
+    "id": 38,
+    "text": "Meo: Tat"
+  },
+  {
+    "id": 39,
+    "text": "%U\nv %U\nGlu Mobile\n\n© 2007 Glu Mobile. All rights reserved. Glu and the Glu logo are trademarks of Glu Mobile.\n\nTerms of Use at www.glu.com\n\nMua game video nay, do Ensemble Studios phat trien va Microsoft Game Studios phat hanh\n\nwww.AGEOFEMPIRES3.com\n\n© 2007 Microsoft Corporation.  All rights reserved.\n\nMicrosoft, the Microsoft Game Studios logo, Age of Empires, and Ensemble Studios are trademarks of the Microsoft group of companies."
+  },
+  {
+    "id": 40,
+    "text": ""
+  },
+  {
+    "id": 41,
+    "text": "Tong quan"
+  },
+  {
+    "id": 42,
+    "text": "Voi vai Morgan Black, ban phai bao ve dao Malta khoi de che Ottoman. Du bi ap dao ve quan so, cac Hiep si St. John trong lich su da day lui quan Ottoman trong cuoc vay ham co le noi tieng nhat moi thoi. Lieu ban co the lap lai chien thang ay?"
+  },
+  {
+    "id": 43,
+    "text": "Dieu khien"
+  },
+  {
+    "id": 44,
+    "text": "Dung joypad hoac phim so de di chuyen con tro.\n\nChe do dieu khien con tro co the doi trong cai dat.\n\n#: Ban do nho\n0: Neu vua co su kien xay ra, chuyen toi su kien do. Neu khong co su kien nao gan day, lan luot chon cac Nguoi dinh cu dang ranh.\n*: Tam dung/che do lenh\nPhim mem trai: Xay cong trinh\nPhim mem phai: Menu\nChon/5: Chon don vi (bam lai de chon tat ca don vi giong nhau, bam lan thu ba de chon cac don vi tuong tu tren man hinh), cong trinh hoac tai nguyen. Neu nguoi choi chon nen dat trong theo cach nay, moi don vi da chon se di chuyen toi diem do."
+  },
+  {
+    "id": 45,
+    "text": "Che do"
+  },
+  {
+    "id": 46,
+    "text": "Chien dich: chuoi nhiem vu dien ra trong thoi gian Vay ham Malta.\n\nGiao tranh: choi mot nhiem vu don voi cac dieu kien tuy chinh."
+  },
+  {
+    "id": 47,
+    "text": "Thanh pho goc"
+  },
+  {
+    "id": 48,
+    "text": "Diem kinh nghiem nhan duoc khi pha huy don vi va cong trinh dich. Khi tich luy du diem kinh nghiem, ban duoc nhan Lo hang. Moi Lo hang cho phep ban kich hoat mot The ho tro tu man hinh Thanh pho goc, mien la ban co Trung tam thi tran."
+  },
+  {
+    "id": 49,
+    "text": "Meo"
+  },
+  {
+    "id": 50,
+    "text": "Hay thu phuong phap dieu khien khac neu ban thay cac phim khong hoat dong nhu mong muon."
+  },
+  {
+    "id": 51,
+    "text": "Neu ban khong biet phai lam gi, hay xem muc tieu o man hinh menu."
+  },
+  {
+    "id": 52,
+    "text": "Hay co gang dam bao khu dinh cu cua ban luon hoat dong. Dan lang nen lien tuc thu thap tai nguyen, cac cong trinh lien tuc tao linh, v.v. Dung de ke dich bat ngo tap kich."
+  },
+  {
+    "id": 53,
+    "text": "Tien don co the la vu khi phong thu manh neu dat khon kheo."
+  },
+  {
+    "id": 54,
+    "text": "Mot so loai don vi manh hon truoc cac loai khac. Hay thu xay dung doi quan da dang de doi pho moi tinh huong."
+  },
+  {
+    "id": 55,
+    "text": "Dung nan long neu that bai nhiem vu. Lan choi sau, ban se hieu ro hon cach ke dich hanh dong."
+  },
+  {
+    "id": 56,
+    "text": ""
+  },
+  {
+    "id": 57,
+    "text": "Cho phep ban tien len Thoi dai, dung The ho tro va tao Nguoi dinh cu moi. Ngoai ra tang gioi han dan so toi da them 10."
+  },
+  {
+    "id": 58,
+    "text": "Tang gioi han dan so toi da them 5."
+  },
+  {
+    "id": 59,
+    "text": "Thap canh, ban vao cac don vi dich."
+  },
+  {
+    "id": 60,
+    "text": "Cho phep ban tao don vi bo binh."
+  },
+  {
+    "id": 61,
+    "text": "Cho phep ban tao don vi phao binh."
+  },
+  {
+    "id": 62,
+    "text": "Cho phep ban tao don vi ky binh."
+  },
+  {
+    "id": 63,
+    "text": "Cho phep ban mua va ban tai nguyen."
+  },
+  {
+    "id": 64,
+    "text": "Cong trinh kien co, cho phep ban xay dung don vi bo binh va ky binh."
+  },
+  {
+    "id": 65,
+    "text": "Co the duoc giao nhiem vu thu thap Go (tu Cay), Thuc an (tu Bui cay) va Vang (tu Da) cho khu dinh cu cua ban."
+  },
+  {
+    "id": 66,
+    "text": "Mang nhung cay giao go dai, dau bit luoi thep."
+  },
+  {
+    "id": 67,
+    "text": "Duoc trang bi sung nap dan tu nong thoi ky dau."
+  },
+  {
+    "id": 68,
+    "text": "Don vi tinh nhue mang thuoc no nem tay."
+  },
+  {
+    "id": 69,
+    "text": "Kiem si cuoi ngua."
+  },
+  {
+    "id": 70,
+    "text": "Ky binh mang sung truong."
+  },
+  {
+    "id": 71,
+    "text": "Dai bac yeu hon, it giap."
+  },
+  {
+    "id": 72,
+    "text": "Co the mot minh san phang mot cong trinh."
+  },
+  {
+    "id": 73,
+    "text": "Khi len thoi dai, ban co the xay dung don vi va cong trinh moi, va nang cap don vi."
+  },
+  {
+    "id": 74,
+    "text": ""
+  },
+  {
+    "id": 75,
+    "text": ""
+  },
+  {
+    "id": 76,
+    "text": ""
+  },
+  {
+    "id": 77,
+    "text": ""
+  },
+  {
+    "id": 78,
+    "text": ""
+  },
+  {
+    "id": 79,
+    "text": "Pha huy cong trinh da chon."
+  },
+  {
+    "id": 80,
+    "text": "Dat diem danh dau; moi don vi do cong trinh da chon tao ra se di chuyen den do khi duoc tao."
+  },
+  {
+    "id": 81,
+    "text": "Nang cap suc manh va toc do cua don vi."
+  },
+  {
+    "id": 82,
+    "text": ""
+  },
+  {
+    "id": 83,
+    "text": ""
+  },
+  {
+    "id": 84,
+    "text": "Diem mau: "
+  },
+  {
+    "id": 85,
+    "text": "Diem tan cong: "
+  },
+  {
+    "id": 86,
+    "text": "Tam ban: "
+  },
+  {
+    "id": 87,
+    "text": "Manh voi: "
+  },
+  {
+    "id": 88,
+    "text": "Tap choi"
+  },
+  {
+    "id": 89,
+    "text": "Dan dinh cu se thu thap tai nguyen de tao don vi va cong trinh. Chon dan dinh cu bang phim CHON hoac 5 (bam lai de chon tat ca dan dinh cu tren man hinh), roi di con tro toi Cay va dung CHON hoac 5 de bat dau thu thap. Xem man hinh muc tieu neu ban can nhac lai."
+  },
+  {
+    "id": 90,
+    "text": "Bam phim mem trai de mo menu xay dung va chon Doanh trai. Di con tro de chon vi tri xay Doanh trai (con tro mau do nghia la khong the dat o do), roi dung CHON hoac 5 de xay."
+  },
+  {
+    "id": 91,
+    "text": "De ra lenh cho dan dinh cu thu thap Thuc an, chon ho bang CHON hoac 5 (bam lai de chon tat ca dan dinh cu tren man hinh), roi di con tro toi Bui cay va dung CHON hoac 5 de bat dau thu thap."
+  },
+  {
+    "id": 92,
+    "text": "Chon Doanh trai va chon Linh giao. Bam CHON hoac 5 lien tuc cho den khi HUD hien thi ban dang xay 5 Linh giao, roi cho ho duoc tao xong."
+  },
+  {
+    "id": 93,
+    "text": "Ban dang bi tan cong! Chon Linh giao bang CHON hoac 5, bam lap lai de chon tat ca tren man hinh. Khi thay don vi dich, di con tro de bao quanh ke dich roi dung CHON hoac 5 de tan cong."
+  },
+  {
+    "id": 94,
+    "text": "Ban co mot Chuyen hang, hay vao menu trong game va chon 'Thanh pho chinh'."
+  },
+  {
+    "id": 95,
+    "text": "Chon mot The ho tro de gui Chuyen hang toi khu dinh cu cua ban. Viec nay se giam tong so Chuyen hang di mot. Len thoi dai se mo khoa cac The ho tro moi."
+  },
+  {
+    "id": 96,
+    "text": "Ban van co the dieu khien don vi khi game dang tam dung (dung * de tam dung), dieu nay huu ich khi moi viec tro nen qua tai. Ho se thuc hien lenh ngay khi game duoc tiep tuc."
+  },
+  {
+    "id": 97,
+    "text": "Chon Dieu khien"
+  },
+  {
+    "id": 98,
+    "text": "Chao mung ban den voi Age of Empires III Mobile. Neu ban muon di chuyen con tro bang ban phim so, hay chon 'Thuong'. Neu ban muon dung can dieu khien cua dien thoai, 'Cheo' co the phu hop hon. Vui long chon he thong dieu khien trong menu sau."
+  },
+  {
+    "id": 99,
+    "text": "Neu ban thu he thong dieu khien khac, ban co the doi lai trong menu cai dat bat cu luc nao. Chuc may man!"
+  },
+  {
+    "id": 100,
+    "text": "9"
+  },
+  {
+    "id": 101,
+    "text": "Truong nhom phat trien\nMarcus Lagerstrom"
+  },
+  {
+    "id": 102,
+    "text": "Hoa si\nKenneth Fejer\nNick Lee"
+  },
+  {
+    "id": 103,
+    "text": "Nha thiet ke game\nMark Bendon"
+  },
+  {
+    "id": 104,
+    "text": "Nhac\nJeremy Corbett"
+  },
+  {
+    "id": 105,
+    "text": "Ky su chuyen the\nKai Ma\nDavid Jimenez\nJohn Mahoney\nLaurence Gosden\nMichal Skorupka\nMariusz Buras\nScott Carrington \n\nKiem thu chat luong\nBob Moir\nMathew Baker"
+  },
+  {
+    "id": 106,
+    "text": "Nha san xuat\nMark Klocek"
+  },
+  {
+    "id": 107,
+    "text": "Nha san xuat dieu hanh\nEnsemble Studios\nPatrick Hudson"
+  },
+  {
+    "id": 108,
+    "text": "Quan ly chuong trinh\nEnsemble Studios\nBrian Lemon"
+  },
+  {
+    "id": 109,
+    "text": "Cam on ban da choi Age of Empires III Mobile!"
+  },
+  {
+    "id": 110,
+    "text": "Vui long cho..."
+  },
+  {
+    "id": 111,
+    "text": "Dang luu..."
+  },
+  {
+    "id": 112,
+    "text": "Luu thanh cong"
+  },
+  {
+    "id": 113,
+    "text": "Bam phim bat ky"
+  },
+  {
+    "id": 114,
+    "text": "Tien len %U"
+  },
+  {
+    "id": 115,
+    "text": "Nang cap %U len cap %U"
+  },
+  {
+    "id": 116,
+    "text": "So lan dung: %U"
+  },
+  {
+    "id": 117,
+    "text": "Khong gioi han"
+  },
+  {
+    "id": 118,
+    "text": "Chien thang!"
+  },
+  {
+    "id": 119,
+    "text": "That bai!"
+  },
+  {
+    "id": 120,
+    "text": "Ket thuc"
+  },
+  {
+    "id": 121,
+    "text": "Xac nhan tuy chon"
+  },
+  {
+    "id": 122,
+    "text": "Ban do: "
+  },
+  {
+    "id": 123,
+    "text": "Thoi luong: %U"
+  },
+  {
+    "id": 124,
+    "text": "Don vi da huan luyen: %U"
+  },
+  {
+    "id": 125,
+    "text": "Cong trinh da xay: %U"
+  },
+  {
+    "id": 126,
+    "text": "Don vi da tieu diet: %U"
+  },
+  {
+    "id": 127,
+    "text": "Cong trinh da pha huy: %U"
+  },
+  {
+    "id": 128,
+    "text": "Don vi da mat: %U"
+  },
+  {
+    "id": 129,
+    "text": "Cong trinh da mat: %U"
+  },
+  {
+    "id": 130,
+    "text": "Thuc an da thu thap: %U"
+  },
+  {
+    "id": 131,
+    "text": "Go da thu thap: %U"
+  },
+  {
+    "id": 132,
+    "text": "Vang da thu thap: %U"
+  },
+  {
+    "id": 133,
+    "text": "Khong du tai nguyen"
+  },
+  {
+    "id": 134,
+    "text": "Chuyen hang da den"
+  },
+  {
+    "id": 135,
+    "text": "Khong du nha o"
+  },
+  {
+    "id": 136,
+    "text": "Da dat gioi han nha o"
+  },
+  {
+    "id": 137,
+    "text": "Muc tieu moi: %U"
+  },
+  {
+    "id": 138,
+    "text": "Da hoan thanh muc tieu: %U"
+  },
+  {
+    "id": 139,
+    "text": "That bai muc tieu: %U"
+  },
+  {
+    "id": 140,
+    "text": "Khong the xay o day"
+  },
+  {
+    "id": 141,
+    "text": "Da dat %U"
+  },
+  {
+    "id": 142,
+    "text": "Chung toi dang bi tan cong"
+  },
+  {
+    "id": 143,
+    "text": "Da huan luyen %U"
+  },
+  {
+    "id": 144,
+    "text": "Da xay %U"
+  },
+  {
+    "id": 145,
+    "text": "Tai nguyen da can"
+  },
+  {
+    "id": 146,
+    "text": "Da nang cap xong: %U"
+  },
+  {
+    "id": 147,
+    "text": "%U bi vo hieu hoa"
+  },
+  {
+    "id": 148,
+    "text": "%U da bi danh bai"
+  },
+  {
+    "id": 149,
+    "text": "Ban can Trung tam thi tran de vao man hinh Thanh pho chinh"
+  },
+  {
+    "id": 150,
+    "text": "Nguoi dinh cu"
+  },
+  {
+    "id": 151,
+    "text": "Linh giao"
+  },
+  {
+    "id": 152,
+    "text": "Chap kich lao luyen"
+  },
+  {
+    "id": 153,
+    "text": "Truong kich binh"
+  },
+  {
+    "id": 154,
+    "text": "Truong kich binh lao luyen"
+  },
+  {
+    "id": 155,
+    "text": "Sung hoa mai binh"
+  },
+  {
+    "id": 156,
+    "text": "Sung hoa mai binh lao luyen"
+  },
+  {
+    "id": 157,
+    "text": "Linh sung truong"
+  },
+  {
+    "id": 158,
+    "text": "Linh sung truong lao luyen"
+  },
+  {
+    "id": 159,
+    "text": "Linh nem luu dan"
+  },
+  {
+    "id": 160,
+    "text": "Linh nem luu dan lao luyen"
+  },
+  {
+    "id": 161,
+    "text": "Linh nem luu dan hang nang"
+  },
+  {
+    "id": 162,
+    "text": "Ky binh nhe"
+  },
+  {
+    "id": 163,
+    "text": "Ky binh nhe lao luyen"
+  },
+  {
+    "id": 164,
+    "text": "Ky binh nhe hang nang"
+  },
+  {
+    "id": 165,
+    "text": "Ky binh long ky"
+  },
+  {
+    "id": 166,
+    "text": "Ky binh long ky lao luyen"
+  },
+  {
+    "id": 167,
+    "text": "Ve binh long ky"
+  },
+  {
+    "id": 168,
+    "text": "Phao nho"
+  },
+  {
+    "id": 169,
+    "text": "Phao nho lao luyen"
+  },
+  {
+    "id": 170,
+    "text": "Dai phao"
+  },
+  {
+    "id": 171,
+    "text": "Dai phao lao luyen"
+  },
+  {
+    "id": 172,
+    "text": ""
+  },
+  {
+    "id": 173,
+    "text": ""
+  },
+  {
+    "id": 174,
+    "text": "Trung tam thi tran"
+  },
+  {
+    "id": 175,
+    "text": "Nha"
+  },
+  {
+    "id": 176,
+    "text": "Tien don"
+  },
+  {
+    "id": 177,
+    "text": "Doanh trai"
+  },
+  {
+    "id": 178,
+    "text": "Xuong phao binh"
+  },
+  {
+    "id": 179,
+    "text": "Chuong ngua"
+  },
+  {
+    "id": 180,
+    "text": "Cho"
+  },
+  {
+    "id": 181,
+    "text": "Phao dai"
+  },
+  {
+    "id": 182,
+    "text": "Tien don bien gioi"
+  },
+  {
+    "id": 183,
+    "text": ""
+  },
+  {
+    "id": 184,
+    "text": "Thoi dai kham pha"
+  },
+  {
+    "id": 185,
+    "text": "Thoi dai thuoc dia"
+  },
+  {
+    "id": 186,
+    "text": "Thoi dai phao dai"
+  },
+  {
+    "id": 187,
+    "text": ""
+  },
+  {
+    "id": 188,
+    "text": "Ban luong thuc"
+  },
+  {
+    "id": 189,
+    "text": "Ban go"
+  },
+  {
+    "id": 190,
+    "text": "Mua luong thuc"
+  },
+  {
+    "id": 191,
+    "text": "Mua go"
+  },
+  {
+    "id": 192,
+    "text": "Pha cong trinh"
+  },
+  {
+    "id": 193,
+    "text": "Bam ban lan nua de pha cong trinh"
+  },
+  {
+    "id": 194,
+    "text": "Dat diem tap hop"
+  },
+  {
+    "id": 195,
+    "text": ""
+  },
+  {
+    "id": 196,
+    "text": "Luong thuc"
+  },
+  {
+    "id": 197,
+    "text": "Go"
+  },
+  {
+    "id": 198,
+    "text": "Vang"
+  },
+  {
+    "id": 199,
+    "text": ""
+  },
+  {
+    "id": 200,
+    "text": "Bo binh"
+  },
+  {
+    "id": 201,
+    "text": "Ky binh"
+  },
+  {
+    "id": 202,
+    "text": "Phao binh"
+  },
+  {
+    "id": 203,
+    "text": "Cong trinh"
+  },
+  {
+    "id": 204,
+    "text": ""
+  },
+  {
+    "id": 205,
+    "text": "Dong"
+  },
+  {
+    "id": 206,
+    "text": "Bac"
+  },
+  {
+    "id": 207,
+    "text": "Vang"
+  },
+  {
+    "id": 208,
+    "text": ""
+  },
+  {
+    "id": 209,
+    "text": "St. Paul's Bay"
+  },
+  {
+    "id": 210,
+    "text": "St. Elmo"
+  },
+  {
+    "id": 211,
+    "text": "Buskett Valley"
+  },
+  {
+    "id": 212,
+    "text": "St. Elmo Mountains"
+  },
+  {
+    "id": 213,
+    "text": "Mellieha Bay"
+  },
+  {
+    "id": 214,
+    "text": "Birgu"
+  },
+  {
+    "id": 215,
+    "text": "Senglea Promontory"
+  },
+  {
+    "id": 216,
+    "text": "Buskett Forest"
+  },
+  {
+    "id": 217,
+    "text": "St. Angelo"
+  },
+  {
+    "id": 218,
+    "text": "The Outpost"
+  },
+  {
+    "id": 219,
+    "text": "Giao tranh trong rung"
+  },
+  {
+    "id": 220,
+    "text": "The Crossing"
+  },
+  {
+    "id": 221,
+    "text": "Dao nui lua"
+  },
+  {
+    "id": 222,
+    "text": "Head To Head"
+  },
+  {
+    "id": 223,
+    "text": ""
+  },
+  {
+    "id": 224,
+    "text": "Hiep si Malta"
+  },
+  {
+    "id": 225,
+    "text": "Nguoi Ottoman"
+  },
+  {
+    "id": 226,
+    "text": "Nguoi Sicily"
+  },
+  {
+    "id": 227,
+    "text": "Morgan Black"
+  },
+  {
+    "id": 228,
+    "text": "Thuyen truong Anastagi"
+  },
+  {
+    "id": 229,
+    "text": "Dai Hiep si truong"
+  },
+  {
+    "id": 230,
+    "text": "Xay %U %U"
+  },
+  {
+    "id": 231,
+    "text": "Huan luyen %U linh giao"
+  },
+  {
+    "id": 232,
+    "text": "Thu thap %U %U"
+  },
+  {
+    "id": 233,
+    "text": "Tieu diet ke dich"
+  },
+  {
+    "id": 234,
+    "text": "Tim va vo hieu hoa linh giao dich"
+  },
+  {
+    "id": 235,
+    "text": "Day lui quan Ottoman"
+  },
+  {
+    "id": 236,
+    "text": "Bao ve phao dai St. Elmo"
+  },
+  {
+    "id": 237,
+    "text": "Bao ve phao dai St. Michael"
+  },
+  {
+    "id": 238,
+    "text": "Bao ve 3 xuong duc phao"
+  },
+  {
+    "id": 239,
+    "text": "Thua ngai, quan Ottoman se som cap bo cua chung ta. Co le nen xay ngay mot khu dinh cu canh bao som o day."
+  },
+  {
+    "id": 240,
+    "text": "Mot nhom linh giao Ottoman da do bo len bai bien. Chung se nem thep cua chung toi!"
+  },
+  {
+    "id": 241,
+    "text": "Do la ten cuoi cung. Du vay, toi e rang nhieu sinh mang se mat truoc khi cuoc chien nay ket thuc."
+  },
+  {
+    "id": 242,
+    "text": "Chung toi dang bi ban! Linh canh bao cho biet mot tieu doan Ottoman nua dang tien den. Chung ta phai chuan bi tan cong!"
+  },
+  {
+    "id": 243,
+    "text": "Dai bac hang nang dang tien toi! Chung ta khong the de no den duoc phao dai!"
+  },
+  {
+    "id": 244,
+    "text": "Thua ngai, dai thong linh da cu vien binh den giai vay cho chung ta. Chung ta phai tan dung co hoi nay de tan cong cac khau dai bac tren nui. Toi e rang do la hy vong duy nhat cua chung ta."
+  },
+  {
+    "id": 245,
+    "text": "Phao dai St. Elmo dang chay. Chung ta da that bai."
+  },
+  {
+    "id": 246,
+    "text": "Thua ngai, chung ta dang bi phuc kich!"
+  },
+  {
+    "id": 247,
+    "text": "Tieng sung cua chung ta se khong bi bo qua. Chung ta nen lap mot khu dinh cu va chuan bi cho dot tan cong tiep theo."
+  },
+  {
+    "id": 248,
+    "text": "Trinh sat bao rang lan song quan Ottoman da bi chan lai. Chung ta chien thang!"
+  },
+  {
+    "id": 249,
+    "text": "Nui non hien ra truoc mat, va tren dinh la 3 khau dai bac dang ban pha St. Elmo. Chung ta phai xay dung khu dinh cu va tap hop quan doi de chan dung cuoc tan sat cac anh em cua minh."
+  },
+  {
+    "id": 250,
+    "text": "Do la khau dai bac cuoi cung. Toi cau mong chung ta khong den qua muon."
+  },
+  {
+    "id": 251,
+    "text": "St. Elmo da roi vao tay ke thu, anh em cua chung ta bi giet hoac bi xieng xich. Chung ta phai tap hop quan doi va nghien nat chung, neu khong thi chet nhu nhung ke hen nhat."
+  },
+  {
+    "id": 252,
+    "text": "Thua ngai, chung ta da day lui ke dich khoi phao dai. Doi truong Anastagi nam trong so anh em bi bat lam tu binh. Ong ay khiem ton xin duoc gia nhap hang ngu cua chung ta."
+  },
+  {
+    "id": 253,
+    "text": "Trinh sat xac nhan co mot can cu Ottoman duoc cung co vung chac nam giua chung ta va thu do. Chung ta can tap hop mot doi quan lon neu muon doi dau voi chung."
+  },
+  {
+    "id": 254,
+    "text": "Chung ta nen hanh dong than trong khi thu thap tai nguyen, vi se khong ton tai lau neu bi chung do tham truoc khi san sang chien dau."
+  },
+  {
+    "id": 255,
+    "text": "Neu ngay mai chung ta chet, cai chet cua chung ta khong he vo ich, vi chien thang truoc nhung kho khan nhu vay chac chan xung dang co mot cho trong lich su. Tien ve Birgu!"
+  },
+  {
+    "id": 256,
+    "text": "Cac dong minh Sicilia cua chung ta se som den day, nhung ho se bi ke thu xe nat. Chung ta phai nhanh chong don sach ben cang."
+  },
+  {
+    "id": 257,
+    "text": "Thua ngai, toi nghi cong suc cua chung ta den that dung luc; toi thay cac chien thuyen Sicilia o chan troi. Co le khi doan ket, chung ta se cuu duoc Birgu khoi bi huy diet."
+  },
+  {
+    "id": 258,
+    "text": "Ke thu dang tap hop de chiem thu do cua chung ta. Chung ta nen xay dung mot doi quan de bao ve Birgu, nhung phai hanh dong nhanh... Toi e rang chung ta se phai ganh chiu suc ep du doi nhat tu luc luong cua chung ngay sau day."
+  },
+  {
+    "id": 259,
+    "text": "Trinh sat bao rang mot doi quan Ottoman se som den. Chung ta phai khan truong."
+  },
+  {
+    "id": 260,
+    "text": "Thoi gian khong con nhieu, thua ngai, chung ta phai san sang cho dot tan cong sap toi."
+  },
+  {
+    "id": 261,
+    "text": "Chung da den! Chung ta phai ra lenh cho quan linh chuan bi!"
+  },
+  {
+    "id": 262,
+    "text": "Se con nhieu dot tan cong nua vao Birgu. Toi de nghi chung ta lap tuc phi ngua den do."
+  },
+  {
+    "id": 263,
+    "text": "Dai thong linh da cho chung ta quyen su dung tai nguyen cua Hoi. Ke thu se tan cong manh, nhung he thong phong thu cua chung ta rat vung chac. Chung ta co the co co hoi."
+  },
+  {
+    "id": 264,
+    "text": "Lay cac thanh, chung dang rut lui! Thua ngai, toi de nghi tien len, tan cong ngay khi ke thu dang chenh choang!"
+  },
+  {
+    "id": 265,
+    "text": "Dai thong linh bao cho chung ta biet rang ho khong the dieu dong bat ky binh linh nao de bao ve phao dai St. Michael."
+  },
+  {
+    "id": 266,
+    "text": "Ke thu se som do bo len bai bien phia tay bac. Chung ta co du tai nguyen de xay 5 tien don. Toi de nghi su dung chung mot cach khon ngoan, thua ngai."
+  },
+  {
+    "id": 267,
+    "text": "Het roi. St. Michael dang chay. Chung ta da that bai."
+  },
+  {
+    "id": 268,
+    "text": "He thong phong thu cua chung ta qua manh! Ke thu dang quay lung bo chay!"
+  },
+  {
+    "id": 269,
+    "text": "Hussar, nghe noi quan Ottoman dang xay cac tien don do tham bi mat trong khu rung nay."
+  },
+  {
+    "id": 270,
+    "text": "Neu chung ta pha huy duoc cac tien don, chung ta se lam suy yeu dang ke duong lien lac cua ke thu. Cau mong cac thanh phu ho cac nguoi, cac chang trai."
+  },
+  {
+    "id": 271,
+    "text": "Cac tien don da bi pha huy! Black se rat mung khi nghe tin anh co the phi ngua den St. Michael ma khong phai lo ke thu nghe duoc hanh tung cua minh."
+  },
+  {
+    "id": 272,
+    "text": "Viec san xuat phao cua phao dai St. Angelo co vai tro then chot trong no luc phong thu. Ba xuong duc phao phai duoc bao ve bang moi gia."
+  },
+  {
+    "id": 273,
+    "text": "Cac xuong duc phao cua chung ta van canh gac khong ngoi nghi. Chang le quan Ottoman khong the chiu them noi nhuc nay nua sao?"
+  },
+  {
+    "id": 274,
+    "text": "Ke thu da lam te liet cac day chuyen san xuat phao cua chung ta. Gio day chung ta kho co hy vong danh bai chung."
+  },
+  {
+    "id": 275,
+    "text": "Phan con lai cua doi quan tan cong Ottoman da chay ve phia bo bien. Chung ta nen truy lung nhung ke song sot truoc khi ho kip tap hop lai."
+  },
+  {
+    "id": 276,
+    "text": "Thua ngai, toi nghi do la ten cuoi cung. Chung ta vua nhan tin quan Ottoman dang tong tan cong lan cuoi vao Birgu. Chung ta phai nhanh len."
+  },
+  {
+    "id": 277,
+    "text": "Ke thu dang co thiet lap mot can cu ve phia bac de phat dong cuoc vay ham. Chung ta phai tap hop mot doi quan va tan cong bat ngo khi chung con so ho."
+  },
+  {
+    "id": 278,
+    "text": "Do la mot muu ke! Su gia bao tin quan Ottoman da vay ham Birgu, trong khi chi co dai thong linh va mot nhum nguoi bao ve thanh."
+  },
+  {
+    "id": 279,
+    "text": "Thua be ha! Black va Anastagi da bi lua phi ngua ve phia nam, trong khi quan Ottoman dang o trong thanh! Chung ta la tat ca nhung gi dung can duong chung!"
+  },
+  {
+    "id": 280,
+    "text": "Chung rut lui! Quan Ottoman da quay dau bo chay khoi Malta! Chung ta da pha vo cuoc vay ham!"
+  },
+  {
+    "id": 281,
+    "text": "Nam 1565, 48.000 binh si cua De che Ottoman xam luoc dao Malta o Dia Trung Hai. Hiep si Malta chi co 6.100 nguoi."
+  },
+  {
+    "id": 282,
+    "text": "(Trich tu nhat ky cua Morgan Black)\n\nTieng dai bac san phang St. Elmo thanh dong do nat vang ben tai toi se am anh toi den tan nam mo. Va ca tieng gao thet cua nhung anh em da nga xuong."
+  },
+  {
+    "id": 283,
+    "text": "Ro rang la St. Elmo khong the cam cu them truoc dan dai bac. Phot lo lenh giu vung vi tri, toi dan mot nhom nho nguoi gioi nhat tien ve day nui noi dat dai bac, nhung cuoc hanh trinh khong tranh khoi trac tro..."
+  },
+  {
+    "id": 284,
+    "text": "Cuoi cung chung toi cung den chan day nui cao sung sung tren dau. Theo trinh sat, co ba Dai bac hang nang duoc giau dau do tren dinh. Chung toi chuan bi vu khi va tien len."
+  },
+  {
+    "id": 285,
+    "text": "Chien thang, chung toi voi va quay ve St. Elmo, long nang triu nghi ve nhung anh em da o lai giu phao dai."
+  },
+  {
+    "id": 286,
+    "text": "St. Elmo co the da that thu, nhung Birgu, thu phu cua Malta, moi la muc tieu cuoi cung cua ke thu. Cung voi nhung anh em duoc giai thoat tang them quan so, chung toi bat dau cuoc hanh trinh."
+  },
+  {
+    "id": 287,
+    "text": "Sicily da hua ho tro, nhung ke thu da chiem cang gan Birgu. Ro rang ho khong the cap ben cho den khi cang duoc bao dam an toan."
+  },
+  {
+    "id": 288,
+    "text": "Toan bo quyet tam trong long chung toi van khong du de bao ve Birgu mot minh. Chung toi can mot doi quan, va de co quan, chung toi can mot khu dinh cu, va phai nhanh."
+  },
+  {
+    "id": 289,
+    "text": "Duoc tiep them suc manh tu chien thang, chung toi phi nhanh den ho tro cac anh em o Birgu."
+  },
+  {
+    "id": 290,
+    "text": "Quan Ottoman da bi doi khoi thu phu, va co ve ho se tan cong mot muc tieu yeu hon: Phao dai St. Michael moi xay."
+  },
+  {
+    "id": 291,
+    "text": "Khi ke thu nga xuong duoi chan tuong St. Michael, mot doi tinh nhue ky binh hussar duoc giao nhiem vu pha he thong lien lac cua dich."
+  },
+  {
+    "id": 292,
+    "text": "Qua tham van, cac trinh sat Ottoman bi hussar bat duoc da tiet lo rang ke thu dinh pha day chuyen san xuat phao cua chung toi tai St. Angelo."
+  },
+  {
+    "id": 293,
+    "text": "Khi day chuyen san xuat phao da duoc bao dam, chung toi mot lan nua lam that bai am muu pha huy phong tuyen cua quan Ottoman."
+  },
+  {
+    "id": 294,
+    "text": "Co ve khong doi nao ke thu lai thuc hien dot vay ham Birgu cuoi cung voi luc luong kem hon toan bo, va cac trinh sat da tim kiem khap noi de lan ra co may chien tranh cua chung."
+  },
+  {
+    "id": 295,
+    "text": "Sao chung toi lai co the bi danh lua boi mot muu ke tho so nhu vay? Khi he thong phong thu Birgu bi cam chan, mot nhan thuc dang so ap den: so suat cua chung toi co the da khien chung toi thua cuoc chien."
+  },
+  {
+    "id": 296,
+    "text": "Cac su gia dong y rang de che Ottoman, bat bai suot 100 nam, han da chiem Malta ngay hom do neu khong nho long dung cam cua dai doan truong va cac hiep si cua ong. Thanh co Valetta duoc xay de tuong nho ho, mang ten dai doan truong, va den nay van dung vung la thu phu cua Malta."
+  },
+  {
+    "id": 297,
+    "text": "Gian lan"
+  },
+  {
+    "id": 298,
+    "text": "Mo tat ca nhiem vu"
+  },
+  {
+    "id": 299,
+    "text": "Hien ban do"
+  },
+  {
+    "id": 300,
+    "text": "Tang tai nguyen cho nguoi choi"
+  },
+  {
+    "id": 301,
+    "text": "Tang tai nguyen cho dich"
+  },
+  {
+    "id": 302,
+    "text": "Choi thu mien phi"
+  },
+  {
+    "id": 303,
+    "text": "Bat dau ban thu"
+  },
+  {
+    "id": 304,
+    "text": "Het ban thu"
+  },
+  {
+    "id": 305,
+    "text": "Them game Glu"
+  },
+  {
+    "id": 306,
+    "text": "Tim them nhieu game hay tren trang wap cua nha mang! Chi can bam bieu tuong trang chu trong menu chinh cua dien thoai, hoac dung trinh duyet va nhap dia chi!"
+  },
+  {
+    "id": 307,
+    "text": "Dung joypad hoac phim so de di chuyen con tro.\n\nCo the doi che do dieu khien con tro trong cai dat.\n\n#: Chuyen qua cac don vi quan su va Trung tam thi tran\n0: Neu vua co su kien, chuyen den su kien do. Neu khong co su kien nao gan day, chuyen qua cac Nguoi dinh cu dang ranh.\n*: Tam dung/che do lenh\nPhim mem trai: Xay cong trinh\nPhim mem phai: Menu\nSelect/5: Chon don vi (bam lai de chon tat ca don vi giong nhau, bam lan thu ba de chon tat ca don vi tuong tu tren man hinh), cong trinh hoac tai nguyen. Neu nguoi choi chon nen dat trong theo cach nay, moi don vi da chon se di chuyen den diem do."
+  },
+  {
+    "id": 308,
+    "text": "Bao ve 3 Doanh trai"
+  },
+  {
+    "id": 309,
+    "text": "Thua ngai, quan Ottoman se som cap bo cua chung ta. Co le nen xay ngay mot khu dinh cu canh bao som o day."
+  },
+  {
+    "id": 310,
+    "text": "Mot nhom linh giao Ottoman da do bo len bai bien. Chung se nem thep cua chung toi!"
+  },
+  {
+    "id": 311,
+    "text": "Do la ten cuoi cung. Du vay, toi e rang nhieu sinh mang se mat truoc khi cuoc chien nay ket thuc."
+  },
+  {
+    "id": 312,
+    "text": "Thua ngai, chung ta dang bi phuc kich!"
+  },
+  {
+    "id": 313,
+    "text": "Tieng sung cua chung ta se khong bi bo qua. Chung ta nen lap mot khu dinh cu va chuan bi cho dot tan cong tiep theo."
+  },
+  {
+    "id": 314,
+    "text": "Trinh sat bao rang lan song quan Ottoman da bi chan lai. Chung ta chien thang!"
+  },
+  {
+    "id": 315,
+    "text": "Trinh sat xac nhan co mot can cu Ottoman duoc cung co vung chac nam giua chung ta va thu do. Chung ta can tap hop mot doi quan lon neu muon doi dau voi chung."
+  },
+  {
+    "id": 316,
+    "text": "Neu ngay mai chung ta chet, cai chet cua chung ta khong he vo ich, vi chien thang truoc nhung kho khan nhu vay chac chan xung dang co mot cho trong lich su. Tien ve Birgu!"
+  },
+  {
+    "id": 317,
+    "text": "Cac dong minh Sicilia cua chung ta se som den day, nhung ho se bi ke thu xe nat. Chung ta phai nhanh chong don sach ben cang."
+  },
+  {
+    "id": 318,
+    "text": "Thua ngai, toi nghi cong suc cua chung ta den that dung luc; toi thay cac chien thuyen Sicilia o chan troi. Co le khi doan ket, chung ta se cuu duoc Birgu khoi bi huy diet."
+  },
+  {
+    "id": 319,
+    "text": "Ke thu se som do bo len bai bien phia tay bac. Chung ta co du tai nguyen de xay 5 tien don. Toi de nghi su dung chung mot cach khon ngoan, thua ngai."
+  },
+  {
+    "id": 320,
+    "text": "Het roi. St. Michael dang chay. Chung ta da that bai."
+  },
+  {
+    "id": 321,
+    "text": "He thong phong thu cua chung ta qua manh! Ke thu dang quay lung bo chay!"
+  },
+  {
+    "id": 322,
+    "text": "Hussar, neu chung ta pha duoc cac Tien don dich trong rung, chung ta se lam suy yeu dang ke he thong lien lac cua dich. Cau cac thanh bao ho cac anh em."
+  },
+  {
+    "id": 323,
+    "text": "Cac tien don da bi pha huy! Black se rat mung khi nghe tin anh co the phi ngua den St. Michael ma khong phai lo ke thu nghe duoc hanh tung cua minh."
+  },
+  {
+    "id": 324,
+    "text": "Viec san xuat quan cua Phao dai St. Angelo la yeu to then chot cho no luc phong thu cua chung ta. Ba Doanh trai phai duoc bao ve bang moi gia."
+  },
+  {
+    "id": 325,
+    "text": "Trinh sat bao cao tan quan Ottoman da bi don bat hoac tieu diet. Cac anh em, cuoc chien da gianh duoc thang loi."
+  },
+  {
+    "id": 326,
+    "text": "Ke thu da pha huy cac tuyen huan luyen bo binh cua chung ta. Gio day chung ta khong the hy vong danh bai chung."
+  },
+  {
+    "id": 327,
+    "text": "Tai game! Tai toan bo game tu nha mang cua ban!"
+  },
+  {
+    "id": 328,
+    "text": "Tai game! Tai toan bo game tu nha mang cua ban! Chi can bam bieu tuong trang chu trong menu chinh, hoac dung trinh duyet va nhap dia chi!"
+  },
+  {
+    "id": 329,
+    "text": "2 nhiem vu mien phi."
+  },
+  {
+    "id": 330,
+    "text": "Tai game!"
+  },
+  {
+    "id": 331,
+    "text": "Menu"
+  },
+  {
+    "id": 332,
+    "text": "Bat dau"
+  },
+  {
+    "id": 333,
+    "text": "Thoat"
+  },
+  {
+    "id": 334,
+    "text": "Tai ngay"
+  },
+  {
+    "id": 335,
+    "text": "Use the number keys to move the cursor.\n\nCursor control mode can be changed in settings.\n\n#: Minimap\n0: If an event has recently happened, focus on event. If no event has happened recently, cycle through idle Settlers.\n*: Pause/command mode\nLeft soft key: Create building\nRight soft key: Menu\nSelect/5: Select unit (press again to select all identical units, press a third time to select all similar units on screen), building or resource. If the player selects clear ground in this way, all selected units will move to that point. You can use the touchpad to play."
+  },
+  {
+    "id": 336,
+    "text": "Use the number keys to move the cursor.\n\nCursor control mode can be changed in settings.\n\n0: If an event has recently happened, focus on event. If no event has happened recently, cycle through idle Settlers.\n*: Pause/command mode\nLeft soft key: Create building\nRight soft key: Menu\nSelect/5: Select unit (press again to select all identical units, press a third time to select all similar units on screen), building or resource. If the player selects clear ground in this way, all selected units will move to that point. You can use the touchpad to play."
+  },
+  {
+    "id": 337,
+    "text": "Vui long chuyen sang che do man hinh khac de choi game nay."
+  }
+]

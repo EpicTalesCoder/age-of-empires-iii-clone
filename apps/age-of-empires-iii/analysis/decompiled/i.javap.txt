@@ -1,0 +1,33 @@
+// ClassFile version 45.3
+public final class i {
+  public i a; // Li;
+  public int a; // I
+  public int b; // I
+  public int c; // I
+  public int d; // I
+  public int e; // I
+
+  public void <init>(i, int, int, int, int, int, int); // (Li;IIIIII)V
+    Code: stack=2, locals=8, len=37
+         0: aload_0
+         1: invokespecial #9 // java.lang.Object.<init>:()V
+         4: aload_0
+         5: aload_1
+         6: putfield #4 // i.a:Li;
+         9: aload_0
+        10: iload_2
+        11: putfield #3 // i.a:I
+        14: aload_0
+        15: iload_3
+        16: putfield #5 // i.b:I
+        19: aload_0
+        20: iload 4
+        22: putfield #6 // i.c:I
+        25: aload_0
+        26: iload 6
+        28: putfield #7 // i.d:I
+        31: aload_0
+        32: iconst_1
+        33: putfield #8 // i.e:I
+        36: return
+}

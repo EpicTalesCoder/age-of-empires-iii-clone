@@ -1,0 +1,180 @@
+// ClassFile version 45.3
+public final class d {
+  private static int a; // I
+  private static String a; // Ljava/lang/String;
+  private static int b; // I
+
+  public void <init>(); // ()V
+    Code: stack=1, locals=1, len=5
+         0: aload_0
+         1: invokespecial #30 // java.lang.Object.<init>:()V
+         4: return
+  public static void a(int); // (I)V
+    Code: stack=4, locals=1, len=206
+         0: iload_0
+         1: dup
+         2: putstatic #14 // d.a:I
+         5: iconst_1
+         6: if_icmpne 63
+         9: ldc #4 // "ms-demoMode"
+        11: invokestatic #23 // f.a:(Ljava/lang/String;)Ljava/lang/String;
+        14: dup
+        15: astore_0
+        16: ifnull 29
+        19: aload_0
+        20: invokestatic #29 // java.lang.Integer.valueOf:(Ljava/lang/String;)Ljava/lang/Integer;
+        23: invokevirtual #28 // java.lang.Integer.intValue:()I
+        26: putstatic #16 // d.b:I
+        29: ldc #5 // "ms-demoUrl"
+        31: invokestatic #23 // f.a:(Ljava/lang/String;)Ljava/lang/String;
+        34: putstatic #15 // d.a:Ljava/lang/String;
+        37: ldc #3 // "demo.png"
+        39: invokestatic #27 // h.a:(Ljava/lang/String;)[B
+        42: dup
+        43: astore_0
+        44: ifnull 58
+        47: new #13 // k.class
+        50: dup
+        51: aload_0
+        52: invokespecial #34 // k.<init>:([B)V
+        55: goto 59
+        58: aconst_null
+        59: putstatic #18 // f.b:Lk;
+        62: return
+        63: getstatic #14 // d.a:I
+        66: iconst_3
+        67: if_icmpne 130
+        70: aconst_null
+        71: new #12 // java.lang.StringBuffer.class
+        74: dup
+        75: invokespecial #31 // java.lang.StringBuffer.<init>:()V
+        78: iconst_1
+        79: invokestatic #21 // f.a:(I)Ljava/lang/String;
+        82: invokevirtual #32 // java.lang.StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        85: ldc #1 // "\n"
+        87: invokevirtual #32 // java.lang.StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        90: sipush 302
+        93: invokestatic #21 // f.a:(I)Ljava/lang/String;
+        96: invokevirtual #32 // java.lang.StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+        99: ldc #2 // "\n\n"
+       101: invokevirtual #32 // java.lang.StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       104: sipush 329
+       107: invokestatic #21 // f.a:(I)Ljava/lang/String;
+       110: invokevirtual #32 // java.lang.StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       113: invokevirtual #33 // java.lang.StringBuffer.toString:()Ljava/lang/String;
+       116: aconst_null
+       117: aconst_null
+       118: invokestatic #25 // f.a:(Ljava/lang/String;Ljava/lang/String;Lg;Lg;)Lg;
+       121: dup
+       122: astore_0
+       123: iconst_2
+       124: putfield #20 // g.f:I
+       127: goto 201
+       130: getstatic #14 // d.a:I
+       133: iconst_4
+       134: if_icmpeq 144
+       137: getstatic #14 // d.a:I
+       140: iconst_m1
+       141: if_icmpne 205
+       144: aconst_null
+       145: putstatic #17 // f.b:Lg;
+       148: sipush 304
+       151: invokestatic #21 // f.a:(I)Ljava/lang/String;
+       154: getstatic #16 // d.b:I
+       157: iconst_2
+       158: if_icmpne 167
+       161: sipush 327
+       164: goto 170
+       167: sipush 328
+       170: invokestatic #21 // f.a:(I)Ljava/lang/String;
+       173: getstatic #19 // f.c:Lg;
+       176: aconst_null
+       177: invokestatic #25 // f.a:(Ljava/lang/String;Ljava/lang/String;Lg;Lg;)Lg;
+       180: astore_0
+       181: getstatic #16 // d.b:I
+       184: iconst_2
+       185: if_icmpne 196
+       188: aload_0
+       189: iconst_3
+       190: putfield #20 // g.f:I
+       193: goto 201
+       196: aload_0
+       197: iconst_0
+       198: putfield #20 // g.f:I
+       201: aload_0
+       202: invokestatic #22 // f.a:(Lg;)V
+       205: return
+  public static void b(int); // (I)V
+    Code: stack=2, locals=1, len=23
+         0: iload_0
+         1: iconst_2
+         2: if_icmpne 11
+         5: iconst_0
+         6: iconst_0
+         7: invokestatic #26 // f.a:(ZI)V
+        10: return
+        11: iload_0
+        12: iconst_3
+        13: if_icmpne 22
+        16: getstatic #15 // d.a:Ljava/lang/String;
+        19: invokestatic #24 // f.a:(Ljava/lang/String;)V
+        22: return
+  public static boolean a(); // ()Z
+    Code: stack=1, locals=0, len=10
+         0: getstatic #16 // d.b:I
+         3: ifeq 8
+         6: iconst_1
+         7: ireturn
+         8: iconst_0
+         9: ireturn
+  public static Object a(int); // (I)Ljava/lang/Object;
+    Code: stack=1, locals=1, len=29
+         0: iload_0
+         1: lookupswitch default:27 {0:20}
+        20: sipush 330
+        23: invokestatic #21 // f.a:(I)Ljava/lang/String;
+        26: areturn
+        27: aconst_null
+        28: areturn
+  public static void a(int, String); // (ILjava/lang/String;)V
+    Code: stack=4, locals=2, len=109
+         0: iload_0
+         1: lookupswitch default:108 {0:28, 1:77}
+        28: getstatic #16 // d.b:I
+        31: iconst_1
+        32: if_icmpne 63
+        35: sipush 330
+        38: invokestatic #21 // f.a:(I)Ljava/lang/String;
+        41: sipush 327
+        44: invokestatic #21 // f.a:(I)Ljava/lang/String;
+        47: aconst_null
+        48: aconst_null
+        49: invokestatic #25 // f.a:(Ljava/lang/String;Ljava/lang/String;Lg;Lg;)Lg;
+        52: dup
+        53: astore_0
+        54: iconst_1
+        55: putfield #20 // g.f:I
+        58: aload_0
+        59: invokestatic #22 // f.a:(Lg;)V
+        62: return
+        63: getstatic #16 // d.b:I
+        66: iconst_2
+        67: if_icmpne 108
+        70: getstatic #15 // d.a:Ljava/lang/String;
+        73: invokestatic #24 // f.a:(Ljava/lang/String;)V
+        76: return
+        77: aload_1
+        78: bipush 26
+        80: invokestatic #21 // f.a:(I)Ljava/lang/String;
+        83: if_acmpne 93
+        86: getstatic #15 // d.a:Ljava/lang/String;
+        89: invokestatic #24 // f.a:(Ljava/lang/String;)V
+        92: return
+        93: aload_1
+        94: bipush 27
+        96: invokestatic #21 // f.a:(I)Ljava/lang/String;
+        99: if_acmpne 108
+       102: getstatic #19 // f.c:Lg;
+       105: invokestatic #22 // f.a:(Lg;)V
+       108: return
+}

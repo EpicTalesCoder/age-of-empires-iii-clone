@@ -1,0 +1,1023 @@
+// ClassFile version 45.3
+final class l {
+  private static k[][] a; // [[Lk;
+  private static char[][] a; // [[C
+  private static int[] b; // [I
+  private static int[] c; // [I
+  public static int[] a; // [I
+  private static int[] d; // [I
+
+   void <init>(); // ()V
+    Code: stack=1, locals=1, len=5
+         0: aload_0
+         1: invokespecial #40 // java.lang.Object.<init>:()V
+         4: return
+  public static boolean a(int); // (I)Z
+    Code: stack=2, locals=1, len=12
+         0: getstatic #27 // l.a:[[Lk;
+         3: iconst_0
+         4: aaload
+         5: ifnull 10
+         8: iconst_1
+         9: ireturn
+        10: iconst_0
+        11: ireturn
+  public static void a(int); // (I)V
+    Code: stack=10, locals=10, len=328
+         0: getstatic #22 // c.c:[I
+         3: iload_0
+         4: iaload
+         5: ifne 327
+         8: getstatic #27 // l.a:[[Lk;
+        11: iload_0
+        12: aaload
+        13: ifnull 17
+        16: return
+        17: getstatic #23 // c.d:[I
+        20: iload_0
+        21: iconst_1
+        22: ishl
+        23: iaload
+        24: istore_1
+        25: getstatic #21 // c.b:[I
+        28: iload_1
+        29: iconst_1
+        30: ishl
+        31: iconst_1
+        32: iadd
+        33: iaload
+        34: dup
+        35: istore_2
+        36: invokestatic #32 // h.a:(I)[B
+        39: astore_2
+        40: new #9 // java.io.DataInputStream.class
+        43: dup
+        44: new #8 // java.io.ByteArrayInputStream.class
+        47: dup
+        48: aload_2
+        49: invokespecial #33 // java.io.ByteArrayInputStream.<init>:([B)V
+        52: invokespecial #34 // java.io.DataInputStream.<init>:(Ljava/io/InputStream;)V
+        55: astore_2
+        56: getstatic #28 // l.b:[I
+        59: iload_0
+        60: aload_2
+        61: invokevirtual #37 // java.io.DataInputStream.readByte:()B
+        64: iastore
+        65: getstatic #29 // l.c:[I
+        68: iload_0
+        69: aload_2
+        70: invokevirtual #37 // java.io.DataInputStream.readByte:()B
+        73: iastore
+        74: getstatic #25 // l.a:[I
+        77: iload_0
+        78: aload_2
+        79: invokevirtual #37 // java.io.DataInputStream.readByte:()B
+        82: iastore
+        83: aload_2
+        84: invokevirtual #37 // java.io.DataInputStream.readByte:()B
+        87: istore_3
+        88: getstatic #30 // l.d:[I
+        91: iload_0
+        92: getstatic #25 // l.a:[I
+        95: iload_0
+        96: iaload
+        97: iload_3
+        98: isub
+        99: iastore
+       100: aload_2
+       101: invokevirtual #36 // java.io.DataInputStream.read:()I
+       104: istore_3
+       105: aload_2
+       106: invokevirtual #39 // java.io.DataInputStream.readUTF:()Ljava/lang/String;
+       109: astore 4
+       111: getstatic #26 // l.a:[[C
+       114: iload_0
+       115: aload 4
+       117: invokevirtual #42 // java.lang.String.toCharArray:()[C
+       120: aastore
+       121: iload_3
+       122: newarray byte
+       124: astore 4
+       126: iload_3
+       127: iconst_1
+       128: ishl
+       129: newarray short
+       131: astore 5
+       133: iconst_0
+       134: istore 6
+       136: iload 6
+       138: iload_3
+       139: if_icmpge 157
+       142: aload 4
+       144: iload 6
+       146: aload_2
+       147: invokevirtual #37 // java.io.DataInputStream.readByte:()B
+       150: bastore
+       151: iinc 6, 1
+       154: goto 136
+       157: iconst_0
+       158: istore 6
+       160: iload 6
+       162: iload_3
+       163: iconst_1
+       164: ishl
+       165: if_icmpge 183
+       168: aload 5
+       170: iload 6
+       172: aload_2
+       173: invokevirtual #38 // java.io.DataInputStream.readShort:()S
+       176: sastore
+       177: iinc 6, 1
+       180: goto 160
+       183: getstatic #21 // c.b:[I
+       186: iload_1
+       187: iconst_1
+       188: ishl
+       189: iaload
+       190: dup
+       191: istore 6
+       193: invokestatic #32 // h.a:(I)[B
+       196: astore_1
+       197: getstatic #23 // c.d:[I
+       200: iload_0
+       201: iconst_1
+       202: ishl
+       203: iconst_1
+       204: iadd
+       205: iaload
+       206: dup
+       207: istore 6
+       209: iconst_m1
+       210: if_icmpne 225
+       213: new #16 // k.class
+       216: dup
+       217: aload_1
+       218: invokespecial #57 // k.<init>:([B)V
+       221: astore_1
+       222: goto 246
+       225: iload 6
+       227: invokestatic #32 // h.a:(I)[B
+       230: astore 6
+       232: new #16 // k.class
+       235: dup
+       236: aload_1
+       237: aload 6
+       239: invokestatic #31 // f.a:([B[B)[B
+       242: invokespecial #57 // k.<init>:([B)V
+       245: astore_1
+       246: iload_3
+       247: anewarray #16 // k.class
+       250: astore 6
+       252: iconst_0
+       253: istore_3
+       254: iload_3
+       255: aload 6
+       257: arraylength
+       258: if_icmpge 314
+       261: aload 4
+       263: iload_3
+       264: baload
+       265: istore 7
+       267: aload 5
+       269: iload_3
+       270: iconst_1
+       271: ishl
+       272: saload
+       273: istore 8
+       275: aload 5
+       277: iload_3
+       278: iconst_1
+       279: ishl
+       280: iconst_1
+       281: iadd
+       282: saload
+       283: istore 9
+       285: aload 6
+       287: iload_3
+       288: new #16 // k.class
+       291: dup
+       292: aload_1
+       293: iload 8
+       295: iload 9
+       297: iload 7
+       299: getstatic #25 // l.a:[I
+       302: iload_0
+       303: iaload
+       304: invokespecial #56 // k.<init>:(Lk;IIII)V
+       307: aastore
+       308: iinc 3, 1
+       311: goto 254
+       314: getstatic #27 // l.a:[[Lk;
+       317: iload_0
+       318: aload 6
+       320: aastore
+       321: aload_2
+       322: invokevirtual #35 // java.io.DataInputStream.close:()V
+       325: return
+       326: pop
+       327: return
+    Exception table:
+      from=17 to=325 target=326 type=java.lang.Exception
+  public static void b(int); // (I)V
+    Code: stack=3, locals=1, len=13
+         0: getstatic #27 // l.a:[[Lk;
+         3: iload_0
+         4: aconst_null
+         5: aastore
+         6: getstatic #26 // l.a:[[C
+         9: iload_0
+        10: aconst_null
+        11: aastore
+        12: return
+  private static int b(int, char); // (IC)I
+    Code: stack=2, locals=6, len=61
+         0: iconst_0
+         1: istore_2
+         2: getstatic #26 // l.a:[[C
+         5: iload_0
+         6: aaload
+         7: arraylength
+         8: istore_3
+         9: iload_3
+        10: iload_2
+        11: isub
+        12: iconst_1
+        13: ishr
+        14: iload_2
+        15: iadd
+        16: dup
+        17: istore 4
+        19: iload_2
+        20: if_icmpne 25
+        23: iconst_m1
+        24: ireturn
+        25: getstatic #26 // l.a:[[C
+        28: iload_0
+        29: aaload
+        30: iload 4
+        32: caload
+        33: dup
+        34: istore 5
+        36: iload_1
+        37: if_icmpne 43
+        40: iload 4
+        42: ireturn
+        43: iload 5
+        45: iload_1
+        46: if_icmple 55
+        49: iload 4
+        51: istore_3
+        52: goto 9
+        55: iload 4
+        57: istore_2
+        58: goto 9
+  public static int a(int, char); // (IC)I
+    Code: stack=4, locals=2, len=88
+         0: getstatic #22 // c.c:[I
+         3: iload_0
+         4: iaload
+         5: iconst_m1
+         6: if_icmpne 18
+         9: invokestatic #49 // javax.microedition.lcdui.Font.getDefaultFont:()Ljavax/microedition/lcdui/Font;
+        12: bipush 48
+        14: invokevirtual #47 // javax.microedition.lcdui.Font.charWidth:(C)I
+        17: ireturn
+        18: getstatic #18 // c.a:Z
+        21: ifeq 69
+        24: getstatic #22 // c.c:[I
+        27: iload_0
+        28: iaload
+        29: ifne 69
+        32: iload_0
+        33: bipush 48
+        35: invokestatic #60 // l.b:(IC)I
+        38: dup
+        39: istore_1
+        40: iconst_m1
+        41: if_icmpeq 61
+        44: getstatic #27 // l.a:[[Lk;
+        47: iload_0
+        48: aaload
+        49: iload_1
+        50: aaload
+        51: getfield #24 // k.a:S
+        54: getstatic #28 // l.b:[I
+        57: iload_0
+        58: iaload
+        59: iadd
+        60: ireturn
+        61: getstatic #29 // l.c:[I
+        64: iload_0
+        65: iaload
+        66: iconst_1
+        67: ishr
+        68: ireturn
+        69: getstatic #20 // c.a:[Ljavax/microedition/lcdui/Font;
+        72: getstatic #23 // c.d:[I
+        75: iload_0
+        76: iconst_1
+        77: ishl
+        78: iaload
+        79: aaload
+        80: dup
+        81: astore_1
+        82: bipush 48
+        84: invokevirtual #47 // javax.microedition.lcdui.Font.charWidth:(C)I
+        87: ireturn
+  public static int a(int, String); // (ILjava/lang/String;)I
+    Code: stack=4, locals=5, len=136
+         0: getstatic #22 // c.c:[I
+         3: iload_0
+         4: iaload
+         5: iconst_m1
+         6: if_icmpne 17
+         9: invokestatic #49 // javax.microedition.lcdui.Font.getDefaultFont:()Ljavax/microedition/lcdui/Font;
+        12: aload_1
+        13: invokevirtual #51 // javax.microedition.lcdui.Font.stringWidth:(Ljava/lang/String;)I
+        16: ireturn
+        17: getstatic #18 // c.a:Z
+        20: ifeq 118
+        23: getstatic #22 // c.c:[I
+        26: iload_0
+        27: iaload
+        28: ifne 118
+        31: aload_1
+        32: invokevirtual #42 // java.lang.String.toCharArray:()[C
+        35: astore_2
+        36: iconst_0
+        37: istore_1
+        38: iconst_0
+        39: istore_3
+        40: iconst_0
+        41: istore 4
+        43: iload 4
+        45: aload_2
+        46: arraylength
+        47: if_icmpge 110
+        50: aload_2
+        51: iload 4
+        53: caload
+        54: dup
+        55: istore_3
+        56: bipush 32
+        58: if_icmpeq 94
+        61: iload_0
+        62: iload_3
+        63: invokestatic #60 // l.b:(IC)I
+        66: dup
+        67: istore_3
+        68: iconst_m1
+        69: if_icmpeq 94
+        72: iload_1
+        73: getstatic #27 // l.a:[[Lk;
+        76: iload_0
+        77: aaload
+        78: iload_3
+        79: aaload
+        80: getfield #24 // k.a:S
+        83: getstatic #28 // l.b:[I
+        86: iload_0
+        87: iaload
+        88: iadd
+        89: iadd
+        90: istore_1
+        91: goto 104
+        94: iload_1
+        95: getstatic #29 // l.c:[I
+        98: iload_0
+        99: iaload
+       100: iconst_1
+       101: ishr
+       102: iadd
+       103: istore_1
+       104: iinc 4, 1
+       107: goto 43
+       110: iload_1
+       111: getstatic #28 // l.b:[I
+       114: iload_0
+       115: iaload
+       116: isub
+       117: ireturn
+       118: getstatic #20 // c.a:[Ljavax/microedition/lcdui/Font;
+       121: getstatic #23 // c.d:[I
+       124: iload_0
+       125: iconst_1
+       126: ishl
+       127: iaload
+       128: aaload
+       129: dup
+       130: astore_2
+       131: aload_1
+       132: invokevirtual #51 // javax.microedition.lcdui.Font.stringWidth:(Ljava/lang/String;)I
+       135: ireturn
+  public static void a(int, javax.microedition.lcdui.Graphics, String, int, int, int); // (ILjavax/microedition/lcdui/Graphics;Ljava/lang/String;III)V
+    Code: stack=7, locals=9, len=532
+         0: getstatic #22 // c.c:[I
+         3: iload_0
+         4: iaload
+         5: iconst_m1
+         6: if_icmpne 10
+         9: return
+        10: getstatic #18 // c.a:Z
+        13: ifeq 315
+        16: getstatic #22 // c.c:[I
+        19: iload_0
+        20: iaload
+        21: ifne 315
+        24: getstatic #27 // l.a:[[Lk;
+        27: iload_0
+        28: aaload
+        29: ifnonnull 33
+        32: return
+        33: aload_2
+        34: invokevirtual #41 // java.lang.String.length:()I
+        37: istore 6
+        39: aload_2
+        40: invokevirtual #42 // java.lang.String.toCharArray:()[C
+        43: astore 7
+        45: iconst_0
+        46: istore 8
+        48: iload 5
+        50: iconst_1
+        51: iand
+        52: ifle 70
+        55: iload_0
+        56: aload_2
+        57: invokestatic #59 // l.a:(ILjava/lang/String;)I
+        60: istore_2
+        61: iload_3
+        62: iload_2
+        63: iconst_1
+        64: ishr
+        65: isub
+        66: istore_3
+        67: goto 88
+        70: iload 5
+        72: bipush 8
+        74: iand
+        75: ifle 88
+        78: iload_0
+        79: aload_2
+        80: invokestatic #59 // l.a:(ILjava/lang/String;)I
+        83: istore_2
+        84: iload_3
+        85: iload_2
+        86: isub
+        87: istore_3
+        88: iload 5
+        90: bipush 32
+        92: iand
+        93: ifle 106
+        96: iload 4
+        98: getstatic #25 // l.a:[I
+       101: iload_0
+       102: iaload
+       103: isub
+       104: istore 4
+       106: iload 5
+       108: bipush 64
+       110: iand
+       111: ifle 127
+       114: iload 4
+       116: getstatic #30 // l.d:[I
+       119: iload_0
+       120: iaload
+       121: isub
+       122: istore 4
+       124: goto 146
+       127: iload 5
+       129: iconst_2
+       130: iand
+       131: ifle 146
+       134: iload 4
+       136: getstatic #25 // l.a:[I
+       139: iload_0
+       140: iaload
+       141: iconst_1
+       142: ishr
+       143: isub
+       144: istore 4
+       146: iconst_0
+       147: istore_2
+       148: iload_2
+       149: iload 6
+       151: if_icmpge 314
+       154: aload 7
+       156: iload_2
+       157: caload
+       158: dup
+       159: istore 5
+       161: bipush 32
+       163: if_icmpne 179
+       166: iload_3
+       167: getstatic #29 // l.c:[I
+       170: iload_0
+       171: iaload
+       172: iconst_1
+       173: ishr
+       174: iadd
+       175: istore_3
+       176: goto 308
+       179: iload_0
+       180: iload 5
+       182: invokestatic #60 // l.b:(IC)I
+       185: dup
+       186: istore 8
+       188: iconst_m1
+       189: if_icmpne 276
+       192: aload_1
+       193: ldc #1 // 16777215
+       195: invokevirtual #54 // javax.microedition.lcdui.Graphics.setColor:(I)V
+       198: aload_1
+       199: iload_3
+       200: iconst_1
+       201: iadd
+       202: iload 4
+       204: iconst_1
+       205: iadd
+       206: getstatic #29 // l.c:[I
+       209: iload_0
+       210: iaload
+       211: iconst_1
+       212: ishr
+       213: iconst_1
+       214: isub
+       215: getstatic #25 // l.a:[I
+       218: iload_0
+       219: iaload
+       220: iconst_1
+       221: isub
+       222: invokevirtual #53 // javax.microedition.lcdui.Graphics.fillRect:(IIII)V
+       225: aload_1
+       226: iconst_0
+       227: invokevirtual #54 // javax.microedition.lcdui.Graphics.setColor:(I)V
+       230: aload_1
+       231: new #13 // java.lang.StringBuffer.class
+       234: dup
+       235: invokespecial #43 // java.lang.StringBuffer.<init>:()V
+       238: ldc #2 // ""
+       240: invokevirtual #45 // java.lang.StringBuffer.append:(Ljava/lang/String;)Ljava/lang/StringBuffer;
+       243: iload 5
+       245: invokevirtual #44 // java.lang.StringBuffer.append:(C)Ljava/lang/StringBuffer;
+       248: invokevirtual #46 // java.lang.StringBuffer.toString:()Ljava/lang/String;
+       251: iload_3
+       252: iconst_1
+       253: iadd
+       254: iload 4
+       256: iconst_1
+       257: iadd
+       258: bipush 20
+       260: invokevirtual #52 // javax.microedition.lcdui.Graphics.drawString:(Ljava/lang/String;III)V
+       263: iload_3
+       264: getstatic #29 // l.c:[I
+       267: iload_0
+       268: iaload
+       269: iconst_1
+       270: ishr
+       271: iadd
+       272: istore_3
+       273: goto 308
+       276: getstatic #27 // l.a:[[Lk;
+       279: iload_0
+       280: aaload
+       281: iload 8
+       283: aaload
+       284: dup
+       285: astore 5
+       287: aload_1
+       288: iload_3
+       289: iload 4
+       291: invokevirtual #58 // k.a:(Ljavax/microedition/lcdui/Graphics;II)V
+       294: iload_3
+       295: aload 5
+       297: getfield #24 // k.a:S
+       300: getstatic #28 // l.b:[I
+       303: iload_0
+       304: iaload
+       305: iadd
+       306: iadd
+       307: istore_3
+       308: iinc 2, 1
+       311: goto 148
+       314: return
+       315: getstatic #23 // c.d:[I
+       318: iload_0
+       319: iconst_1
+       320: ishl
+       321: iaload
+       322: istore 6
+       324: getstatic #20 // c.a:[Ljavax/microedition/lcdui/Font;
+       327: iload 6
+       329: aaload
+       330: astore 7
+       332: iload 5
+       334: iconst_1
+       335: iand
+       336: ifle 357
+       339: aload 7
+       341: aload_2
+       342: invokevirtual #51 // javax.microedition.lcdui.Font.stringWidth:(Ljava/lang/String;)I
+       345: istore 8
+       347: iload_3
+       348: iload 8
+       350: iconst_1
+       351: ishr
+       352: isub
+       353: istore_3
+       354: goto 378
+       357: iload 5
+       359: bipush 8
+       361: iand
+       362: ifle 378
+       365: aload 7
+       367: aload_2
+       368: invokevirtual #51 // javax.microedition.lcdui.Font.stringWidth:(Ljava/lang/String;)I
+       371: istore 8
+       373: iload_3
+       374: iload 8
+       376: isub
+       377: istore_3
+       378: iload 5
+       380: bipush 32
+       382: iand
+       383: ifle 396
+       386: iload 4
+       388: getstatic #25 // l.a:[I
+       391: iload_0
+       392: iaload
+       393: isub
+       394: istore 4
+       396: iload 5
+       398: bipush 64
+       400: iand
+       401: ifle 417
+       404: iload 4
+       406: getstatic #30 // l.d:[I
+       409: iload_0
+       410: iaload
+       411: isub
+       412: istore 4
+       414: goto 436
+       417: iload 5
+       419: iconst_2
+       420: iand
+       421: ifle 436
+       424: iload 4
+       426: getstatic #25 // l.a:[I
+       429: iload_0
+       430: iaload
+       431: iconst_1
+       432: ishr
+       433: isub
+       434: istore 4
+       436: aload_1
+       437: aload 7
+       439: invokevirtual #55 // javax.microedition.lcdui.Graphics.setFont:(Ljavax/microedition/lcdui/Font;)V
+       442: getstatic #23 // c.d:[I
+       445: iload_0
+       446: iconst_1
+       447: ishl
+       448: iconst_1
+       449: iadd
+       450: iaload
+       451: dup
+       452: istore 8
+       454: bipush -2
+       456: if_icmpne 498
+       459: aload_1
+       460: iconst_0
+       461: invokevirtual #54 // javax.microedition.lcdui.Graphics.setColor:(I)V
+       464: aload_1
+       465: aload_2
+       466: iload_3
+       467: iconst_1
+       468: iadd
+       469: iload 4
+       471: getstatic #19 // c.a:[I
+       474: iload 6
+       476: iconst_1
+       477: ishl
+       478: iconst_1
+       479: iadd
+       480: iaload
+       481: iadd
+       482: iconst_1
+       483: iadd
+       484: bipush 20
+       486: invokevirtual #52 // javax.microedition.lcdui.Graphics.drawString:(Ljava/lang/String;III)V
+       489: aload_1
+       490: ldc #1 // 16777215
+       492: invokevirtual #54 // javax.microedition.lcdui.Graphics.setColor:(I)V
+       495: goto 510
+       498: iload 8
+       500: iconst_m1
+       501: if_icmpeq 510
+       504: aload_1
+       505: iload 8
+       507: invokevirtual #54 // javax.microedition.lcdui.Graphics.setColor:(I)V
+       510: aload_1
+       511: aload_2
+       512: iload_3
+       513: iload 4
+       515: getstatic #19 // c.a:[I
+       518: iload 6
+       520: iconst_1
+       521: ishl
+       522: iconst_1
+       523: iadd
+       524: iaload
+       525: iadd
+       526: bipush 20
+       528: invokevirtual #52 // javax.microedition.lcdui.Graphics.drawString:(Ljava/lang/String;III)V
+       531: return
+  static void <clinit>(); // ()V
+    Code: stack=4, locals=4, len=495
+         0: iconst_2
+         1: anewarray #4 // [Lk;.class
+         4: putstatic #27 // l.a:[[Lk;
+         7: iconst_2
+         8: anewarray #3 // [C.class
+        11: putstatic #26 // l.a:[[C
+        14: iconst_2
+        15: newarray int
+        17: putstatic #28 // l.b:[I
+        20: iconst_2
+        21: newarray int
+        23: putstatic #29 // l.c:[I
+        26: iconst_2
+        27: newarray int
+        29: putstatic #25 // l.a:[I
+        32: iconst_2
+        33: newarray int
+        35: putstatic #30 // l.d:[I
+        38: iconst_0
+        39: istore_0
+        40: iload_0
+        41: iconst_2
+        42: if_icmpge 133
+        45: getstatic #22 // c.c:[I
+        48: iload_0
+        49: iaload
+        50: iconst_1
+        51: if_icmpne 127
+        54: getstatic #23 // c.d:[I
+        57: iload_0
+        58: iconst_1
+        59: ishl
+        60: iaload
+        61: istore_1
+        62: getstatic #19 // c.a:[I
+        65: iload_1
+        66: iconst_1
+        67: ishl
+        68: iaload
+        69: istore_2
+        70: getstatic #19 // c.a:[I
+        73: iload_1
+        74: iconst_1
+        75: ishl
+        76: iconst_1
+        77: iadd
+        78: iaload
+        79: istore_3
+        80: getstatic #25 // l.a:[I
+        83: iload_0
+        84: getstatic #20 // c.a:[Ljavax/microedition/lcdui/Font;
+        87: iload_1
+        88: aaload
+        89: invokevirtual #50 // javax.microedition.lcdui.Font.getHeight:()I
+        92: iload_3
+        93: iadd
+        94: iload_2
+        95: iadd
+        96: iastore
+        97: getstatic #30 // l.d:[I
+       100: iload_0
+       101: getstatic #20 // c.a:[Ljavax/microedition/lcdui/Font;
+       104: iload_1
+       105: aaload
+       106: invokevirtual #48 // javax.microedition.lcdui.Font.getBaselinePosition:()I
+       109: iload_3
+       110: iadd
+       111: iastore
+       112: getstatic #29 // l.c:[I
+       115: iload_0
+       116: getstatic #20 // c.a:[Ljavax/microedition/lcdui/Font;
+       119: iload_1
+       120: aaload
+       121: bipush 87
+       123: invokevirtual #47 // javax.microedition.lcdui.Font.charWidth:(C)I
+       126: iastore
+       127: iinc 0, 1
+       130: goto 40
+       133: bipush 52
+       135: newarray char
+       137: dup
+       138: iconst_0
+       139: sipush 269
+       142: castore
+       143: dup
+       144: iconst_1
+       145: sipush 268
+       148: castore
+       149: dup
+       150: iconst_2
+       151: sipush 382
+       154: castore
+       155: dup
+       156: iconst_3
+       157: sipush 381
+       160: castore
+       161: dup
+       162: iconst_4
+       163: sipush 367
+       166: castore
+       167: dup
+       168: iconst_5
+       169: sipush 366
+       172: castore
+       173: dup
+       174: bipush 6
+       176: sipush 345
+       179: castore
+       180: dup
+       181: bipush 7
+       183: sipush 344
+       186: castore
+       187: dup
+       188: bipush 8
+       190: sipush 233
+       193: castore
+       194: dup
+       195: bipush 9
+       197: sipush 201
+       200: castore
+       201: dup
+       202: bipush 10
+       204: sipush 224
+       207: castore
+       208: dup
+       209: bipush 11
+       211: sipush 192
+       214: castore
+       215: dup
+       216: bipush 12
+       218: sipush 243
+       221: castore
+       222: dup
+       223: bipush 13
+       225: sipush 211
+       228: castore
+       229: dup
+       230: bipush 14
+       232: sipush 231
+       235: castore
+       236: dup
+       237: bipush 15
+       239: sipush 199
+       242: castore
+       243: dup
+       244: bipush 16
+       246: sipush 227
+       249: castore
+       250: dup
+       251: bipush 17
+       253: sipush 195
+       256: castore
+       257: dup
+       258: bipush 18
+       260: sipush 225
+       263: castore
+       264: dup
+       265: bipush 19
+       267: sipush 193
+       270: castore
+       271: dup
+       272: bipush 20
+       274: sipush 250
+       277: castore
+       278: dup
+       279: bipush 21
+       281: sipush 218
+       284: castore
+       285: dup
+       286: bipush 22
+       288: sipush 237
+       291: castore
+       292: dup
+       293: bipush 23
+       295: sipush 205
+       298: castore
+       299: dup
+       300: bipush 24
+       302: sipush 241
+       305: castore
+       306: dup
+       307: bipush 25
+       309: sipush 209
+       312: castore
+       313: dup
+       314: bipush 26
+       316: sipush 226
+       319: castore
+       320: dup
+       321: bipush 27
+       323: sipush 194
+       326: castore
+       327: dup
+       328: bipush 28
+       330: sipush 234
+       333: castore
+       334: dup
+       335: bipush 29
+       337: sipush 202
+       340: castore
+       341: dup
+       342: bipush 30
+       344: sipush 238
+       347: castore
+       348: dup
+       349: bipush 31
+       351: sipush 206
+       354: castore
+       355: dup
+       356: bipush 32
+       358: sipush 244
+       361: castore
+       362: dup
+       363: bipush 33
+       365: sipush 212
+       368: castore
+       369: dup
+       370: bipush 34
+       372: sipush 251
+       375: castore
+       376: dup
+       377: bipush 35
+       379: sipush 219
+       382: castore
+       383: dup
+       384: bipush 36
+       386: sipush 246
+       389: castore
+       390: dup
+       391: bipush 37
+       393: sipush 214
+       396: castore
+       397: dup
+       398: bipush 38
+       400: sipush 232
+       403: castore
+       404: dup
+       405: bipush 39
+       407: sipush 200
+       410: castore
+       411: dup
+       412: bipush 40
+       414: sipush 242
+       417: castore
+       418: dup
+       419: bipush 41
+       421: sipush 210
+       424: castore
+       425: dup
+       426: bipush 42
+       428: sipush 252
+       431: castore
+       432: dup
+       433: bipush 43
+       435: sipush 220
+       438: castore
+       439: dup
+       440: bipush 44
+       442: sipush 228
+       445: castore
+       446: dup
+       447: bipush 45
+       449: sipush 196
+       452: castore
+       453: dup
+       454: bipush 46
+       456: sipush 245
+       459: castore
+       460: dup
+       461: bipush 47
+       463: sipush 213
+       466: castore
+       467: dup
+       468: bipush 48
+       470: sipush 249
+       473: castore
+       474: dup
+       475: bipush 49
+       477: sipush 217
+       480: castore
+       481: dup
+       482: bipush 50
+       484: sipush 236
+       487: castore
+       488: bipush 51
+       490: sipush 204
+       493: castore
+       494: return
+}

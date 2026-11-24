@@ -1,0 +1,200 @@
+// ClassFile version 45.3
+public final class a {
+  private static int[] a; // [I
+  private static int[] b; // [I
+  private static javax.microedition.media.Player a; // Ljavax/microedition/media/Player;
+
+  public void <init>(); // ()V
+    Code: stack=1, locals=1, len=5
+         0: aload_0
+         1: invokespecial #24 // java.lang.Object.<init>:()V
+         4: return
+  public static void a(int); // (I)V
+    Code: stack=4, locals=1, len=138
+         0: getstatic #15 // a.b:[I
+         3: iload_0
+         4: iaload
+         5: dup
+         6: istore_0
+         7: iconst_m1
+         8: if_icmpne 12
+        11: return
+        12: getstatic #14 // a.a:[I
+        15: iload_0
+        16: iaload
+        17: iconst_5
+        18: if_icmpeq 25
+        21: iload_0
+        22: putstatic #16 // f.a:I
+        25: getstatic #18 // f.f:Z
+        28: ifeq 37
+        31: getstatic #17 // f.e:Z
+        34: ifeq 38
+        37: return
+        38: invokestatic #19 // a.a:()V
+        41: new #6 // java.io.ByteArrayInputStream.class
+        44: dup
+        45: getstatic #14 // a.a:[I
+        48: iload_0
+        49: iaload
+        50: invokestatic #22 // h.a:(I)[B
+        53: invokespecial #23 // java.io.ByteArrayInputStream.<init>:([B)V
+        56: ldc #2 // "audio/midi"
+        58: invokestatic #25 // javax.microedition.media.Manager.createPlayer:(Ljava/io/InputStream;Ljava/lang/String;)Ljavax/microedition/media/Player;
+        61: dup
+        62: putstatic #13 // a.a:Ljavax/microedition/media/Player;
+        65: invokeinterface #30, 1 // javax.microedition.media.Player.realize:()V
+        70: getstatic #13 // a.a:Ljavax/microedition/media/Player;
+        73: invokeinterface #29, 1 // javax.microedition.media.Player.prefetch:()V
+        78: getstatic #13 // a.a:Ljavax/microedition/media/Player;
+        81: getstatic #14 // a.a:[I
+        84: iload_0
+        85: iaload
+        86: iconst_5
+        87: if_icmpne 94
+        90: iconst_1
+        91: goto 95
+        94: iconst_m1
+        95: invokeinterface #31, 2 // javax.microedition.media.Player.setLoopCount:(I)V
+       100: getstatic #13 // a.a:Ljavax/microedition/media/Player;
+       103: ldc #1 // "VolumeControl"
+       105: invokeinterface #26, 2 // javax.microedition.media.Controllable.getControl:(Ljava/lang/String;)Ljavax/microedition/media/Control;
+       110: checkcast #12 // javax.microedition.media.control.VolumeControl.class
+       113: dup
+       114: astore_0
+       115: ifnull 127
+       118: aload_0
+       119: bipush 50
+       121: invokeinterface #34, 2 // javax.microedition.media.control.VolumeControl.setLevel:(I)I
+       126: pop
+       127: getstatic #13 // a.a:Ljavax/microedition/media/Player;
+       130: invokeinterface #32, 1 // javax.microedition.media.Player.start:()V
+       135: return
+       136: pop
+       137: return
+    Exception table:
+      from=38 to=135 target=136 type=java.lang.Exception
+  public static void a(); // ()V
+    Code: stack=1, locals=0, len=29
+         0: getstatic #13 // a.a:Ljavax/microedition/media/Player;
+         3: ifnull 26
+         6: getstatic #13 // a.a:Ljavax/microedition/media/Player;
+         9: invokeinterface #33, 1 // javax.microedition.media.Player.stop:()V
+        14: getstatic #13 // a.a:Ljavax/microedition/media/Player;
+        17: invokeinterface #27, 1 // javax.microedition.media.Player.close:()V
+        22: aconst_null
+        23: putstatic #13 // a.a:Ljavax/microedition/media/Player;
+        26: return
+        27: pop
+        28: return
+    Exception table:
+      from=0 to=26 target=27 type=java.lang.Exception
+  public static boolean a(); // ()Z
+    Code: stack=2, locals=1, len=33
+         0: getstatic #16 // f.a:I
+         3: istore_0
+         4: getstatic #18 // f.f:Z
+         7: ifeq 31
+        10: iload_0
+        11: iconst_m1
+        12: if_icmpeq 31
+        15: invokestatic #21 // a.b:()Z
+        18: ifne 31
+        21: iload_0
+        22: dup
+        23: istore_0
+        24: invokestatic #20 // a.a:(I)V
+        27: invokestatic #21 // a.b:()Z
+        30: ireturn
+        31: iconst_1
+        32: ireturn
+  private static boolean b(); // ()Z
+    Code: stack=2, locals=0, len=24
+         0: getstatic #13 // a.a:Ljavax/microedition/media/Player;
+         3: ifnull 22
+         6: getstatic #13 // a.a:Ljavax/microedition/media/Player;
+         9: invokeinterface #28, 1 // javax.microedition.media.Player.getState:()I
+        14: sipush 400
+        17: if_icmpne 22
+        20: iconst_1
+        21: ireturn
+        22: iconst_0
+        23: ireturn
+  static void <clinit>(); // ()V
+    Code: stack=4, locals=0, len=89
+         0: iconst_4
+         1: newarray int
+         3: dup
+         4: iconst_0
+         5: iconst_4
+         6: iastore
+         7: dup
+         8: iconst_1
+         9: iconst_2
+        10: iastore
+        11: dup
+        12: iconst_2
+        13: iconst_3
+        14: iastore
+        15: dup
+        16: iconst_3
+        17: iconst_5
+        18: iastore
+        19: putstatic #14 // a.a:[I
+        22: bipush 13
+        24: newarray int
+        26: dup
+        27: iconst_0
+        28: iconst_0
+        29: iastore
+        30: dup
+        31: iconst_1
+        32: iconst_1
+        33: iastore
+        34: dup
+        35: iconst_2
+        36: iconst_2
+        37: iastore
+        38: dup
+        39: iconst_3
+        40: iconst_1
+        41: iastore
+        42: dup
+        43: iconst_4
+        44: iconst_m1
+        45: iastore
+        46: dup
+        47: iconst_5
+        48: iconst_m1
+        49: iastore
+        50: dup
+        51: bipush 6
+        53: iconst_m1
+        54: iastore
+        55: dup
+        56: bipush 7
+        58: iconst_m1
+        59: iastore
+        60: dup
+        61: bipush 8
+        63: iconst_m1
+        64: iastore
+        65: dup
+        66: bipush 9
+        68: iconst_m1
+        69: iastore
+        70: dup
+        71: bipush 10
+        73: iconst_m1
+        74: iastore
+        75: dup
+        76: bipush 11
+        78: iconst_m1
+        79: iastore
+        80: dup
+        81: bipush 12
+        83: iconst_3
+        84: iastore
+        85: putstatic #15 // a.b:[I
+        88: return
+}

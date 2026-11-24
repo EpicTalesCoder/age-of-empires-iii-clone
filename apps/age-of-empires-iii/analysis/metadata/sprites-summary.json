@@ -1,0 +1,2361 @@
+[
+  {
+    "resId": 20,
+    "bytes": 1419,
+    "gridSplit": 8,
+    "anchorX": -13,
+    "anchorY": -20,
+    "seqCount": 12,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 1,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 2,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 3,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 4,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          },
+          {
+            "transform": 1,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 5,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 6,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 7,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 2,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 8,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 5,
+            "frameSpriteIdx": 2,
+            "delayTicks": 5
+          },
+          {
+            "transform": 4,
+            "frameSpriteIdx": 2,
+            "delayTicks": 25
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 2,
+            "delayTicks": 8
+          },
+          {
+            "transform": 4,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 9,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 7,
+            "frameSpriteIdx": 0,
+            "delayTicks": 5
+          },
+          {
+            "transform": 6,
+            "frameSpriteIdx": 0,
+            "delayTicks": 25
+          },
+          {
+            "transform": 7,
+            "frameSpriteIdx": 0,
+            "delayTicks": 8
+          },
+          {
+            "transform": 6,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 10,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 5,
+            "frameSpriteIdx": 0,
+            "delayTicks": 5
+          },
+          {
+            "transform": 4,
+            "frameSpriteIdx": 0,
+            "delayTicks": 25
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 0,
+            "delayTicks": 8
+          },
+          {
+            "transform": 4,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 11,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 7,
+            "frameSpriteIdx": 2,
+            "delayTicks": 5
+          },
+          {
+            "transform": 6,
+            "frameSpriteIdx": 2,
+            "delayTicks": 25
+          },
+          {
+            "transform": 7,
+            "frameSpriteIdx": 2,
+            "delayTicks": 8
+          },
+          {
+            "transform": 6,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 208,
+        "height": 22,
+        "bitDepth": 8,
+        "colorType": 3,
+        "plteColors": 64,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            192
+          ],
+          [
+            "tRNS",
+            1
+          ],
+          [
+            "IDAT",
+            1023
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 1297
+      }
+    ],
+    "embeddedPaletteHeaderCount": 0,
+    "embeddedPalettesRead": [],
+    "remainingAfterParse": 0
+  },
+  {
+    "resId": 21,
+    "bytes": 185,
+    "gridSplit": 4,
+    "anchorX": -1,
+    "anchorY": -4,
+    "seqCount": 1,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          },
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 12,
+        "height": 4,
+        "bitDepth": 4,
+        "colorType": 3,
+        "plteColors": 13,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            39
+          ],
+          [
+            "tRNS",
+            1
+          ],
+          [
+            "IDAT",
+            36
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 157
+      }
+    ],
+    "embeddedPaletteHeaderCount": 0,
+    "embeddedPalettesRead": [],
+    "remainingAfterParse": 0
+  },
+  {
+    "resId": 22,
+    "bytes": 1361,
+    "gridSplit": 8,
+    "anchorX": -10,
+    "anchorY": -27,
+    "seqCount": 12,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 1,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 2,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 3,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 4,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 1,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 5,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 6,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 7,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 8,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 9,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 7,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 10,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 11,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 7,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 168,
+        "height": 30,
+        "bitDepth": 8,
+        "colorType": 3,
+        "plteColors": 64,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            192
+          ],
+          [
+            "tRNS",
+            1
+          ],
+          [
+            "IDAT",
+            965
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 1239
+      }
+    ],
+    "embeddedPaletteHeaderCount": 0,
+    "embeddedPalettesRead": [],
+    "remainingAfterParse": 0
+  },
+  {
+    "resId": 23,
+    "bytes": 1094,
+    "gridSplit": 4,
+    "anchorX": -15,
+    "anchorY": -33,
+    "seqCount": 2,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 1,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 116,
+        "height": 38,
+        "bitDepth": 8,
+        "colorType": 3,
+        "plteColors": 31,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            93
+          ],
+          [
+            "tRNS",
+            1
+          ],
+          [
+            "IDAT",
+            877
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 1052
+      }
+    ],
+    "embeddedPaletteHeaderCount": 0,
+    "embeddedPalettesRead": [],
+    "remainingAfterParse": 0
+  },
+  {
+    "resId": 24,
+    "bytes": 230,
+    "gridSplit": 3,
+    "anchorX": 0,
+    "anchorY": 0,
+    "seqCount": 1,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 12,
+        "height": 6,
+        "bitDepth": 8,
+        "colorType": 3,
+        "plteColors": 5,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            15
+          ],
+          [
+            "tRNS",
+            5
+          ],
+          [
+            "IDAT",
+            46
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 147
+      }
+    ],
+    "embeddedPaletteHeaderCount": 2,
+    "embeddedPalettesRead": [
+      {
+        "size": 27,
+        "type": "PLTE"
+      },
+      {
+        "size": 27,
+        "type": "PLTE"
+      }
+    ],
+    "remainingAfterParse": 0
+  },
+  {
+    "resId": 25,
+    "bytes": 828,
+    "gridSplit": 8,
+    "anchorX": -7,
+    "anchorY": -18,
+    "seqCount": 12,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 1,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 2,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 3,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 4,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 1,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 5,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 6,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 7,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 8,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 6
+          }
+        ]
+      },
+      {
+        "seqIdx": 9,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 7,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 6
+          }
+        ]
+      },
+      {
+        "seqIdx": 10,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 6
+          }
+        ]
+      },
+      {
+        "seqIdx": 11,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 7,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 6
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 120,
+        "height": 19,
+        "bitDepth": 8,
+        "colorType": 3,
+        "plteColors": 64,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            192
+          ],
+          [
+            "tRNS",
+            1
+          ],
+          [
+            "IDAT",
+            432
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 706
+      }
+    ],
+    "embeddedPaletteHeaderCount": 0,
+    "embeddedPalettesRead": [],
+    "remainingAfterParse": 0
+  },
+  {
+    "resId": 26,
+    "bytes": 1276,
+    "gridSplit": 8,
+    "anchorX": -10,
+    "anchorY": -27,
+    "seqCount": 12,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 1,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 2,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 3,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 4,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 1,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 5,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 6,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 7,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 8,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 9,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 7,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 10,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 11,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 7,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 168,
+        "height": 30,
+        "bitDepth": 8,
+        "colorType": 3,
+        "plteColors": 64,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            192
+          ],
+          [
+            "tRNS",
+            1
+          ],
+          [
+            "IDAT",
+            880
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 1154
+      }
+    ],
+    "embeddedPaletteHeaderCount": 0,
+    "embeddedPalettesRead": [],
+    "remainingAfterParse": 0
+  },
+  {
+    "resId": 27,
+    "bytes": 410,
+    "gridSplit": 3,
+    "anchorX": -21,
+    "anchorY": -18,
+    "seqCount": 1,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 111,
+        "height": 20,
+        "bitDepth": 8,
+        "colorType": 3,
+        "plteColors": 6,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            18
+          ],
+          [
+            "tRNS",
+            1
+          ],
+          [
+            "IDAT",
+            285
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 385
+      }
+    ],
+    "embeddedPaletteHeaderCount": 0,
+    "embeddedPalettesRead": [],
+    "remainingAfterParse": 0
+  },
+  {
+    "resId": 28,
+    "bytes": 891,
+    "gridSplit": 8,
+    "anchorX": -11,
+    "anchorY": -21,
+    "seqCount": 12,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 1,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 2,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 3,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 4,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 1,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 5,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 6,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 7,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 8,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 9,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 7,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 10,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 11,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 7,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 168,
+        "height": 22,
+        "bitDepth": 8,
+        "colorType": 3,
+        "plteColors": 64,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            192
+          ],
+          [
+            "tRNS",
+            1
+          ],
+          [
+            "IDAT",
+            495
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 769
+      }
+    ],
+    "embeddedPaletteHeaderCount": 0,
+    "embeddedPalettesRead": [],
+    "remainingAfterParse": 0
+  },
+  {
+    "resId": 29,
+    "bytes": 1065,
+    "gridSplit": 8,
+    "anchorX": -17,
+    "anchorY": -22,
+    "seqCount": 12,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 1,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 2,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 3,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 4,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 1,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 5,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 6,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 7,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 8,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 9,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 7,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 10,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 11,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 7,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 2
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 264,
+        "height": 23,
+        "bitDepth": 8,
+        "colorType": 3,
+        "plteColors": 64,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            192
+          ],
+          [
+            "tRNS",
+            1
+          ],
+          [
+            "IDAT",
+            669
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 943
+      }
+    ],
+    "embeddedPaletteHeaderCount": 0,
+    "embeddedPalettesRead": [],
+    "remainingAfterParse": 0
+  },
+  {
+    "resId": 30,
+    "bytes": 805,
+    "gridSplit": 10,
+    "anchorX": -4,
+    "anchorY": -17,
+    "seqCount": 12,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 1,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 2,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 3,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 1
+          }
+        ]
+      },
+      {
+        "seqIdx": 4,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 1,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 5,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 6,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 7,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 4,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 2,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 2,
+            "delayTicks": 3
+          }
+        ]
+      },
+      {
+        "seqIdx": 8,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 2,
+            "delayTicks": 6
+          },
+          {
+            "transform": 7,
+            "frameSpriteIdx": 2,
+            "delayTicks": 6
+          }
+        ]
+      },
+      {
+        "seqIdx": 9,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 8,
+            "frameSpriteIdx": 0,
+            "delayTicks": 6
+          },
+          {
+            "transform": 9,
+            "frameSpriteIdx": 0,
+            "delayTicks": 6
+          }
+        ]
+      },
+      {
+        "seqIdx": 10,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 6,
+            "frameSpriteIdx": 0,
+            "delayTicks": 6
+          },
+          {
+            "transform": 7,
+            "frameSpriteIdx": 0,
+            "delayTicks": 6
+          }
+        ]
+      },
+      {
+        "seqIdx": 11,
+        "flagsOrSpeed": 1,
+        "frames": [
+          {
+            "transform": 8,
+            "frameSpriteIdx": 2,
+            "delayTicks": 6
+          },
+          {
+            "transform": 9,
+            "frameSpriteIdx": 2,
+            "delayTicks": 6
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 90,
+        "height": 18,
+        "bitDepth": 8,
+        "colorType": 3,
+        "plteColors": 64,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            192
+          ],
+          [
+            "tRNS",
+            1
+          ],
+          [
+            "IDAT",
+            409
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 683
+      }
+    ],
+    "embeddedPaletteHeaderCount": 0,
+    "embeddedPalettesRead": [],
+    "remainingAfterParse": 0
+  },
+  {
+    "resId": 31,
+    "bytes": 382,
+    "gridSplit": 1,
+    "anchorX": -7,
+    "anchorY": -7,
+    "seqCount": 2,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 100
+          }
+        ]
+      },
+      {
+        "seqIdx": 1,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 2,
+            "delayTicks": 100
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 15,
+        "height": 10,
+        "bitDepth": 8,
+        "colorType": 3,
+        "plteColors": 64,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            192
+          ],
+          [
+            "tRNS",
+            1
+          ],
+          [
+            "IDAT",
+            84
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 358
+      }
+    ],
+    "embeddedPaletteHeaderCount": 0,
+    "embeddedPalettesRead": [],
+    "remainingAfterParse": 0
+  },
+  {
+    "resId": 32,
+    "bytes": 248,
+    "gridSplit": 6,
+    "anchorX": -3,
+    "anchorY": -3,
+    "seqCount": 3,
+    "sequences": [
+      {
+        "seqIdx": 0,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          },
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          },
+          {
+            "transform": 4,
+            "frameSpriteIdx": 0,
+            "delayTicks": 1
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      },
+      {
+        "seqIdx": 1,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 4,
+            "frameSpriteIdx": 0,
+            "delayTicks": 4
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 0,
+            "delayTicks": 6
+          }
+        ]
+      },
+      {
+        "seqIdx": 2,
+        "flagsOrSpeed": 0,
+        "frames": [
+          {
+            "transform": 0,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 1,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 2,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 3,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 4,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          },
+          {
+            "transform": 5,
+            "frameSpriteIdx": 0,
+            "delayTicks": 2
+          }
+        ]
+      }
+    ],
+    "imgCount": 1,
+    "images": [
+      {
+        "valid": true,
+        "width": 30,
+        "height": 6,
+        "bitDepth": 2,
+        "colorType": 3,
+        "plteColors": 4,
+        "chunks": [
+          [
+            "IHDR",
+            13
+          ],
+          [
+            "PLTE",
+            12
+          ],
+          [
+            "tRNS",
+            1
+          ],
+          [
+            "IDAT",
+            54
+          ],
+          [
+            "IEND",
+            0
+          ]
+        ],
+        "size": 148
+      }
+    ],
+    "embeddedPaletteHeaderCount": 1,
+    "embeddedPalettesRead": [
+      {
+        "size": 24,
+        "type": "PLTE"
+      }
+    ],
+    "remainingAfterParse": 0
+  }
+]

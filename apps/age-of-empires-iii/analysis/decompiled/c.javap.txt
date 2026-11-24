@@ -1,0 +1,951 @@
+// ClassFile version 45.3
+public class c extends javax.microedition.lcdui.game.GameCanvas {
+  public static boolean a; // Z
+  public static final javax.microedition.lcdui.Font[] a; // [Ljavax/microedition/lcdui/Font;
+  public static final int[] a; // [I
+  public static final int[] b; // [I
+  public static int[] c; // [I
+  public static final int[] d; // [I
+  private static int a; // I
+  private static int b; // I
+  private static int[][] a; // [[I
+  private static int c; // I
+  private static javax.microedition.lcdui.Image a; // Ljavax/microedition/lcdui/Image;
+  private static boolean b; // Z
+
+  public void <init>(); // ()V
+    Code: stack=2, locals=1, len=25
+         0: aload_0
+         1: iconst_0
+         2: invokespecial #69 // javax.microedition.lcdui.game.GameCanvas.<init>:(Z)V
+         5: aload_0
+         6: iconst_1
+         7: invokevirtual #60 // javax.microedition.lcdui.Canvas.setFullScreenMode:(Z)V
+        10: ldc #2 // "/touch.png"
+        12: invokestatic #68 // javax.microedition.lcdui.Image.createImage:(Ljava/lang/String;)Ljavax/microedition/lcdui/Image;
+        15: putstatic #28 // c.a:Ljavax/microedition/lcdui/Image;
+        18: return
+        19: dup
+        20: astore_0
+        21: invokevirtual #56 // java.lang.Throwable.printStackTrace:()V
+        24: return
+    Exception table:
+      from=10 to=18 target=19 type=java.io.IOException
+  public void pointerDragged(int, int); // (II)V
+    Code: stack=1, locals=3, len=8
+         0: getstatic #36 // c.c:I
+         3: ifeq 7
+         6: return
+         7: return
+  public void pointerPressed(int, int); // (II)V
+    Code: stack=3, locals=5, len=207
+         0: getstatic #32 // c.a:[[I
+         3: astore_3
+         4: iload_2
+         5: getstatic #33 // c.b:I
+         8: bipush 40
+        10: isub
+        11: if_icmple 100
+        14: iload_2
+        15: getstatic #33 // c.b:I
+        18: if_icmpge 100
+        21: aload_3
+        22: arraylength
+        23: iconst_2
+        24: isub
+        25: istore 4
+        27: iload 4
+        29: aload_3
+        30: arraylength
+        31: if_icmpge 99
+        34: iload_1
+        35: aload_3
+        36: iload 4
+        38: aaload
+        39: iconst_0
+        40: iaload
+        41: if_icmplt 93
+        44: iload_2
+        45: aload_3
+        46: iload 4
+        48: aaload
+        49: iconst_1
+        50: iaload
+        51: if_icmplt 93
+        54: iload_1
+        55: aload_3
+        56: iload 4
+        58: aaload
+        59: iconst_2
+        60: iaload
+        61: if_icmpgt 93
+        64: iload_2
+        65: aload_3
+        66: iload 4
+        68: aaload
+        69: iconst_3
+        70: iaload
+        71: if_icmpgt 93
+        74: aload_3
+        75: iload 4
+        77: aaload
+        78: iconst_4
+        79: iaload
+        80: putstatic #36 // c.c:I
+        83: aload_0
+        84: getstatic #36 // c.c:I
+        87: invokevirtual #58 // javax.microedition.lcdui.Canvas.keyPressed:(I)V
+        90: goto 206
+        93: iinc 4, 1
+        96: goto 27
+        99: return
+       100: iload_2
+       101: getstatic #33 // c.b:I
+       104: if_icmple 206
+       107: getstatic #36 // c.c:I
+       110: ifeq 125
+       113: aload_0
+       114: getstatic #36 // c.c:I
+       117: invokevirtual #59 // javax.microedition.lcdui.Canvas.keyReleased:(I)V
+       120: iconst_0
+       121: putstatic #36 // c.c:I
+       124: return
+       125: iload_2
+       126: getstatic #33 // c.b:I
+       129: isub
+       130: istore_2
+       131: iconst_0
+       132: istore 4
+       134: iload 4
+       136: aload_3
+       137: arraylength
+       138: iconst_2
+       139: isub
+       140: if_icmpge 206
+       143: iload_1
+       144: aload_3
+       145: iload 4
+       147: aaload
+       148: iconst_0
+       149: iaload
+       150: if_icmplt 200
+       153: iload_2
+       154: aload_3
+       155: iload 4
+       157: aaload
+       158: iconst_1
+       159: iaload
+       160: if_icmplt 200
+       163: iload_1
+       164: aload_3
+       165: iload 4
+       167: aaload
+       168: iconst_2
+       169: iaload
+       170: if_icmpgt 200
+       173: iload_2
+       174: aload_3
+       175: iload 4
+       177: aaload
+       178: iconst_3
+       179: iaload
+       180: if_icmpgt 200
+       183: aload_3
+       184: iload 4
+       186: aaload
+       187: iconst_4
+       188: iaload
+       189: putstatic #36 // c.c:I
+       192: aload_0
+       193: getstatic #36 // c.c:I
+       196: invokevirtual #58 // javax.microedition.lcdui.Canvas.keyPressed:(I)V
+       199: return
+       200: iinc 4, 1
+       203: goto 134
+       206: return
+  public void pointerReleased(int, int); // (II)V
+    Code: stack=2, locals=3, len=18
+         0: getstatic #36 // c.c:I
+         3: ifeq 17
+         6: aload_0
+         7: getstatic #36 // c.c:I
+        10: invokevirtual #59 // javax.microedition.lcdui.Canvas.keyReleased:(I)V
+        13: iconst_0
+        14: putstatic #36 // c.c:I
+        17: return
+  public static int a(int); // (I)I
+    Code: stack=5, locals=1, len=12
+         0: iload_0
+         1: iconst_1
+         2: newarray int
+         4: dup
+         5: iconst_0
+         6: iconst_0
+         7: iastore
+         8: invokestatic #49 // c.a:(I[I)I
+        11: ireturn
+  public static int a(int, int[]); // (I[I)I
+    Code: stack=2, locals=2, len=66
+         0: iload_0
+         1: tableswitch [0..4] default:64 {0:36, 1:48, 2:54, 3:39, 4:64}
+        36: goto 64
+        39: aload_1
+        40: iconst_0
+        41: iaload
+        42: invokestatic #48 // a.a:(I)V
+        45: goto 64
+        48: invokestatic #46 // a.a:()V
+        51: goto 64
+        54: invokestatic #47 // a.a:()Z
+        57: ifeq 62
+        60: iconst_1
+        61: ireturn
+        62: iconst_0
+        63: ireturn
+        64: iconst_0
+        65: ireturn
+  public static int a(int, String); // (ILjava/lang/String;)I
+    Code: stack=2, locals=2, len=50
+         0: iload_0
+         1: lookupswitch default:48 {0:28, 1:39}
+        28: getstatic #39 // f.a:LMain;
+        31: aload_1
+        32: invokevirtual #70 // javax.microedition.midlet.MIDlet.platformRequest:(Ljava/lang/String;)Z
+        35: pop
+        36: goto 48
+        39: aload_1
+        40: ldc #3 // "1"
+        42: invokevirtual #55 // java.lang.String.equals:(Ljava/lang/Object;)Z
+        45: putstatic #29 // c.a:Z
+        48: iconst_0
+        49: ireturn
+  public void hideNotify(); // ()V
+    Code: stack=1, locals=1, len=9
+         0: iconst_1
+         1: putstatic #41 // f.c:Z
+         4: iconst_1
+         5: putstatic #42 // f.e:Z
+         8: return
+  public void showNotify(); // ()V
+    Code: stack=1, locals=1, len=8
+         0: invokestatic #54 // f.b:()V
+         3: iconst_0
+         4: putstatic #42 // f.e:Z
+         7: return
+  public final int b(int); // (I)I
+    Code: stack=2, locals=2, len=226
+         0: iload_1
+         1: bipush 53
+         3: if_icmpne 9
+         6: bipush 16
+         8: ireturn
+         9: iload_1
+        10: bipush -6
+        12: if_icmpeq 21
+        15: iload_1
+        16: bipush 6
+        18: if_icmpne 34
+        21: getstatic #44 // f.k:Z
+        24: ifeq 31
+        27: sipush 128
+        30: ireturn
+        31: bipush 64
+        33: ireturn
+        34: iload_1
+        35: bipush -7
+        37: if_icmpeq 46
+        40: iload_1
+        41: bipush 7
+        43: if_icmpne 59
+        46: getstatic #44 // f.k:Z
+        49: ifeq 55
+        52: bipush 64
+        54: ireturn
+        55: sipush 128
+        58: ireturn
+        59: iload_1
+        60: bipush 50
+        62: if_icmpne 67
+        65: iconst_1
+        66: ireturn
+        67: iload_1
+        68: bipush 56
+        70: if_icmpne 75
+        73: iconst_2
+        74: ireturn
+        75: iload_1
+        76: bipush 52
+        78: if_icmpne 83
+        81: iconst_4
+        82: ireturn
+        83: iload_1
+        84: bipush 54
+        86: if_icmpne 92
+        89: bipush 8
+        91: ireturn
+        92: iload_1
+        93: bipush 49
+        95: if_icmpne 102
+        98: sipush 256
+       101: ireturn
+       102: iload_1
+       103: bipush 51
+       105: if_icmpne 112
+       108: sipush 512
+       111: ireturn
+       112: iload_1
+       113: bipush 55
+       115: if_icmpne 122
+       118: sipush 1024
+       121: ireturn
+       122: iload_1
+       123: bipush 57
+       125: if_icmpne 132
+       128: sipush 2048
+       131: ireturn
+       132: iload_1
+       133: bipush 42
+       135: if_icmpne 142
+       138: sipush 4096
+       141: ireturn
+       142: iload_1
+       143: bipush 35
+       145: if_icmpne 152
+       148: sipush 8192
+       151: ireturn
+       152: iload_1
+       153: bipush 48
+       155: if_icmpne 162
+       158: sipush 16384
+       161: ireturn
+       162: aload_0
+       163: iload_1
+       164: invokevirtual #57 // javax.microedition.lcdui.Canvas.getGameAction:(I)I
+       167: tableswitch [1..8] default:224 {1:212, 2:216, 3:224, 4:224, 5:218, 6:214, 7:224, 8:221}
+       212: iconst_1
+       213: ireturn
+       214: iconst_2
+       215: ireturn
+       216: iconst_4
+       217: ireturn
+       218: bipush 8
+       220: ireturn
+       221: bipush 16
+       223: ireturn
+       224: iconst_0
+       225: ireturn
+  public void paint(javax.microedition.lcdui.Graphics); // (Ljavax/microedition/lcdui/Graphics;)V
+    Code: stack=6, locals=6, len=201
+         0: getstatic #28 // c.a:Ljavax/microedition/lcdui/Image;
+         3: ifnull 32
+         6: aload_1
+         7: iconst_0
+         8: iconst_0
+         9: aload_0
+        10: invokevirtual #62 // javax.microedition.lcdui.Displayable.getWidth:()I
+        13: aload_0
+        14: invokevirtual #61 // javax.microedition.lcdui.Displayable.getHeight:()I
+        17: invokevirtual #66 // javax.microedition.lcdui.Graphics.setClip:(IIII)V
+        20: aload_1
+        21: getstatic #28 // c.a:Ljavax/microedition/lcdui/Image;
+        24: iconst_0
+        25: sipush 400
+        28: iconst_0
+        29: invokevirtual #64 // javax.microedition.lcdui.Graphics.drawImage:(Ljavax/microedition/lcdui/Image;III)V
+        32: aload_0
+        33: invokevirtual #62 // javax.microedition.lcdui.Displayable.getWidth:()I
+        36: sipush 360
+        39: if_icmpeq 186
+        42: aload_0
+        43: invokevirtual #61 // javax.microedition.lcdui.Displayable.getHeight:()I
+        46: sipush 640
+        49: if_icmpeq 186
+        52: getstatic #43 // f.j:Z
+        55: ifeq 186
+        58: aload_1
+        59: iconst_0
+        60: invokevirtual #67 // javax.microedition.lcdui.Graphics.setColor:(I)V
+        63: aload_1
+        64: iconst_0
+        65: iconst_0
+        66: aload_0
+        67: invokevirtual #62 // javax.microedition.lcdui.Displayable.getWidth:()I
+        70: aload_0
+        71: invokevirtual #61 // javax.microedition.lcdui.Displayable.getHeight:()I
+        74: invokevirtual #66 // javax.microedition.lcdui.Graphics.setClip:(IIII)V
+        77: aload_1
+        78: iconst_0
+        79: iconst_0
+        80: aload_0
+        81: invokevirtual #62 // javax.microedition.lcdui.Displayable.getWidth:()I
+        84: aload_0
+        85: invokevirtual #61 // javax.microedition.lcdui.Displayable.getHeight:()I
+        88: invokevirtual #65 // javax.microedition.lcdui.Graphics.fillRect:(IIII)V
+        91: aload_0
+        92: invokevirtual #62 // javax.microedition.lcdui.Displayable.getWidth:()I
+        95: iconst_1
+        96: ishr
+        97: istore_2
+        98: aload_0
+        99: invokevirtual #61 // javax.microedition.lcdui.Displayable.getHeight:()I
+       102: iconst_1
+       103: ishr
+       104: istore_3
+       105: aload_1
+       106: ldc #1 // 16777215
+       108: invokevirtual #67 // javax.microedition.lcdui.Graphics.setColor:(I)V
+       111: sipush 337
+       114: invokestatic #52 // f.a:(I)Ljava/lang/String;
+       117: sipush 350
+       120: getstatic #40 // f.b:I
+       123: invokestatic #53 // f.a:(Ljava/lang/String;II)[Ljava/lang/String;
+       126: astore 4
+       128: iload_3
+       129: iconst_3
+       130: imul
+       131: iconst_4
+       132: idiv
+       133: istore_3
+       134: iconst_0
+       135: istore 5
+       137: iload 5
+       139: aload 4
+       141: arraylength
+       142: if_icmpge 177
+       145: getstatic #40 // f.b:I
+       148: aload_1
+       149: aload 4
+       151: iload 5
+       153: aaload
+       154: iload_2
+       155: iload_3
+       156: bipush 17
+       158: invokestatic #71 // l.a:(ILjavax/microedition/lcdui/Graphics;Ljava/lang/String;III)V
+       161: iload_3
+       162: getstatic #45 // l.a:[I
+       165: getstatic #40 // f.b:I
+       168: iaload
+       169: iadd
+       170: istore_3
+       171: iinc 5, 1
+       174: goto 137
+       177: iconst_1
+       178: putstatic #34 // c.b:Z
+       181: aload_0
+       182: invokevirtual #50 // c.hideNotify:()V
+       185: return
+       186: getstatic #34 // c.b:Z
+       189: ifeq 196
+       192: aload_0
+       193: invokevirtual #51 // c.showNotify:()V
+       196: iconst_0
+       197: putstatic #34 // c.b:Z
+       200: return
+  public static void a(javax.microedition.lcdui.Graphics, int, int, int, int, int); // (Ljavax/microedition/lcdui/Graphics;IIIII)V
+    Code: stack=5, locals=6, len=16
+         0: aload_0
+         1: iload_1
+         2: invokevirtual #67 // javax.microedition.lcdui.Graphics.setColor:(I)V
+         5: aload_0
+         6: iload_2
+         7: iload_3
+         8: iload 4
+        10: iload 5
+        12: invokevirtual #65 // javax.microedition.lcdui.Graphics.fillRect:(IIII)V
+        15: return
+  static void <clinit>(); // ()V
+    Code: stack=8, locals=0, len=670
+         0: iconst_3
+         1: anewarray #21 // javax.microedition.lcdui.Font.class
+         4: dup
+         5: iconst_0
+         6: iconst_0
+         7: iconst_0
+         8: bipush 8
+        10: invokestatic #63 // javax.microedition.lcdui.Font.getFont:(III)Ljavax/microedition/lcdui/Font;
+        13: aastore
+        14: dup
+        15: iconst_1
+        16: iconst_0
+        17: iconst_0
+        18: iconst_0
+        19: invokestatic #63 // javax.microedition.lcdui.Font.getFont:(III)Ljavax/microedition/lcdui/Font;
+        22: aastore
+        23: dup
+        24: iconst_2
+        25: iconst_0
+        26: iconst_0
+        27: bipush 16
+        29: invokestatic #63 // javax.microedition.lcdui.Font.getFont:(III)Ljavax/microedition/lcdui/Font;
+        32: aastore
+        33: putstatic #31 // c.a:[Ljavax/microedition/lcdui/Font;
+        36: bipush 6
+        38: newarray int
+        40: dup
+        41: iconst_0
+        42: iconst_m1
+        43: iastore
+        44: dup
+        45: iconst_1
+        46: iconst_0
+        47: iastore
+        48: dup
+        49: iconst_2
+        50: iconst_m1
+        51: iastore
+        52: dup
+        53: iconst_3
+        54: iconst_m1
+        55: iastore
+        56: dup
+        57: iconst_4
+        58: iconst_m1
+        59: iastore
+        60: dup
+        61: iconst_5
+        62: bipush -2
+        64: iastore
+        65: putstatic #30 // c.a:[I
+        68: iconst_2
+        69: newarray int
+        71: dup
+        72: iconst_0
+        73: iconst_0
+        74: iastore
+        75: dup
+        76: iconst_1
+        77: iconst_1
+        78: iastore
+        79: putstatic #35 // c.b:[I
+        82: iconst_2
+        83: newarray int
+        85: dup
+        86: iconst_0
+        87: iconst_0
+        88: iastore
+        89: dup
+        90: iconst_1
+        91: iconst_1
+        92: iastore
+        93: putstatic #37 // c.c:[I
+        96: iconst_4
+        97: newarray int
+        99: dup
+       100: iconst_0
+       101: iconst_0
+       102: iastore
+       103: dup
+       104: iconst_1
+       105: iconst_m1
+       106: iastore
+       107: dup
+       108: iconst_2
+       109: iconst_0
+       110: iastore
+       111: dup
+       112: iconst_3
+       113: bipush -2
+       115: iastore
+       116: putstatic #38 // c.d:[I
+       119: bipush 8
+       121: anewarray #17 // java.lang.String.class
+       124: dup
+       125: iconst_0
+       126: ldc #4 // "2"
+       128: aastore
+       129: dup
+       130: iconst_1
+       131: ldc #9 // "8"
+       133: aastore
+       134: dup
+       135: iconst_2
+       136: ldc #6 // "4"
+       138: aastore
+       139: dup
+       140: iconst_3
+       141: ldc #7 // "6"
+       143: aastore
+       144: dup
+       145: iconst_4
+       146: ldc #3 // "1"
+       148: aastore
+       149: dup
+       150: iconst_5
+       151: ldc #5 // "3"
+       153: aastore
+       154: dup
+       155: bipush 6
+       157: ldc #8 // "7"
+       159: aastore
+       160: bipush 7
+       162: ldc #10 // "9"
+       164: aastore
+       165: sipush 360
+       168: putstatic #27 // c.a:I
+       171: sipush 400
+       174: putstatic #33 // c.b:I
+       177: bipush 14
+       179: anewarray #11 // [I.class
+       182: dup
+       183: iconst_0
+       184: iconst_5
+       185: newarray int
+       187: dup
+       188: iconst_0
+       189: iconst_0
+       190: iastore
+       191: dup
+       192: iconst_1
+       193: iconst_3
+       194: iastore
+       195: dup
+       196: iconst_2
+       197: bipush 90
+       199: iastore
+       200: dup
+       201: iconst_3
+       202: bipush 82
+       204: iastore
+       205: dup
+       206: iconst_4
+       207: bipush 49
+       209: iastore
+       210: aastore
+       211: dup
+       212: iconst_1
+       213: iconst_5
+       214: newarray int
+       216: dup
+       217: iconst_0
+       218: bipush 91
+       220: iastore
+       221: dup
+       222: iconst_1
+       223: iconst_3
+       224: iastore
+       225: dup
+       226: iconst_2
+       227: sipush 180
+       230: iastore
+       231: dup
+       232: iconst_3
+       233: bipush 82
+       235: iastore
+       236: dup
+       237: iconst_4
+       238: bipush 50
+       240: iastore
+       241: aastore
+       242: dup
+       243: iconst_2
+       244: iconst_5
+       245: newarray int
+       247: dup
+       248: iconst_0
+       249: sipush 181
+       252: iastore
+       253: dup
+       254: iconst_1
+       255: iconst_3
+       256: iastore
+       257: dup
+       258: iconst_2
+       259: sipush 270
+       262: iastore
+       263: dup
+       264: iconst_3
+       265: bipush 82
+       267: iastore
+       268: dup
+       269: iconst_4
+       270: bipush 51
+       272: iastore
+       273: aastore
+       274: dup
+       275: iconst_3
+       276: iconst_5
+       277: newarray int
+       279: dup
+       280: iconst_0
+       281: sipush 271
+       284: iastore
+       285: dup
+       286: iconst_1
+       287: iconst_3
+       288: iastore
+       289: dup
+       290: iconst_2
+       291: sipush 360
+       294: iastore
+       295: dup
+       296: iconst_3
+       297: bipush 82
+       299: iastore
+       300: dup
+       301: iconst_4
+       302: bipush 42
+       304: iastore
+       305: aastore
+       306: dup
+       307: iconst_4
+       308: iconst_5
+       309: newarray int
+       311: dup
+       312: iconst_0
+       313: iconst_0
+       314: iastore
+       315: dup
+       316: iconst_1
+       317: bipush 83
+       319: iastore
+       320: dup
+       321: iconst_2
+       322: bipush 90
+       324: iastore
+       325: dup
+       326: iconst_3
+       327: sipush 161
+       330: iastore
+       331: dup
+       332: iconst_4
+       333: bipush 52
+       335: iastore
+       336: aastore
+       337: dup
+       338: iconst_5
+       339: iconst_5
+       340: newarray int
+       342: dup
+       343: iconst_0
+       344: bipush 91
+       346: iastore
+       347: dup
+       348: iconst_1
+       349: bipush 83
+       351: iastore
+       352: dup
+       353: iconst_2
+       354: sipush 180
+       357: iastore
+       358: dup
+       359: iconst_3
+       360: sipush 161
+       363: iastore
+       364: dup
+       365: iconst_4
+       366: bipush 53
+       368: iastore
+       369: aastore
+       370: dup
+       371: bipush 6
+       373: iconst_5
+       374: newarray int
+       376: dup
+       377: iconst_0
+       378: sipush 181
+       381: iastore
+       382: dup
+       383: iconst_1
+       384: bipush 83
+       386: iastore
+       387: dup
+       388: iconst_2
+       389: sipush 270
+       392: iastore
+       393: dup
+       394: iconst_3
+       395: sipush 161
+       398: iastore
+       399: dup
+       400: iconst_4
+       401: bipush 54
+       403: iastore
+       404: aastore
+       405: dup
+       406: bipush 7
+       408: iconst_5
+       409: newarray int
+       411: dup
+       412: iconst_0
+       413: sipush 271
+       416: iastore
+       417: dup
+       418: iconst_1
+       419: bipush 83
+       421: iastore
+       422: dup
+       423: iconst_2
+       424: sipush 360
+       427: iastore
+       428: dup
+       429: iconst_3
+       430: sipush 161
+       433: iastore
+       434: dup
+       435: iconst_4
+       436: bipush 48
+       438: iastore
+       439: aastore
+       440: dup
+       441: bipush 8
+       443: iconst_5
+       444: newarray int
+       446: dup
+       447: iconst_0
+       448: iconst_0
+       449: iastore
+       450: dup
+       451: iconst_1
+       452: sipush 162
+       455: iastore
+       456: dup
+       457: iconst_2
+       458: bipush 90
+       460: iastore
+       461: dup
+       462: iconst_3
+       463: sipush 240
+       466: iastore
+       467: dup
+       468: iconst_4
+       469: bipush 55
+       471: iastore
+       472: aastore
+       473: dup
+       474: bipush 9
+       476: iconst_5
+       477: newarray int
+       479: dup
+       480: iconst_0
+       481: bipush 91
+       483: iastore
+       484: dup
+       485: iconst_1
+       486: sipush 162
+       489: iastore
+       490: dup
+       491: iconst_2
+       492: sipush 180
+       495: iastore
+       496: dup
+       497: iconst_3
+       498: sipush 240
+       501: iastore
+       502: dup
+       503: iconst_4
+       504: bipush 56
+       506: iastore
+       507: aastore
+       508: dup
+       509: bipush 10
+       511: iconst_5
+       512: newarray int
+       514: dup
+       515: iconst_0
+       516: sipush 181
+       519: iastore
+       520: dup
+       521: iconst_1
+       522: sipush 162
+       525: iastore
+       526: dup
+       527: iconst_2
+       528: sipush 270
+       531: iastore
+       532: dup
+       533: iconst_3
+       534: sipush 240
+       537: iastore
+       538: dup
+       539: iconst_4
+       540: bipush 57
+       542: iastore
+       543: aastore
+       544: dup
+       545: bipush 11
+       547: iconst_5
+       548: newarray int
+       550: dup
+       551: iconst_0
+       552: sipush 271
+       555: iastore
+       556: dup
+       557: iconst_1
+       558: sipush 162
+       561: iastore
+       562: dup
+       563: iconst_2
+       564: sipush 360
+       567: iastore
+       568: dup
+       569: iconst_3
+       570: sipush 240
+       573: iastore
+       574: dup
+       575: iconst_4
+       576: bipush 35
+       578: iastore
+       579: aastore
+       580: dup
+       581: bipush 12
+       583: iconst_5
+       584: newarray int
+       586: dup
+       587: iconst_0
+       588: iconst_0
+       589: iastore
+       590: dup
+       591: iconst_1
+       592: getstatic #33 // c.b:I
+       595: bipush 40
+       597: isub
+       598: iastore
+       599: dup
+       600: iconst_2
+       601: bipush 60
+       603: iastore
+       604: dup
+       605: iconst_3
+       606: getstatic #33 // c.b:I
+       609: iastore
+       610: dup
+       611: iconst_4
+       612: bipush -6
+       614: iastore
+       615: aastore
+       616: dup
+       617: bipush 13
+       619: iconst_5
+       620: newarray int
+       622: dup
+       623: iconst_0
+       624: getstatic #27 // c.a:I
+       627: bipush 60
+       629: isub
+       630: iastore
+       631: dup
+       632: iconst_1
+       633: getstatic #33 // c.b:I
+       636: bipush 40
+       638: isub
+       639: iastore
+       640: dup
+       641: iconst_2
+       642: getstatic #27 // c.a:I
+       645: iastore
+       646: dup
+       647: iconst_3
+       648: getstatic #33 // c.b:I
+       651: iastore
+       652: dup
+       653: iconst_4
+       654: bipush -7
+       656: iastore
+       657: aastore
+       658: putstatic #32 // c.a:[[I
+       661: iconst_0
+       662: putstatic #36 // c.c:I
+       665: iconst_0
+       666: putstatic #34 // c.b:Z
+       669: return
+}

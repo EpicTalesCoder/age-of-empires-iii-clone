@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>vi</string>
+	<key>CFBundleDisplayName</key>
+	<string>Age of Empires III</string>
+	<key>CFBundleExecutable</key>
+	<string>AgeOfEmpiresIII</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.rebuild.ageofempiresiii</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>AgeOfEmpiresIII</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>MinimumOSVersion</key>
+	<string>16.0</string>
+	<key>SourceMIDletManifest</key>
+	<dict>
+		<key>MIDlet-Name</key>
+		<string>Age Of Empires III Mobile</string>
+		<key>MIDlet-Version</key>
+		<string>1.0.0</string>
+		<key>MIDlet-Vendor</key>
+		<string>GLU</string>
+		<key>MIDlet-1</key>
+		<string>Age Of Empires III Mobile, /i.png, Main</string>
+		<key>MicroEdition-Profile</key>
+		<string>MIDP-1.0</string>
+		<key>MicroEdition-Configuration</key>
+		<string>CLDC-1.0</string>
+		<key>MIDlet-Data-Size</key>
+		<integer>4096</integer>
+	</dict>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+</dict>
+</plist>

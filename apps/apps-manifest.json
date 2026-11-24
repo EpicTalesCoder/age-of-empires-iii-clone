@@ -1,0 +1,17 @@
+[
+  {
+    "slug": "age-of-empires-iii",
+    "displayName": "Age of Empires III",
+    "targetName": "AgeOfEmpiresIII",
+    "bundleIdentifier": "com.rebuild.ageofempiresiii",
+    "originalBundleIdentifier": "MIDlet:AgeOfEmpiresIIIMobile:GLU",
+    "originalVersion": "1.0.0",
+    "originalMinimumOSVersion": "MIDP-1.0",
+    "targetDevice": "iPhone XS Max (iPhone11,6 / 414x896 @3x / arm64)",
+    "targetOS": "iOS 16.1.1",
+    "deploymentTarget": "16.0",
+    "signingMode": "unsigned-adhoc-trollstore-sideloadly",
+    "projectSpec": "apps/age-of-empires-iii/ios-app/project.yml",
+    "status": "in-progress"
+  }
+]

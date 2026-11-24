@@ -1,0 +1,237 @@
+// ClassFile version 45.3
+public final class k {
+  public javax.microedition.lcdui.Image a; // Ljavax/microedition/lcdui/Image;
+  private int a; // I
+  private int b; // I
+  private int c; // I
+  public short a; // S
+  public short b; // S
+
+  public void <init>(); // ()V
+    Code: stack=2, locals=1, len=10
+         0: aload_0
+         1: invokespecial #14 // java.lang.Object.<init>:()V
+         4: aload_0
+         5: iconst_0
+         6: putfield #7 // k.a:I
+         9: return
+  public void <init>(byte[]); // ([B)V
+    Code: stack=2, locals=2, len=15
+         0: aload_0
+         1: invokespecial #14 // java.lang.Object.<init>:()V
+         4: aload_0
+         5: iconst_0
+         6: putfield #7 // k.a:I
+         9: aload_0
+        10: aload_1
+        11: invokespecial #21 // k.a:([B)V
+        14: return
+  public void <init>(int); // (I)V
+    Code: stack=2, locals=2, len=18
+         0: aload_0
+         1: invokespecial #14 // java.lang.Object.<init>:()V
+         4: aload_0
+         5: iconst_0
+         6: putfield #7 // k.a:I
+         9: aload_0
+        10: iload_1
+        11: invokestatic #13 // h.a:(I)[B
+        14: invokespecial #21 // k.a:([B)V
+        17: return
+  private void a(byte[]); // ([B)V
+    Code: stack=4, locals=2, len=38
+         0: aload_0
+         1: aload_1
+         2: iconst_0
+         3: aload_1
+         4: arraylength
+         5: invokestatic #16 // javax.microedition.lcdui.Image.createImage:([BII)Ljavax/microedition/lcdui/Image;
+         8: putfield #8 // k.a:Ljavax/microedition/lcdui/Image;
+        11: aload_0
+        12: aload_0
+        13: getfield #8 // k.a:Ljavax/microedition/lcdui/Image;
+        16: invokevirtual #18 // javax.microedition.lcdui.Image.getWidth:()I
+        19: i2s
+        20: putfield #9 // k.a:S
+        23: aload_0
+        24: aload_0
+        25: getfield #8 // k.a:Ljavax/microedition/lcdui/Image;
+        28: invokevirtual #17 // javax.microedition.lcdui.Image.getHeight:()I
+        31: i2s
+        32: putfield #11 // k.b:S
+        35: return
+        36: pop
+        37: return
+    Exception table:
+      from=0 to=35 target=36 type=java.lang.Exception
+  public void <init>(k, int, int, int, int); // (Lk;IIII)V
+    Code: stack=2, locals=6, len=42
+         0: aload_0
+         1: invokespecial #14 // java.lang.Object.<init>:()V
+         4: aload_0
+         5: iconst_0
+         6: putfield #7 // k.a:I
+         9: aload_0
+        10: iload 4
+        12: i2s
+        13: putfield #9 // k.a:S
+        16: aload_0
+        17: iload 5
+        19: i2s
+        20: putfield #11 // k.b:S
+        23: aload_0
+        24: aload_1
+        25: getfield #8 // k.a:Ljavax/microedition/lcdui/Image;
+        28: putfield #8 // k.a:Ljavax/microedition/lcdui/Image;
+        31: aload_0
+        32: iload_2
+        33: putfield #10 // k.b:I
+        36: aload_0
+        37: iload_3
+        38: putfield #12 // k.c:I
+        41: return
+  public void <init>(k, int); // (Lk;I)V
+    Code: stack=2, locals=3, len=55
+         0: aload_0
+         1: invokespecial #14 // java.lang.Object.<init>:()V
+         4: aload_0
+         5: iconst_0
+         6: putfield #7 // k.a:I
+         9: aload_0
+        10: aload_1
+        11: getfield #8 // k.a:Ljavax/microedition/lcdui/Image;
+        14: putfield #8 // k.a:Ljavax/microedition/lcdui/Image;
+        17: aload_0
+        18: aload_1
+        19: getfield #9 // k.a:S
+        22: putfield #9 // k.a:S
+        25: aload_0
+        26: aload_1
+        27: getfield #11 // k.b:S
+        30: putfield #11 // k.b:S
+        33: aload_0
+        34: aload_1
+        35: getfield #10 // k.b:I
+        38: putfield #10 // k.b:I
+        41: aload_0
+        42: aload_1
+        43: getfield #12 // k.c:I
+        46: putfield #12 // k.c:I
+        49: aload_0
+        50: iload_2
+        51: putfield #7 // k.a:I
+        54: return
+  public final k[] a(int); // (I)[Lk;
+    Code: stack=9, locals=9, len=104
+         0: aload_0
+         1: getfield #9 // k.a:S
+         4: iload_1
+         5: idiv
+         6: istore_1
+         7: aload_0
+         8: getfield #11 // k.b:S
+        11: istore_2
+        12: aload_0
+        13: iload_1
+        14: iload_2
+        15: istore_2
+        16: istore_1
+        17: dup
+        18: astore_0
+        19: getfield #9 // k.a:S
+        22: iload_1
+        23: idiv
+        24: istore_3
+        25: aload_0
+        26: getfield #11 // k.b:S
+        29: iload_2
+        30: idiv
+        31: dup
+        32: istore 4
+        34: iload_3
+        35: imul
+        36: anewarray #6 // k.class
+        39: astore 5
+        41: iconst_0
+        42: istore 6
+        44: iconst_0
+        45: istore 7
+        47: iload 7
+        49: iload 4
+        51: if_icmpge 101
+        54: iconst_0
+        55: istore 8
+        57: iload 8
+        59: iload_3
+        60: if_icmpge 95
+        63: aload 5
+        65: iload 6
+        67: iinc 6, 1
+        70: new #6 // k.class
+        73: dup
+        74: aload_0
+        75: iload 8
+        77: iload_1
+        78: imul
+        79: iload 7
+        81: iload_2
+        82: imul
+        83: iload_1
+        84: iload_2
+        85: invokespecial #19 // k.<init>:(Lk;IIII)V
+        88: aastore
+        89: iinc 8, 1
+        92: goto 57
+        95: iinc 7, 1
+        98: goto 47
+       101: aload 5
+       103: areturn
+  public final void a(javax.microedition.lcdui.Graphics, int, int); // (Ljavax/microedition/lcdui/Graphics;II)V
+    Code: stack=5, locals=4, len=10
+         0: aload_0
+         1: aload_1
+         2: iload_2
+         3: iload_3
+         4: bipush 20
+         6: invokevirtual #20 // k.a:(Ljavax/microedition/lcdui/Graphics;III)V
+         9: return
+  public final void a(javax.microedition.lcdui.Graphics, int, int, int); // (Ljavax/microedition/lcdui/Graphics;III)V
+    Code: stack=10, locals=5, len=33
+         0: aload_1
+         1: aload_0
+         2: getfield #8 // k.a:Ljavax/microedition/lcdui/Image;
+         5: aload_0
+         6: getfield #10 // k.b:I
+         9: aload_0
+        10: getfield #12 // k.c:I
+        13: aload_0
+        14: getfield #9 // k.a:S
+        17: aload_0
+        18: getfield #11 // k.b:S
+        21: aload_0
+        22: getfield #7 // k.a:I
+        25: iload_2
+        26: iload_3
+        27: iload 4
+        29: invokevirtual #15 // javax.microedition.lcdui.Graphics.drawRegion:(Ljavax/microedition/lcdui/Image;IIIIIIII)V
+        32: return
+  public final void a(javax.microedition.lcdui.Graphics, int, int, int, int); // (Ljavax/microedition/lcdui/Graphics;IIII)V
+    Code: stack=10, locals=6, len=31
+         0: aload_1
+         1: aload_0
+         2: getfield #8 // k.a:Ljavax/microedition/lcdui/Image;
+         5: aload_0
+         6: getfield #10 // k.b:I
+         9: aload_0
+        10: getfield #12 // k.c:I
+        13: aload_0
+        14: getfield #9 // k.a:S
+        17: aload_0
+        18: getfield #11 // k.b:S
+        21: iload 4
+        23: iload_2
+        24: iload_3
+        25: iload 5
+        27: invokevirtual #15 // javax.microedition.lcdui.Graphics.drawRegion:(Ljavax/microedition/lcdui/Image;IIIIIIII)V
+        30: return
+}

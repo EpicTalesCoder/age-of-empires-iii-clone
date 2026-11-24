@@ -1,0 +1,35 @@
+// ClassFile version 45.3
+public class Main extends javax.microedition.midlet.MIDlet {
+  private f a; // Lf;
+
+  public void <init>(); // ()V
+    Code: stack=4, locals=1, len=17
+         0: aload_0
+         1: invokespecial #9 // javax.microedition.midlet.MIDlet.<init>:()V
+         4: aload_0
+         5: new #2 // f.class
+         8: dup
+         9: aload_0
+        10: invokespecial #7 // f.<init>:(LMain;)V
+        13: putfield #4 // Main.a:Lf;
+        16: return
+  protected void startApp(); // ()V
+    Code: stack=0, locals=1, len=1
+         0: return
+  protected void pauseApp(); // ()V
+    Code: stack=1, locals=1, len=12
+         0: aload_0
+         1: getfield #4 // Main.a:Lf;
+         4: ifnull 11
+         7: iconst_1
+         8: putstatic #5 // f.c:Z
+        11: return
+  protected void destroyApp(boolean); // (Z)V
+    Code: stack=1, locals=2, len=10
+         0: iconst_0
+         1: invokestatic #8 // f.a:(I)Z
+         4: pop
+         5: iconst_0
+         6: putstatic #6 // f.d:Z
+         9: return
+}

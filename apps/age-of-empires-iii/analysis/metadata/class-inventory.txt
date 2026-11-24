@@ -1,0 +1,17 @@
+# Class & Bytecode Index — age-of-empires-iii
+
+| Class | Super | Size | Fields | Methods | Bytecode Insns | Pseudo Lines |
+|---|---|---:|---:|---:|---:|---:|
+| `e` | `java.lang.Object` | 65,211 B | 217 | 127 | 15,877 | 5,844 |
+| `f` | `c` | 31,525 B | 120 | 94 | 5,957 | 2,944 |
+| `b` | `java.lang.Object` | 22,076 B | 24 | 78 | 5,495 | 1,983 |
+| `j` | `java.lang.Object` | 11,052 B | 51 | 19 | 2,659 | 1,071 |
+| `c` | `javax.microedition.lcdui.game.GameCanvas` | 4,478 B | 12 | 13 | 907 | 387 |
+| `l` | `java.lang.Object` | 4,309 B | 6 | 9 | 993 | 348 |
+| `d` | `java.lang.Object` | 1,703 B | 3 | 6 | 161 | 109 |
+| `a` | `java.lang.Object` | 1,578 B | 3 | 6 | 177 | 105 |
+| `k` | `java.lang.Object` | 1,524 B | 6 | 10 | 205 | 107 |
+| `h` | `java.lang.Object` | 1,375 B | 0 | 6 | 90 | 68 |
+| `g` | `java.lang.Object` | 670 B | 10 | 3 | 57 | 41 |
+| `Main` | `javax.microedition.midlet.MIDlet` | 424 B | 1 | 4 | 22 | 29 |
+| `i` | `java.lang.Object` | 301 B | 6 | 1 | 21 | 20 |

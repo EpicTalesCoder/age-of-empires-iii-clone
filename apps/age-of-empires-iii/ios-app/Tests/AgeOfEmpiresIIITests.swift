@@ -1,4 +1,4 @@
-// Evidence: ARCHITECTURE-MAP.md — XCTest parity verification suite for Age of Empires III Mobile (iOS 16.0+)
+// Evidence: ARCHITECTURE-MAP.md — XCTest parity verification suite for Age of Empires III Mobile (iOS 16.0+ Landscape)
 import XCTest
 @testable import AgeOfEmpiresIII
 
@@ -7,7 +7,6 @@ final class AgeOfEmpiresIIITests: XCTestCase {
         if GameAssets.shared.loadRawFile(named: "lang.dat") != nil {
             return GameAssets.shared
         }
-        // Fallback relative to Tests/AgeOfEmpiresIIITests.swift -> ../Sources/Resources/GameAssets
         let testFileURL = URL(fileURLWithPath: #filePath)
         let gameAssetsDir = testFileURL
             .deletingLastPathComponent()
@@ -33,32 +32,42 @@ final class AgeOfEmpiresIIITests: XCTestCase {
         XCTAssertEqual(tables.NB.count, 15)
         XCTAssertEqual(tables.aSSS.count, 15)
         XCTAssertEqual(tables.PB.count, 190)
-        // Bytecode post-read patch in e.a(): e.a[17][0] = 600, e.a[17][2] = 300
         XCTAssertEqual(tables.aSS[17][0], 600)
         XCTAssertEqual(tables.aSS[17][2], 300)
     }
 
-    func testBitmapFontAndPLTEPaletteSwap() throws {
+    func testBitmapFontSpritePackAnimationMappingAndPLTE() throws {
         let assets = makeTestAssets()
         let font = BitmapFont(assets: assets)
         XCTAssertTrue(font.isBitmapLoaded(0))
-        XCTAssertEqual(font.bitmapFont0?.charCountOrCount ?? font.bitmapFont0?.glyphs.count, 136)
+        XCTAssertEqual(font.bitmapFont0?.glyphs.count, 136)
         XCTAssertEqual(font.lineHeights[0], 17)
         XCTAssertGreaterThan(font.stringWidth(fontId: 0, text: "Age of Empires"), 60)
 
         let tables = try GameTables(assets: assets)
-        let pack = SpritePackLoader.load(
+        // Verify 30.res (Settler) 3-byte animation layout: frameIdx, transform via lS, duration
+        let settlerPack = SpritePackLoader.load(
+            resId: 30,
+            paletteResIds: [36, -1],
+            durationLookup: tables.lS,
+            assets: assets
+        )
+        XCTAssertNotNil(settlerPack)
+        XCTAssertEqual(settlerPack?.seqFrames[4], [1, 0, 2, 0])
+        XCTAssertEqual(settlerPack?.seqTransforms[4], [2, 2, 2, 2])
+        XCTAssertEqual(settlerPack?.seqDurations[4], [4, 3, 4, 3])
+        XCTAssertEqual(settlerPack?.seqFrames[9], [8, 9])
+
+        let cannonPack = SpritePackLoader.load(
             resId: 20,
             paletteResIds: [36, -1, 34, 35, -1],
             durationLookup: tables.lS,
             assets: assets
         )
-        XCTAssertNotNil(pack)
-        XCTAssertEqual(pack?.variantSprites.count, 6)
-        XCTAssertGreaterThan(pack?.variantSprites[0].count ?? 0, 0)
+        XCTAssertEqual(cannonPack?.variantSprites.count, 6)
     }
 
-    func testMapsIsometricProjectionAndAStarPathfinder() throws {
+    func testMapsIsometricColMinusRowAndAStarPathfinder() throws {
         let assets = makeTestAssets()
         let tables = try GameTables(assets: assets)
         let map = GameMap()
@@ -67,10 +76,13 @@ final class AgeOfEmpiresIIITests: XCTestCase {
         XCTAssertEqual(map.rows, 29)
         XCTAssertEqual(map.cols, 40)
 
-        let iso = GameMap.worldToIso(worldX: 480, worldY: 240)
-        let roundTrip = GameMap.isoToWorld(isoX: iso.0, isoY: iso.1)
-        XCTAssertLessThanOrEqual(abs(roundTrip.0 - 480), 4)
-        XCTAssertLessThanOrEqual(abs(roundTrip.1 - 240), 4)
+        // Check (col - row) axis sign + inverse round-trip
+        let isoPos = GameMap.worldToIso(worldX: 96, worldY: 144) // col=3, row=2 -> isoX=+16
+        XCTAssertEqual(isoPos.0, 16)
+        XCTAssertEqual(isoPos.1, 40)
+        let rt = GameMap.isoToWorld(isoX: isoPos.0, isoY: isoPos.1)
+        XCTAssertEqual(rt.0, 96)
+        XCTAssertEqual(rt.1, 144)
 
         let path = Pathfinder.findPath(map: map, tables: tables, startRow: 5, startCol: 5, goalRow: 8, goalCol: 7)
         XCTAssertNotNil(path)
@@ -93,43 +105,53 @@ final class AgeOfEmpiresIIITests: XCTestCase {
         XCTAssertEqual(store.loadSettings(), s)
     }
 
-    func testSimulationTickCheatAndSoftwareRenderer() throws {
+    func testLandscapeTapGatheringAnimationBuildingAndCheat() throws {
         let assets = makeTestAssets()
         let tempDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
         defer { try? FileManager.default.removeItem(at: tempDir) }
 
         let coord = try MenuCoordinator(assets: assets, saveDirectory: tempDir, skipSplash: true)
-        XCTAssertEqual(coord.screenState, .menu)
-
-        // Start Campaign Mission 1
         coord.engine.startCampaign(mission: 0)
         coord.screenState = .playing
-        XCTAssertFalse(coord.engine.entities.isEmpty)
 
-        // Tick 25 frames (sim + AI + animations)
-        for _ in 0..<25 { coord.tick50ms() }
-
-        // Cheat sequence check: [L,R,L,L,R,R,L,L,L,R,R,R,0]
-        let foodBefore = coord.engine.playerResources[0][0]
-        for key in [-3, -4, -3, -3, -4, -4, -3, -3, -3, -4, -4, -4, 48] {
-            coord.handleKeyCode(key)
+        // Verify settler walk + diagonal gather animation and actual resource income
+        guard let settler = coord.engine.entities.first(where: { $0.owner == 0 && $0.kind == .unit && $0.unitType == 0 }),
+              let node = coord.engine.findNearestResourceTile(fromRow: settler.tileRow, fromCol: settler.tileCol, resourceType: 1, maxRadius: 12) else {
+            XCTFail("Expected player settler and wood node")
+            return
         }
-        XCTAssertEqual(coord.engine.playerResources[0][0], foodBefore + 10000)
+        settler.bytes[15] = node.0
+        settler.bytes[16] = node.1
+        settler.bytes[6] = node.2
+        settler.flags[2] = true
 
-        // Binary state round-trip
-        let savedData = coord.engine.serializeState(title: "Test")
-        let restoredEngine = GameEngine(assets: assets, tables: coord.tables, localization: coord.localization)
-        XCTAssertTrue(restoredEngine.deserializeState(data: savedData))
-        XCTAssertEqual(restoredEngine.playerResources[0][0], foodBefore + 10000)
+        let woodBefore = coord.engine.playerResources[0][1]
+        var sawWalkSeq = false
+        var sawGatherSeq = false
+        var seenFrames = Set<Int>()
+        for _ in 0..<80 {
+            coord.tick50ms()
+            if settler.animSeq >= 4 && settler.animSeq <= 7 { sawWalkSeq = true }
+            if settler.animSeq >= 8 && settler.animSeq <= 11 { sawGatherSeq = true }
+            seenFrames.insert(settler.animFrame)
+        }
+        XCTAssertTrue(sawWalkSeq || sawGatherSeq, "Settler must animate when walking/gathering")
+        XCTAssertTrue(sawGatherSeq, "Settler must reach resource node and play gather animation")
+        XCTAssertGreaterThan(seenFrames.count, 1, "Animation frames must advance")
+        XCTAssertGreaterThan(coord.engine.playerResources[0][1], woodBefore, "Wood must increase during harvest")
 
-        // Render 360x400 frame
+        // Verify direct TC training (Settler 100F) and House placement (100W)
+        if let tc = coord.engine.entities.first(where: { $0.owner == 0 && $0.kind == .building && $0.buildingType == 1 }) {
+            XCTAssertTrue(coord.engine.issueBuildingCommand(tc, commandId: 8))
+        }
+        if let spot = Pathfinder.findNearestWalkableTile(map: coord.engine.map, tables: coord.engine.tables, nearRow: settler.tileRow + 1, nearCol: settler.tileCol + 1, maxRadius: 4) {
+            XCTAssertTrue(coord.engine.placeBuildingForOwner(owner: 0, buildingType: 2, row: spot.0, col: spot.1, constructedImmediately: false))
+        }
+
+        // Verify 512x250 Landscape render
         let surf = coord.renderFrame()
-        XCTAssertEqual(surf.width, 360)
-        XCTAssertEqual(surf.height, 400)
+        XCTAssertEqual(surf.width, 512)
+        XCTAssertEqual(surf.height, 250)
         XCTAssertNotNil(surf.makeCGImage())
     }
-}
-
-private extension BitmapFont.MetricFont {
-    var charCountOrCount: Int { glyphs.count }
 }

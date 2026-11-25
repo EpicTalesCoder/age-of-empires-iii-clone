@@ -102,7 +102,10 @@ public struct SpritePackData {
 }
 
 public enum SpritePackLoader {
-    // Port of e.a(int resId, int slotIndex, int[] paletteResIds) (e.pseudo.java:886-1016)
+    // Port of e.a(int resId, int slotIndex, int[] paletteResIds) (e.javap.txt:1914-2045)
+    // Byte 1 -> e.a:[[[B (frameSpriteIdx)
+    // Byte 2 -> f.a(e.l:[S, b2) -> e.b:[[[S (SpriteTransform passed to k.a(..., transform, 20))
+    // Byte 3 -> e.b:[[[B (durationTicks stored in b.o)
     public static func load(
         resId: Int,
         paletteResIds: [Int]?,
@@ -131,10 +134,13 @@ public enum SpritePackLoader {
                 var fDur = [Int]()
                 var fTrans = [Int]()
                 for _ in 0..<frameCount {
-                    fIdx.append(Int(try r.readByte()))
-                    let rawDurKey = Int(try r.readByte())
-                    fDur.append(Int(GameTables.pairLookup(durationLookup, key: rawDurKey)))
-                    fTrans.append(Int(try r.readByte()))
+                    let frameIdx = Int(try r.readByte())
+                    let rawTransKey = Int(try r.readByte())
+                    let mappedTrans = Int(GameTables.pairLookup(durationLookup, key: rawTransKey))
+                    let delayTicks = Int(try r.readByte())
+                    fIdx.append(frameIdx)
+                    fTrans.append(mappedTrans >= 0 ? mappedTrans : 0)
+                    fDur.append(max(1, delayTicks))
                 }
                 seqFrames.append(fIdx)
                 seqDurations.append(fDur)

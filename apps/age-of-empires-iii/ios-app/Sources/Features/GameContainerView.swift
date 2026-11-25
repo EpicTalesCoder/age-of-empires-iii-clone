@@ -1,4 +1,4 @@
-// Port of Main.java & f.java 50ms ObservableObject Coordinator for iOS 16.0+ / iPhone XS Max (414x896 @3x)
+// Port of Main.java & f.java 50ms ObservableObject Coordinator for iOS 16.0+ / iPhone XS Max Landscape (896x414 @3x)
 #if canImport(UIKit)
 import Combine
 import SwiftUI
@@ -8,18 +8,11 @@ public final class GameSessionViewModel: ObservableObject {
     @Published public private(set) var currentFrame: CGImage?
     @Published public private(set) var loadError: String?
 
-    public let touchUIImage: UIImage?
     private var coordinator: MenuCoordinator?
     private var tickCancellable: AnyCancellable?
     private let haptic = UIImpactFeedbackGenerator(style: .light)
 
     public init() {
-        if let rawTouch = GameAssets.shared.loadRawFile(named: "touch.png") {
-            self.touchUIImage = UIImage(data: rawTouch)
-        } else {
-            self.touchUIImage = nil
-        }
-
         do {
             let coord = try MenuCoordinator(assets: .shared)
             coord.onHapticPulse = { [weak self] in
@@ -36,7 +29,6 @@ public final class GameSessionViewModel: ObservableObject {
 
     private func startLoop() {
         tickCancellable?.cancel()
-        // 50ms pacing matching original f.run() 20 Hz simulation tick
         tickCancellable = Timer.publish(every: 0.05, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
@@ -55,23 +47,15 @@ public final class GameSessionViewModel: ObservableObject {
         refreshNow()
     }
 
-    public func handleCameraPan(dx: Int, dy: Int) {
-        guard let coord = coordinator, coord.screenState == .playing else { return }
-        coord.engine.cameraIsoX += dx
-        coord.engine.cameraIsoY += dy
-        refreshNow()
-    }
-
-    public func handleKeypadTouch(x: Int, y: Int) {
-        coordinator?.handleKeypadTouch(xInKeypadArea: x, yInKeypadArea: y)
-        refreshNow()
-    }
-
-    public func handleKeyCode(_ code: Int) {
-        if coordinator?.settings.vibrationEnabled == true {
-            haptic.impactOccurred()
+    public func handlePanDelta(dx: Int, dy: Int) {
+        guard let coord = coordinator else { return }
+        if coord.screenState == .playing {
+            coord.engine.cameraIsoX += dx
+            coord.engine.cameraIsoY += dy
+            coord.engine.clampCamera()
+        } else {
+            coord.handleMenuScroll(deltaY: dy)
         }
-        coordinator?.handleKeyCode(code)
         refreshNow()
     }
 
@@ -92,37 +76,29 @@ public struct GameContainerView: View {
         ZStack {
             Color.black.ignoresSafeArea()
 
-            VStack(spacing: 8) {
-                if let err = viewModel.loadError {
-                    Text(err)
-                        .foregroundColor(.red)
-                        .padding()
-                } else {
-                    GameCanvasView(
-                        frameImage: viewModel.currentFrame,
-                        onTap: { x, y in viewModel.handleCanvasTap(x: x, y: y) },
-                        onPanDelta: { dx, dy in viewModel.handleCameraPan(dx: dx, dy: dy) }
-                    )
-                    .aspectRatio(
-                        CGFloat(XSMaxLayout.gameLogicalWidth) / CGFloat(XSMaxLayout.gameLogicalHeight),
-                        contentMode: .fit
-                    )
-                    .frame(maxWidth: .infinity)
-                }
-
-                VirtualKeypadView(
-                    touchUIImage: viewModel.touchUIImage,
-                    onTouchXY: { x, y in viewModel.handleKeypadTouch(x: x, y: y) },
-                    onKeyCode: { code in viewModel.handleKeyCode(code) }
+            if let err = viewModel.loadError {
+                Text(err)
+                    .foregroundColor(.red)
+                    .padding()
+            } else {
+                // Fits 512x250 widescreen cleanly inside iPhone XS Max Landscape safe area (Left/Right 44pt, Bottom 21pt)
+                GameCanvasView(
+                    frameImage: viewModel.currentFrame,
+                    onTap: { x, y in viewModel.handleCanvasTap(x: x, y: y) },
+                    onPanDelta: { dx, dy in viewModel.handlePanDelta(dx: dx, dy: dy) }
                 )
+                .aspectRatio(
+                    CGFloat(XSMaxLayout.gameLogicalWidth) / CGFloat(XSMaxLayout.gameLogicalHeight),
+                    contentMode: .fit
+                )
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding(.horizontal, 4)
         }
         // Strictly iOS 16-safe 1-parameter onChange (never 2-arg iOS 17 overload)
         .onChange(of: scenePhase) { newPhase in
             viewModel.handleLifecycle(active: newPhase == .active)
         }
+        .statusBarHidden(true)
     }
 }
 #endif

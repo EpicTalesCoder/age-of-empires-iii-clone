@@ -93,41 +93,42 @@ public final class GameMap {
         return true
     }
 
-    // Port of e.a(int worldX, int worldY, int tileW, int tileH):[I (e.javap.txt:14013)
-    // Returns isometric screen coordinates relative to world origin (0,0)
-    public static func worldToIso(worldX: Int, worldY: Int, tileW: Int = tilePixelW, tileH: Int = tilePixelH) -> (Int, Int) {
+    // Port of e.a(b.j * 48, b.i * 48, tileW, tileH):[I (e.javap.txt:12870-12890, 14013)
+    // In J2ME e.a(Graphics), first axis is col (b.j) and second axis is row (b.i):
+    // isoX = (colPx - rowPx) / 3, isoY = (rowPx + colPx) / 6
+    public static func worldToIso(worldX rowPx: Int, worldY colPx: Int, tileW: Int = tilePixelW, tileH: Int = tilePixelH) -> (Int, Int) {
         let halfW = max(1, tileW / 2)
         let halfH = max(1, tileH / 2)
         if 48 % halfW == 0 && 48 % halfH == 0 {
-            let sx = (worldX - worldY) / (48 / halfW)
-            let sy = (worldX + worldY) / (48 / halfH)
+            let sx = (colPx - rowPx) / (48 / halfW)
+            let sy = (rowPx + colPx) / (48 / halfH)
             return (sx, sy)
         } else {
-            let sx = ((worldX - worldY) * halfW) / 48
-            let sy = ((worldX + worldY) * halfH) / 48
+            let sx = ((colPx - rowPx) * halfW) / 48
+            let sy = ((rowPx + colPx) * halfH) / 48
             return (sx, sy)
         }
     }
 
-    // Inverse isometric projection from screen pixel back to world (worldX, worldY) logic coords
+    // Inverse isometric projection from screen pixel back to world (rowPx, colPx) logic coords
     public static func isoToWorld(isoX: Int, isoY: Int, tileW: Int = tilePixelW, tileH: Int = tilePixelH) -> (Int, Int) {
         let halfW = Double(max(1, tileW / 2))
         let halfH = Double(max(1, tileH / 2))
-        let u = Double(isoX) * 48.0 / halfW // wx - wy
-        let v = Double(isoY) * 48.0 / halfH // wx + wy
-        let wx = Int((v + u) * 0.5)
-        let wy = Int((v - u) * 0.5)
-        return (wx, wy)
+        let u = Double(isoX) * 48.0 / halfW // colPx - rowPx
+        let v = Double(isoY) * 48.0 / halfH // rowPx + colPx
+        let rowPx = Int(((v - u) * 0.5).rounded())
+        let colPx = Int(((v + u) * 0.5).rounded())
+        return (rowPx, colPx)
     }
 
-    // Port of e.a(x0, y0, x1, y1):I -> 8-way facing direction 0..7
-    public static func direction8(fromX x0: Int, y0: Int, toX x1: Int, y1: Int) -> Int {
-        let dx = x1 - x0
-        let dy = y1 - y0
-        if abs(dy) == 0 {
+    // Port of e.a(col0, row0, col1, row1):I (e.javap.txt:9599) -> 8-way facing direction 0..7
+    public static func direction8(fromX r0: Int, y0 c0: Int, toX r1: Int, y1 c1: Int) -> Int {
+        let dx = c1 - c0
+        let dy = r1 - r0
+        if dy == 0 {
             return dx > 0 ? 4 : 0
         }
-        if abs(dx) == 0 {
+        if dx == 0 {
             return dy > 0 ? 2 : 6
         }
         if dx < 0 {
@@ -137,8 +138,8 @@ public final class GameMap {
         }
     }
 
-    // Port of e.a(r0, c0, r1, c1) Manhattan tile distance & chebyshev distance
+    // Chebyshev distance (includes diagonal neighbors at distance 1, fixing diagonal gather/attack/build stall)
     public static func tileDistance(r0: Int, c0: Int, r1: Int, c1: Int) -> Int {
-        return abs(r1 - r0) + abs(c1 - c0)
+        return max(abs(r1 - r0), abs(c1 - c0))
     }
 }

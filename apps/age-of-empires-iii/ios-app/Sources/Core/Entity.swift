@@ -1,5 +1,5 @@
 // Port of b.java — Game Entities (Cursor=1, Unit=2, Building=3, FX=5, FloatingText=6)
-// Includes combat, splash, 3x anti-class bonus, gathering, queues, animations, and binary serialization
+// Includes directional idle/walk/gather/attack animations, Chebyshev gather/build, 3x anti-class combat, and serialization
 import Foundation
 
 public enum EntityKind: Int {
@@ -10,40 +10,42 @@ public enum EntityKind: Int {
     case floatingText = 6
 }
 
+public enum UnitAnimMode {
+    case idle
+    case walk
+    case action // attack, gather, or build
+}
+
 public final class Entity {
-    // Core b.java fields
-    public var id: Int = 0              // b.b: unique entity ID (assigned in GameEngine)
+    public var id: Int = 0              // b.b: unique entity ID
     public var kind: EntityKind         // b.d: 1, 2, 3, 5, 6
-    public var state: Int = 0           // b.c: state (unit: 0 idle,1 move,2 work/attack,3 dead; building: 0 placing/constructing, 1 active, 2 dying; cursor: 0 free, 1 build placement)
-    public var xFixed: Int = 0          // b.e: world X << 8 (48 << 8 per tile)
-    public var yFixed: Int = 0          // b.f: world Y << 8
-    public var vxFixed: Int = 0         // b.g: fixed velocity / offset
-    public var vyFixed: Int = 0         // b.h: fixed velocity / offset
+    public var state: Int = 0           // b.c: 0 idle, 1 active/moving, 2 working
+    public var xFixed: Int = 0          // b.e: rowFixed = (row * 48) << 8
+    public var yFixed: Int = 0          // b.f: colFixed = (col * 48) << 8
+    public var vxFixed: Int = 0         // b.g
+    public var vyFixed: Int = 0         // b.h
     public var tileRow: Int = 0         // b.i: grid row
     public var tileCol: Int = 0         // b.j: grid col
-    public var active: Bool = true      // b.b: alive/active
-    public var isVisible: Bool = true   // b.a: visibility flag
+    public var active: Bool = true      // b.b
+    public var isVisible: Bool = true   // b.a
 
-    // Sprite & animation fields (k, m, n, o, l, c)
     public var spriteSlot: Int = -1     // b.k: index into GameEngine.spritePacks (0..23)
-    public var animSeq: Int = 0         // b.m: sequence index
+    public var animSeq: Int = 0         // b.m: sequence index (0..3 idle, 4..7 walk, 8..11 gather/attack)
     public var animFrame: Int = 0       // b.n: current frame index
     public var animTimer: Int = 0       // b.o: remaining ticks on frame
     public var zOrderBias: Int = 0      // b.l
     public var animLoops: Bool = true   // b.c
+    public var oneShotActionTicks: Int = 0
 
-    // Fixed slots matching b.a:[B, b.a:[I, b.a:[[I, b.a:[Z, b.a:[Lb;
     // b.a:[B mapping:
-    //   [0]=owner (0=Player,1=AI/Enemy,2=Ally/Neutral)
-    //   [1]=hp/flag, [3]=age/construction progress, [4]=buildingType (if d==3) or fxType (d==5)
-    //   [5]=facing 0..7, [6]=gatherResourceType, [7]=carryingQty, [8]=workerSlotIdx
-    //   [10]=unitCategory, [11]=rally/aiRole, [12]=unitType (0..7)
-    //   [14]=buildCommandId, [15]=targetRow, [16]=targetCol, [24]=attackCooldown, [25]=moveCooldown
+    //   [0]=owner, [3]=buildProgress, [4]=buildingType/fxType, [5]=facing 0..7
+    //   [6]=gatherResourceType, [7]=carryingQty, [12]=unitType (0..7)
+    //   [15]=targetRow, [16]=targetCol, [24]=actionCooldown, [25]=repathCooldown
     public var bytes: [Int]
-    public var ints: [Int]              // [0]=HP, [1]=attackTargetX, [2]=attackTargetY, [3]=damage/carryCap, [4]=maxCarry/timer
+    public var ints: [Int]              // [0]=HP, [3]=damage/carryCap, [4]=lifetimeTicks
     public var intArrays: [[Int]?]      // [0]=training queue flat [cmd, remTicks, ...], [1]=A* path waypoints
-    public var flags: [Bool]            // [0]=selected, [1]=moving, [2]=gathering, [3]=returning, [4]=repairing/upgrading
-    public var refs: [Entity?]          // [0]=targetEntity, [1]=homeBuilding, [2]=reserved
+    public var flags: [Bool]            // [0]=selected, [1]=moving, [2]=gathering, [3]=returning, [4]=constructing
+    public var refs: [Entity?]          // [0]=combatTarget, [1]=buildSite
 
     public static let byteCount = 27
     public static let intCount = 6
@@ -101,7 +103,7 @@ public final class Entity {
         e.ints[0] = e.maxHP(engine: engine)
         e.ints[3] = 0
         e.spriteSlot = e.unitSpriteSlot(tables: engine.tables)
-        e.setAnimation(seq: e.animSeqForIdle(facing: e.facing), loop: true, engine: engine)
+        e.setAnimation(seq: e.animSeqFor(mode: .idle, facing: e.facing), engine: engine)
         return e
     }
 
@@ -115,10 +117,10 @@ public final class Entity {
         e.yFixed = (col * GameMap.tileLogicSize) << 8
         e.state = constructed ? 1 : 0
         let fullHP = e.maxHP(engine: engine)
-        e.ints[0] = constructed ? fullHP : max(20, fullHP / 4)
-        e.bytes[3] = constructed ? 0 : 100
+        e.ints[0] = constructed ? fullHP : max(40, fullHP / 4)
+        e.bytes[3] = constructed ? 0 : 80
         e.intArrays[0] = []
-        e.spriteSlot = -1 // Buildings composite from 55.res prop tiles via tables.hBB[buildingType]
+        e.spriteSlot = -1
         e.animSeq = 0
         return e
     }
@@ -131,7 +133,7 @@ public final class Entity {
         e.yFixed = (col * GameMap.tileLogicSize) << 8
         e.ints[3] = amount
         e.bytes[6] = resourceType
-        e.ints[4] = 28 // lifetime ticks
+        e.ints[4] = 26
         return e
     }
 
@@ -147,19 +149,18 @@ public final class Entity {
         e.ints[4] = 16
         e.refs[0] = target
         e.spriteSlot = (fxType == 19) ? 19 : 20
-        e.setAnimation(seq: 0, loop: false, engine: engine)
+        e.setAnimation(seq: 0, engine: engine)
         return e
     }
 
     private func unitSpriteSlot(tables: GameTables) -> Int {
-        // Port of e.n[unitType] (tables-33.json: [0, 2, 8, 10, 4, 6, 12, 12])
+        // Port of e.n[unitType] ([0, 2, 8, 10, 4, 6, 12, 12])
         if unitType >= 0 && unitType < tables.nB.count {
             return tables.nB[unitType]
         }
         return min(23, unitType * 2)
     }
 
-    // Port of b.a(owner, unitType, isMax):I & b.b():I (b.javap.txt)
     public func upgradeTier(engine: GameEngine, maxOverride: Bool = false) -> Int {
         guard kind == .unit else { return 0 }
         let ownerIdx = max(0, min(owner, engine.playerTechTiers.count - 1))
@@ -192,13 +193,11 @@ public final class Entity {
         return 100
     }
 
-    // Port of b.c():I attack damage
     public func baseAttackDamage(tables: GameTables) -> Int {
         if kind == .unit {
             return (unitType >= 0 && unitType < tables.dS.count) ? tables.dS[unitType] : 10
         }
         if kind == .building {
-            // Outpost (3) and Fort (8) deal ranged defensive damage
             return buildingType == 8 ? 32 : (buildingType == 3 ? 18 : 0)
         }
         return 0
@@ -235,7 +234,6 @@ public final class Entity {
         var dmg = max(1, attacker.baseAttackDamage(tables: engine.tables))
         dmg = (dmg * attacker.statMultiplierPercent(engine: engine)) / 100
 
-        // Counter class 3x bonus (e.b:[[B)
         if attacker.kind == .unit && self.kind == .unit {
             let ut = attacker.unitType
             if ut >= 0, ut < engine.tables.bBB.count, let counters = engine.tables.bBB[ut] {
@@ -245,7 +243,6 @@ public final class Entity {
                 }
             }
         }
-        // Difficulty handicap on Player/AI in Skirmish
         if owner == 0 && engine.difficulty == 2 {
             dmg = (dmg * 115) / 100
         } else if owner == 0 && engine.difficulty == 0 {
@@ -254,7 +251,6 @@ public final class Entity {
 
         hp = max(0, hp - dmg)
 
-        // Splash AoE (e.iB[unitType] > 0) for Grenadiers & Cannons
         if attacker.kind == .unit && attacker.unitType >= 0 && attacker.unitType < engine.tables.iB.count {
             let splash = engine.tables.iB[attacker.unitType]
             if splash > 0 {
@@ -275,21 +271,58 @@ public final class Entity {
         }
     }
 
-    // Port of b.f(seq, frame):V
-    public func setAnimation(seq: Int, loop: Bool = true, engine: GameEngine) {
-        self.animSeq = max(0, seq)
-        self.animFrame = 0
-        self.animLoops = loop
-        if spriteSlot >= 0, let pack = engine.spritePacks[spriteSlot],
-           animSeq < pack.seqDurations.count, !pack.seqDurations[animSeq].isEmpty {
-            self.animTimer = max(1, pack.seqDurations[animSeq][0])
-        } else {
-            self.animTimer = 4
+    // Port of b.k()/b.j() tableswitch [0, 2, 4, 6] (b.javap.txt:5108-5189)
+    public func animSeqFor(mode: UnitAnimMode, facing dir: Int) -> Int {
+        // Snap 8-way direction to cardinal/iso quads [6, 2, 0, 4] matching tableswitch:
+        // facing 6 -> base 0, facing 2 -> base 1, facing 0 -> base 2, facing 4 -> base 3
+        let evenDir: Int
+        switch dir {
+        case 0: evenDir = 0
+        case 1: evenDir = 2
+        case 2: evenDir = 2
+        case 3: evenDir = 2
+        case 4: evenDir = 4
+        case 5: evenDir = 4
+        case 6: evenDir = 6
+        default: evenDir = 0 // 7 -> 0
+        }
+        let base: Int
+        switch evenDir {
+        case 6: base = 0
+        case 2: base = 1
+        case 0: base = 2
+        default: base = 3 // 4
+        }
+        switch mode {
+        case .idle: return base
+        case .walk: return 4 + base
+        case .action: return 8 + base
         }
     }
 
-    private func animSeqForIdle(facing: Int) -> Int {
-        return min(7, max(0, facing))
+    public func ensureAnimation(mode: UnitAnimMode, engine: GameEngine) {
+        let desired = animSeqFor(mode: mode, facing: facing)
+        if desired != animSeq {
+            setAnimation(seq: desired, engine: engine)
+        }
+    }
+
+    // Port of b.g(int seq):V & b.f(slot, seq):V
+    public func setAnimation(seq: Int, engine: GameEngine) {
+        self.animSeq = max(0, seq)
+        self.animFrame = 0
+        if spriteSlot >= 0, let pack = engine.spritePacks[spriteSlot],
+           animSeq < pack.loopFlags.count {
+            self.animLoops = (pack.loopFlags[animSeq] == 1)
+            if animSeq < pack.seqDurations.count, !pack.seqDurations[animSeq].isEmpty {
+                self.animTimer = max(1, pack.seqDurations[animSeq][0])
+            } else {
+                self.animTimer = 3
+            }
+        } else {
+            self.animLoops = true
+            self.animTimer = 3
+        }
     }
 
     // Port of b.f() frame advance
@@ -302,7 +335,8 @@ public final class Entity {
         if animTimer <= 0 {
             animFrame += 1
             if animFrame >= pack.seqFrames[animSeq].count {
-                if animSeq < pack.loopFlags.count && pack.loopFlags[animSeq] == 1 && animLoops {
+                let loops = (animSeq < pack.loopFlags.count && pack.loopFlags[animSeq] == 1)
+                if loops {
                     animFrame = 0
                 } else {
                     animFrame = pack.seqFrames[animSeq].count - 1
@@ -317,7 +351,7 @@ public final class Entity {
         }
     }
 
-    // Port of b.b(int queueSlot, int decTicks):V (production/research progress tick)
+    // Port of b.b(int queueSlot, int decTicks):V
     public func tickProductionQueue(engine: GameEngine) {
         guard kind == .building, state == 1, var queue = intArrays[0], queue.count >= 2 else { return }
         if queue[1] > 1 {
@@ -325,20 +359,20 @@ public final class Entity {
             intArrays[0] = queue
             return
         }
-        // Item finished!
         let cmd = queue[0]
         queue.removeFirst(2)
         intArrays[0] = queue
         engine.completeBuildingOrder(building: self, commandId: cmd)
     }
 
-    // Main per-tick update (Port of b.a() b.pseudo.java:600-950)
     public func updateTick(engine: GameEngine) {
         guard active else { return }
 
         switch kind {
         case .floatingText:
-            yFixed -= 192
+            // Float upward visually on screen (reduce both row and col in isometric coordinates -> moves straight up!)
+            xFixed -= 96
+            yFixed -= 96
             ints[4] -= 1
             if ints[4] <= 0 { active = false }
             return
@@ -353,8 +387,8 @@ public final class Entity {
         case .building:
             advanceAnimation(engine: engine)
             if state == 0 {
-                // Under construction progress by nearby allied settlers
-                if bytes[3] > 0 { bytes[3] -= 1 }
+                // Passive slow construction progress even while settlers walk up
+                if bytes[3] > 0 && (engine.tickCount % 4 == 0) { bytes[3] -= 1 }
                 if bytes[3] == 0 {
                     state = 1
                     hp = maxHP(engine: engine)
@@ -363,7 +397,6 @@ public final class Entity {
             } else if state == 1 {
                 tickProductionQueue(engine: engine)
                 if bytes[24] > 0 { bytes[24] -= 1 }
-                // Defensive fire for Outpost (3) and Fort (8)
                 if (buildingType == 3 || buildingType == 8) && bytes[24] == 0 {
                     let range = attackRangeTiles(tables: engine.tables)
                     if let target = engine.findNearestHostile(fromRow: tileRow, col: tileCol, myOwner: owner, maxTileDist: range) {
@@ -378,9 +411,9 @@ public final class Entity {
         }
 
         if bytes[24] > 0 { bytes[24] -= 1 }
-        advanceAnimation(engine: engine)
+        if oneShotActionTicks > 0 { oneShotActionTicks -= 1 }
 
-        // State machine for Unit: moving along A* path -> arriving -> attacking / gathering / building / idle
+        // 1. Movement along A* path with full walk animation (seq 4..7)
         if flags[1], let path = intArrays[1], path.count >= 2 {
             let nextR = path[0]
             let nextC = path[1]
@@ -392,6 +425,8 @@ public final class Entity {
             let distSq = Int64(dx) * Int64(dx) + Int64(dy) * Int64(dy)
 
             facing = GameMap.direction8(fromX: xFixed, y0: yFixed, toX: destX, y1: destY)
+            ensureAnimation(mode: .walk, engine: engine)
+            advanceAnimation(engine: engine)
 
             if distSq <= Int64(speed) * Int64(speed) {
                 xFixed = destX
@@ -403,6 +438,7 @@ public final class Entity {
                 intArrays[1] = updated.isEmpty ? nil : updated
                 if updated.isEmpty {
                     flags[1] = false
+                    // Immediately fall through to gather/build/attack this same tick!
                 }
                 if owner == 0 {
                     engine.revealFog(centerRow: tileRow, centerCol: tileCol, radius: sightRangeTiles(tables: engine.tables))
@@ -414,44 +450,59 @@ public final class Entity {
                 tileRow = (xFixed >> 8) / GameMap.tileLogicSize
                 tileCol = (yFixed >> 8) / GameMap.tileLogicSize
             }
-            return
+            if flags[1] { return }
         }
 
-        // Settler gathering / construction workflow
+        // 2. Settler gathering / construction workflow
         if unitType == 0 && (flags[2] || flags[3] || flags[4]) {
             updateSettlerTask(engine: engine)
+            advanceAnimation(engine: engine)
             return
         }
 
-        // Combat target engagement
+        // 3. Combat target engagement
         if let target = refs[0], target.active, target.hp > 0, target.owner != owner {
             let range = attackRangeTiles(tables: engine.tables)
             let dist = GameMap.tileDistance(r0: tileRow, c0: tileCol, r1: target.tileRow, c1: target.tileCol)
             if dist <= range {
                 facing = GameMap.direction8(fromX: tileRow, y0: tileCol, toX: target.tileRow, y1: target.tileCol)
                 if bytes[24] == 0 {
+                    // Start attack swing / fire animation (seq 8..11)
+                    setAnimation(seq: animSeqFor(mode: .action, facing: facing), engine: engine)
+                    oneShotActionTicks = 10
                     target.applyCombatDamage(from: self, engine: engine)
                     bytes[24] = 16
                     if target.kind == .unit && target.refs[0] == nil && target.owner != 0 {
                         target.refs[0] = self
                     }
+                } else if oneShotActionTicks == 0 {
+                    ensureAnimation(mode: .idle, engine: engine)
                 }
             } else if bytes[25] == 0 {
-                // Chase target
                 if let p = Pathfinder.findPath(map: engine.map, tables: engine.tables, startRow: tileRow, startCol: tileCol, goalRow: target.tileRow, goalCol: target.tileCol) {
                     intArrays[1] = p
                     flags[1] = true
                     bytes[25] = 8
+                    ensureAnimation(mode: .walk, engine: engine)
                 }
             } else {
                 bytes[25] -= 1
+                ensureAnimation(mode: .idle, engine: engine)
             }
+            advanceAnimation(engine: engine)
             return
         } else {
             refs[0] = nil
         }
 
-        // Auto-acquire nearby enemies within sight range (aggressive stance for military units)
+        // 4. Idle / auto-acquire nearby enemies
+        if oneShotActionTicks > 0 {
+            advanceAnimation(engine: engine)
+        } else {
+            ensureAnimation(mode: .idle, engine: engine)
+            advanceAnimation(engine: engine)
+        }
+
         if unitType > 0 {
             let sight = sightRangeTiles(tables: engine.tables)
             if let enemy = engine.findNearestHostile(fromRow: tileRow, col: tileCol, myOwner: owner, maxTileDist: sight) {
@@ -462,42 +513,86 @@ public final class Entity {
 
     private func updateSettlerTask(engine: GameEngine) {
         if flags[4], let site = refs[1], site.active, site.kind == .building, site.state == 0 {
-            let dist = GameMap.tileDistance(r0: tileRow, c0: tileCol, r1: site.tileRow, c1: site.tileCol)
-            if dist <= 2 {
-                site.hp = min(site.maxHP(engine: engine), site.hp + 35)
-                site.bytes[3] = max(0, site.bytes[3] - 3)
+            // Check distance to ANY tile in building footprint!
+            let dist = engine.distanceToBuildingFootprint(fromRow: tileRow, col: tileCol, building: site)
+            if dist <= 1 {
+                facing = GameMap.direction8(fromX: tileRow, y0: tileCol, toX: site.tileRow, y1: site.tileCol)
+                ensureAnimation(mode: .action, engine: engine)
+                site.hp = min(site.maxHP(engine: engine), site.hp + 45)
+                site.bytes[3] = max(0, site.bytes[3] - 4)
                 if site.bytes[3] == 0 {
                     site.state = 1
                     site.hp = site.maxHP(engine: engine)
                     engine.onBuildingCompleted(site)
                     flags[4] = false
+                    ensureAnimation(mode: .idle, engine: engine)
                 }
-            } else if let p = Pathfinder.findPath(map: engine.map, tables: engine.tables, startRow: tileRow, startCol: tileCol, goalRow: site.tileRow, goalCol: site.tileCol) {
-                intArrays[1] = p
-                flags[1] = true
+            } else if bytes[25] == 0 {
+                if let adj = engine.nearestWalkableAdjacentToBuilding(site, fromRow: tileRow, fromCol: tileCol),
+                   let p = Pathfinder.findPath(map: engine.map, tables: engine.tables, startRow: tileRow, startCol: tileCol, goalRow: adj.0, goalCol: adj.1) {
+                    intArrays[1] = p
+                    flags[1] = true
+                    bytes[25] = 6
+                    ensureAnimation(mode: .walk, engine: engine)
+                } else {
+                    bytes[25] = 10
+                }
+            } else {
+                bytes[25] -= 1
             }
             return
+        } else {
+            flags[4] = false
+            refs[1] = nil
         }
 
         if flags[2] {
-            // Gathering at resource node (bytes[15], bytes[16])
-            let resR = bytes[15]
-            let resC = bytes[16]
+            var resR = bytes[15]
+            var resC = bytes[16]
+            let rType = max(0, min(2, bytes[6]))
+
+            // Verify node still exists; if depleted, switch to nearest resource node of same type
+            let curCode = engine.map.terrainAt(row: resR, col: resC)
+            if GameTables.pairLookup(engine.tables.vB, key: curCode) < 0 {
+                if let nextNode = engine.findNearestResourceTile(fromRow: tileRow, fromCol: tileCol, resourceType: rType, maxRadius: 12) {
+                    resR = nextNode.0
+                    resC = nextNode.1
+                    bytes[15] = resR
+                    bytes[16] = resC
+                    bytes[6] = nextNode.2
+                } else {
+                    flags[2] = false
+                    ensureAnimation(mode: .idle, engine: engine)
+                    return
+                }
+            }
+
+            // Chebyshev dist <= 1 covers all 8 surrounding tiles!
             let dist = GameMap.tileDistance(r0: tileRow, c0: tileCol, r1: resR, c1: resC)
             if dist <= 1 {
+                facing = GameMap.direction8(fromX: tileRow, y0: tileCol, toX: resR, y1: resC)
+                ensureAnimation(mode: .action, engine: engine)
                 if bytes[24] == 0 {
-                    bytes[7] += 10
-                    bytes[24] = 20
-                    if bytes[7] >= 20 {
-                        // Deliver directly (instant bank + floating indicator matching J2ME streamlined flow or return to TC)
-                        let rType = max(0, min(2, bytes[6]))
-                        engine.addResource(owner: owner, resourceType: rType, amount: bytes[7], atRow: tileRow, atCol: tileCol)
-                        bytes[7] = 0
+                    // Harvest cycle: 10 ticks (0.5s) -> +10 resource directly credited with floating indicator
+                    bytes[24] = 10
+                    let harvested = engine.harvestTile(row: resR, col: resC, maxYield: 10)
+                    if harvested > 0 {
+                        engine.addResource(owner: owner, resourceType: rType, amount: harvested, atRow: tileRow, atCol: tileCol)
                     }
                 }
-            } else if let p = Pathfinder.findPath(map: engine.map, tables: engine.tables, startRow: tileRow, startCol: tileCol, goalRow: resR, goalCol: resC) {
-                intArrays[1] = p
-                flags[1] = true
+            } else if bytes[25] == 0 {
+                // Find walkable adjacent tile around (resR, resC) first so unit arrives at dist <= 1
+                if let adj = Pathfinder.findNearestWalkableTile(map: engine.map, tables: engine.tables, nearRow: resR, nearCol: resC, maxRadius: 2),
+                   let p = Pathfinder.findPath(map: engine.map, tables: engine.tables, startRow: tileRow, startCol: tileCol, goalRow: adj.0, goalCol: adj.1) {
+                    intArrays[1] = p
+                    flags[1] = true
+                    bytes[25] = 6
+                    ensureAnimation(mode: .walk, engine: engine)
+                } else {
+                    bytes[25] = 10
+                }
+            } else {
+                bytes[25] -= 1
             }
         }
     }

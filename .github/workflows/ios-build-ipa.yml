@@ -44,7 +44,7 @@ on:
         type: boolean
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: "ios-build-ipa-${{ github.ref }}"
@@ -387,7 +387,33 @@ jobs:
                   )
           PY
 
-      - name: Upload Unsigned/Ad-Hoc IPA Artifact
+      - name: Publish Direct .ipa to GitHub Release (No .zip Wrapper)
+        if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APP_SLUG: ${{ matrix.slug }}
+          IPA_PATH: ${{ steps.pkg.outputs.ipa_path }}
+          IPA_NAME: ${{ steps.pkg.outputs.ipa_name }}
+        run: |
+          set -euo pipefail
+          TAG="latest-${APP_SLUG}"
+          SHORT_SHA="$(git rev-parse --short HEAD)"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$IPA_PATH" --clobber
+            gh release edit "$TAG" --target "$GITHUB_SHA" --notes "Latest unsigned/ad-hoc .ipa build for **${APP_SLUG}** (iOS 16.1.1 / iPhone XS Max) from commit \`${SHORT_SHA}\`."
+          else
+            gh release create "$TAG" "$IPA_PATH" \
+              --title "${APP_SLUG} (Latest iOS 16.1.1 IPA)" \
+              --notes "Latest unsigned/ad-hoc .ipa build for **${APP_SLUG}** (iOS 16.1.1 / iPhone XS Max) from commit \`${SHORT_SHA}\`." \
+              --target "$GITHUB_SHA"
+          fi
+          DIRECT_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/download/${TAG}/${IPA_NAME}"
+          echo "Direct .ipa URL: ${DIRECT_URL}"
+          if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+            echo "- **Direct .ipa Download (No .zip)**: ${DIRECT_URL}" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload Unsigned/Ad-Hoc IPA Artifact (Backup)
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: ${{ matrix.slug }}-ios16.1.1-arm64-ipa

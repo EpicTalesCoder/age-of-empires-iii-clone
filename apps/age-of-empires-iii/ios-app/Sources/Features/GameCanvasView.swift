@@ -1,4 +1,4 @@
-// Port of c.java GameCanvas viewport (360x400 logical canvas) & touch/pan map interaction for iPhone XS Max
+// Port of c.java GameCanvas Landscape Viewport (512x250) with Tap Selection & Camera Pan
 #if canImport(UIKit)
 import SwiftUI
 import UIKit
@@ -10,7 +10,7 @@ public final class PixelCanvasUIView: UIView {
         }
     }
     public var onTapLogical: ((Int, Int) -> Void)?
-    public var onPanCameraDelta: ((Int, Int) -> Void)?
+    public var onPanDelta: ((Int, Int) -> Void)?
 
     private var lastPanPoint: CGPoint?
 
@@ -63,7 +63,7 @@ public final class PixelCanvasUIView: UIView {
                 let dx = Int((prev.x - pt.x) * scaleX)
                 let dy = Int((prev.y - pt.y) * scaleY)
                 if dx != 0 || dy != 0 {
-                    onPanCameraDelta?(dx, dy)
+                    onPanDelta?(dx, dy)
                     lastPanPoint = pt
                 }
             }
@@ -87,14 +87,14 @@ public struct GameCanvasView: UIViewRepresentable {
     public func makeUIView(context: Context) -> PixelCanvasUIView {
         let view = PixelCanvasUIView(frame: .zero)
         view.onTapLogical = onTap
-        view.onPanCameraDelta = onPanDelta
+        view.onPanDelta = onPanDelta
         return view
     }
 
     public func updateUIView(_ uiView: PixelCanvasUIView, context: Context) {
         uiView.cgImage = frameImage
         uiView.onTapLogical = onTap
-        uiView.onPanCameraDelta = onPanDelta
+        uiView.onPanDelta = onPanDelta
     }
 }
 #endif

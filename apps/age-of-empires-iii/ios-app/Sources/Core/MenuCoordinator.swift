@@ -1,27 +1,27 @@
-// Port of f.java + g.java + c.java — Main Loop State Machine, Menus, Key Masks, Cheat Code, and Canvas Coordinator
+// Port of f.java + g.java + c.java — Landscape Widescreen 512x250 State Machine, Touch-First Menus, and Key Masks
 import CoreGraphics
 import Foundation
 
 public struct KeyBits {
-    public static let up     = 1 << 0   // 1
-    public static let down   = 1 << 1   // 2
-    public static let left   = 1 << 2   // 4
-    public static let right  = 1 << 3   // 8
-    public static let fire   = 1 << 4   // 16
-    public static let num1   = 1 << 5   // 32
-    public static let num2   = 1 << 6   // 64
-    public static let num3   = 1 << 7   // 128
-    public static let num4   = 1 << 8   // 256
-    public static let num5   = 1 << 9   // 512
-    public static let num6   = 1 << 10  // 1024
-    public static let num7   = 1 << 11  // 2048
-    public static let num8   = 1 << 12  // 4096
-    public static let num9   = 1 << 13  // 8192
-    public static let num0   = 1 << 14  // 16384
-    public static let star   = 1 << 15  // 32768
-    public static let pound  = 1 << 16  // 65536
-    public static let lsk    = 1 << 17  // -6
-    public static let rsk    = 1 << 18  // -7
+    public static let up     = 1 << 0
+    public static let down   = 1 << 1
+    public static let left   = 1 << 2
+    public static let right  = 1 << 3
+    public static let fire   = 1 << 4
+    public static let num1   = 1 << 5
+    public static let num2   = 1 << 6
+    public static let num3   = 1 << 7
+    public static let num4   = 1 << 8
+    public static let num5   = 1 << 9
+    public static let num6   = 1 << 10
+    public static let num7   = 1 << 11
+    public static let num8   = 1 << 12
+    public static let num9   = 1 << 13
+    public static let num0   = 1 << 14
+    public static let star   = 1 << 15
+    public static let pound  = 1 << 16
+    public static let lsk    = 1 << 17
+    public static let rsk    = 1 << 18
 }
 
 public enum GameScreenState: Int {
@@ -65,22 +65,6 @@ public final class GameMenuNode {
 }
 
 public final class MenuCoordinator {
-    // Port of c.a[14][5] touch keypad hitboxes relative to y=400 (touch.png 360x241) + LSK/RSK
-    public static let touchHitboxes: [(x0: Int, y0: Int, x1: Int, y1: Int, keyCode: Int)] = [
-        (0, 3, 90, 82, 49),     // '1'
-        (91, 3, 180, 82, 50),   // '2'
-        (181, 3, 270, 82, 51),  // '3'
-        (271, 3, 360, 82, 42),  // '*'
-        (0, 83, 90, 161, 52),   // '4'
-        (91, 83, 180, 161, 53), // '5'
-        (181, 83, 270, 161, 54),// '6'
-        (271, 83, 360, 161, 48),// '0'
-        (0, 162, 90, 240, 55),  // '7'
-        (91, 162, 180, 240, 56),// '8'
-        (181, 162, 270, 240, 57),// '9'
-        (271, 162, 360, 240, 35) // '#'
-    ]
-
     // Port of f.f cheat sequence: [4,8,4,4,8,8,4,4,4,8,8,8,16384]
     public static let cheatSequence: [Int] = [4, 8, 4, 4, 8, 8, 4, 4, 4, 8, 8, 8, 16384]
 
@@ -98,18 +82,15 @@ public final class MenuCoordinator {
     public var settings: SettingsSaveData
     public var currentMenu: GameMenuNode!
 
-    // Skirmish setup fields
-    public var skirmishMapIndex: Int = 0    // 0..3
-    public var skirmishFaction: Int = 0     // 0..2
-    public var skirmishDifficulty: Int = 1  // 0..2
+    public var skirmishMapIndex: Int = 0
+    public var skirmishFaction: Int = 0
+    public var skirmishDifficulty: Int = 1
     public var savedAudioSlot: Int = -1
     private var cheatProgress: Int = 0
 
-    // Splash/UI images
     private var splashImage: GameSprite?
     private var brandImages: [GameSprite] = []
     private var menuHeaderBanner: GameSprite?
-    private var menuArrows: [GameSprite] = []
 
     public var onHapticPulse: (() -> Void)?
 
@@ -127,25 +108,26 @@ public final class MenuCoordinator {
         self.settings = saveStore.loadSettings()
         self.audio.isSoundEnabled = settings.soundEnabled
         self.engine = GameEngine(assets: assets, tables: tables, localization: localization)
-        self.renderer = SoftwareRenderer(font: font)
+        self.renderer = SoftwareRenderer(width: XSMaxLayout.gameLogicalWidth, height: XSMaxLayout.gameLogicalHeight, font: font)
 
         self.splashImage = GameSprite(filename: "splash.png", assets: assets)
         for i in 0..<3 {
             if let b = GameSprite(filename: "brand\(i).png", assets: assets) { brandImages.append(b) }
         }
         self.menuHeaderBanner = GameSprite(resId: 46, assets: assets)
-        if let s44 = GameSprite(resId: 44, assets: assets) {
-            self.menuArrows = s44.splitHorizontally(count: 2)
+        self.currentMenu = buildMainMenu()
+
+        self.engine.onPauseRequested = { [weak self] in
+            guard let self = self else { return }
+            self.screenState = .paused
+            self.currentMenu = self.buildPauseMenu()
         }
 
         if skipSplash {
             transitionToMainMenu()
-        } else {
-            self.currentMenu = buildMainMenu()
         }
     }
 
-    // Port of c.b(int keyCode):I — converts MIDP key code to directional/action bitmask
     public static func mapKeyToBitmask(_ keyCode: Int) -> Int {
         switch keyCode {
         case -1, 50: return KeyBits.up | (keyCode == 50 ? KeyBits.num2 : 0)
@@ -170,10 +152,7 @@ public final class MenuCoordinator {
         switch screenState {
         case .splash:
             splashTick += 1
-            if splashTick == 1 {
-                // Preload sprite tables cleanly after first paint
-            }
-            if splashTick >= 40 {
+            if splashTick >= 35 {
                 transitionToMainMenu()
             }
         case .playing:
@@ -197,11 +176,9 @@ public final class MenuCoordinator {
         audio.playEvent(0, savedTrackSlot: &savedAudioSlot, pausedByMenu: false, assets: assets)
     }
 
-    // Port of f keyPressed handling
     public func handleKeyCode(_ keyCode: Int) {
         let mask = Self.mapKeyToBitmask(keyCode)
 
-        // Track Konami/cheat sequence during active play
         if screenState == .playing && mask != 0 {
             let basicDir = mask & (KeyBits.left | KeyBits.right | KeyBits.num0)
             if basicDir == Self.cheatSequence[cheatProgress] {
@@ -242,46 +219,91 @@ public final class MenuCoordinator {
         }
     }
 
-    public func handleKeypadTouch(xInKeypadArea x: Int, yInKeypadArea y: Int) {
-        for box in Self.touchHitboxes {
-            if x >= box.x0 && x <= box.x1 && y >= box.y0 && y <= box.y1 {
-                if settings.vibrationEnabled { onHapticPulse?() }
-                handleKeyCode(box.keyCode)
-                return
-            }
-        }
-    }
-
+    // Touch-first Landscape screen handler (512 x 250)
     public func handleCanvasTap(x: Int, y: Int) {
-        // Original c.a[12..13] bottom softkey corners inside 360x400 canvas
-        if x <= 68 && y >= 360 {
-            handleKeyCode(-6)
-            return
-        }
-        if x >= 292 && y >= 360 {
-            handleKeyCode(-7)
-            return
-        }
+        if settings.vibrationEnabled { onHapticPulse?() }
         switch screenState {
         case .splash:
             transitionToMainMenu()
         case .playing:
             engine.handleCanvasTap(screenX: x, screenY: y)
         case .menu, .paused:
-            if y >= 130 && y <= 345 && !currentMenu.isScrollText {
-                let rowIdx = (y - 135) / 22
-                if rowIdx >= 0 && rowIdx < currentMenu.items.count {
-                    currentMenu.selectedIndex = rowIdx
-                    activateCurrentMenuItem()
-                }
-            } else if currentMenu.isScrollText {
-                currentMenu = currentMenu.parent ?? buildMainMenu()
-            }
+            handleMenuTouch(x: x, y: y)
         case .outcome:
             transitionToMainMenu()
         case .loading:
             break
         }
+    }
+
+    public func handleMenuScroll(deltaY: Int) {
+        guard (screenState == .menu || screenState == .paused) else { return }
+        if currentMenu.isScrollText {
+            let maxOff = max(0, currentMenu.items.count - 9)
+            if deltaY > 12 { currentMenu.scrollOffset = min(maxOff, currentMenu.scrollOffset + 1) }
+            else if deltaY < -12 { currentMenu.scrollOffset = max(0, currentMenu.scrollOffset - 1) }
+        }
+    }
+
+    private func handleMenuTouch(x: Int, y: Int) {
+        // Bottom LSK / RSK touch boxes: left [8..112, 222..246], right [400..504, 222..246]
+        if y >= 220 {
+            if x <= 125 {
+                if currentMenu.isScrollText {
+                    currentMenu.scrollOffset = max(0, currentMenu.scrollOffset - 3)
+                } else {
+                    activateCurrentMenuItem()
+                }
+                return
+            }
+            if x >= 387 {
+                if currentMenu.isScrollText && x <= 445 {
+                    let maxOff = max(0, currentMenu.items.count - 9)
+                    currentMenu.scrollOffset = min(maxOff, currentMenu.scrollOffset + 3)
+                } else {
+                    handleMenuKey(mask: KeyBits.rsk)
+                }
+                return
+            }
+        }
+
+        // Scrollable text view: tap top half scrolls up, bottom half scrolls down, or back
+        if currentMenu.isScrollText {
+            if y < 125 {
+                currentMenu.scrollOffset = max(0, currentMenu.scrollOffset - 3)
+            } else {
+                let maxOff = max(0, currentMenu.items.count - 9)
+                if currentMenu.scrollOffset < maxOff {
+                    currentMenu.scrollOffset = min(maxOff, currentMenu.scrollOffset + 3)
+                } else {
+                    handleMenuKey(mask: KeyBits.rsk)
+                }
+            }
+            return
+        }
+
+        // List item hit test inside panel box [66..446, 52..218]
+        let listTop = 52
+        let rowH = 21
+        let maxVisible = 7
+        if x >= 56 && x <= 456 && y >= listTop && y < listTop + maxVisible * rowH {
+            let visibleStart = menuScrollWindowStart(total: currentMenu.items.count, selected: currentMenu.selectedIndex, window: maxVisible)
+            let rowIdx = visibleStart + (y - listTop) / rowH
+            if rowIdx >= 0 && rowIdx < currentMenu.items.count {
+                currentMenu.selectedIndex = rowIdx
+                if currentMenu.id == .skirmish && rowIdx < 3 && x < 240 {
+                    adjustSkirmishOption(delta: -1)
+                } else {
+                    activateCurrentMenuItem()
+                }
+            }
+        }
+    }
+
+    private func menuScrollWindowStart(total: Int, selected: Int, window: Int) -> Int {
+        if total <= window { return 0 }
+        let half = window / 2
+        return max(0, min(total - window, selected - half))
     }
 
     private func handleMenuKey(mask: Int) {
@@ -293,7 +315,7 @@ public final class MenuCoordinator {
             }
         } else if (mask & KeyBits.down) != 0 {
             if currentMenu.isScrollText {
-                currentMenu.scrollOffset = min(max(0, currentMenu.items.count - 8), currentMenu.scrollOffset + 1)
+                currentMenu.scrollOffset = min(max(0, currentMenu.items.count - 9), currentMenu.scrollOffset + 1)
             } else if !currentMenu.items.isEmpty {
                 currentMenu.selectedIndex = (currentMenu.selectedIndex + 1) % currentMenu.items.count
             }
@@ -306,7 +328,8 @@ public final class MenuCoordinator {
             activateCurrentMenuItem()
         } else if (mask & KeyBits.rsk) != 0 {
             if screenState == .paused {
-                screenState = .playing
+                if let p = currentMenu.parent { currentMenu = p }
+                else { screenState = .playing }
             } else if let p = currentMenu.parent {
                 currentMenu = p
             }
@@ -333,7 +356,7 @@ public final class MenuCoordinator {
             case 3: currentMenu = buildSettingsMenu(parent: currentMenu)
             case 4: currentMenu = buildInstructionsMenu(parent: currentMenu)
             case 5: currentMenu = buildAboutMenu(parent: currentMenu)
-            case 6: transitionToMainMenu() // Safe UI reset
+            case 6: transitionToMainMenu()
             default: break
             }
         case .campaign:
@@ -393,10 +416,10 @@ public final class MenuCoordinator {
             }
         case .saveSlotPicker:
             let slot = currentMenu.selectedIndex
-            let label = engine.isCampaign ? "\(localization.text(19).replacingOccurrences(of: "%U", with: "\(engine.campaignMission + 1)"))" : localization.text(4)
+            let label = engine.isCampaign ? localization.format(19, ["\(engine.campaignMission + 1)"]) : localization.text(4)
             saveStore.saveSlotData(slot, data: engine.serializeState(title: label))
             screenState = .playing
-            engine.showPopup("Da luu o \(slot + 1)!")
+            engine.showPopup(localization.text(112))
         case .instructions, .about:
             currentMenu = currentMenu.parent ?? buildMainMenu()
         }
@@ -405,19 +428,15 @@ public final class MenuCoordinator {
     // MARK: - Menu Builders
 
     private func buildMainMenu() -> GameMenuNode {
-        GameMenuNode(
-            id: .main,
-            title: localization.text(2),
-            items: [
-                localization.text(3),
-                localization.text(4),
-                localization.text(5),
-                localization.text(6),
-                localization.text(7),
-                localization.text(8),
-                localization.text(9)
-            ]
-        )
+        GameMenuNode(id: .main, title: localization.text(2), items: [
+            localization.text(3),
+            localization.text(4),
+            localization.text(5),
+            localization.text(6),
+            localization.text(7),
+            localization.text(8),
+            localization.text(9)
+        ])
     }
 
     private func buildCampaignMenu(parent: GameMenuNode) -> GameMenuNode {
@@ -435,7 +454,7 @@ public final class MenuCoordinator {
     }
 
     private func buildSkirmishMenu(parent: GameMenuNode) -> GameMenuNode {
-        return GameMenuNode(id: .skirmish, parent: parent, title: localization.text(4), items: buildSkirmishItems())
+        GameMenuNode(id: .skirmish, parent: parent, title: localization.text(4), items: buildSkirmishItems())
     }
 
     private func buildSkirmishItems() -> [String] {
@@ -443,9 +462,9 @@ public final class MenuCoordinator {
         let diffLabel = [localization.text(205), localization.text(206), localization.text(207)][skirmishDifficulty % 3]
         let facLabel = localization.text(224 + skirmishFaction % 3)
         return [
-            "\(localization.text(20)): \(mapName)",
-            "\(localization.text(21)): \(facLabel)",
-            "\(localization.text(22)): \(diffLabel)",
+            "< \(localization.text(20)): \(mapName) >",
+            "< \(localization.text(21)): \(facLabel) >",
+            "< \(localization.text(22)): \(diffLabel) >",
             localization.text(332)
         ]
     }
@@ -459,11 +478,11 @@ public final class MenuCoordinator {
     }
 
     private func buildSettingsMenu(parent: GameMenuNode) -> GameMenuNode {
-        return GameMenuNode(id: .settings, parent: parent, title: localization.text(6), items: buildSettingsItems())
+        GameMenuNode(id: .settings, parent: parent, title: localization.text(6), items: buildSettingsItems())
     }
 
     private func buildSettingsItems() -> [String] {
-        return [
+        [
             localization.text(settings.soundEnabled ? 31 : 32),
             localization.text(settings.vibrationEnabled ? 33 : 34),
             localization.text(settings.hintsEnabled ? 37 : 38)
@@ -472,18 +491,18 @@ public final class MenuCoordinator {
 
     private func buildInstructionsMenu(parent: GameMenuNode) -> GameMenuNode {
         let raw = [41, 42, 43, 44, 45, 46, 47, 48].map { localization.text($0) }.filter { !$0.isEmpty }.joined(separator: "\n")
-        let wrapped = localization.wrapText(raw, maxWidth: 320, fontId: 1, font: font)
+        let wrapped = localization.wrapText(raw, maxWidth: 380, fontId: 1, font: font)
         return GameMenuNode(id: .instructions, parent: parent, title: localization.text(7), items: wrapped, isScrollText: true)
     }
 
     private func buildAboutMenu(parent: GameMenuNode) -> GameMenuNode {
         let raw = localization.format(39, [localization.text(1), "1.0.0"])
-        let wrapped = localization.wrapText(raw, maxWidth: 320, fontId: 1, font: font)
+        let wrapped = localization.wrapText(raw, maxWidth: 380, fontId: 1, font: font)
         return GameMenuNode(id: .about, parent: parent, title: localization.text(8), items: wrapped, isScrollText: true)
     }
 
     private func buildPauseMenu() -> GameMenuNode {
-        return GameMenuNode(id: .pauseMenu, parent: nil, title: localization.text(10), items: [
+        GameMenuNode(id: .pauseMenu, parent: nil, title: localization.text(10), items: [
             localization.text(11),
             localization.text(5),
             localization.text(6),
@@ -491,26 +510,28 @@ public final class MenuCoordinator {
         ])
     }
 
-    // MARK: - Master Frame Render (360 x 400)
+    // MARK: - Master Frame Render (512 x 250 Landscape)
 
     public func renderFrame() -> PixelSurface {
+        let w = XSMaxLayout.gameLogicalWidth
+        let h = XSMaxLayout.gameLogicalHeight
         switch screenState {
         case .splash:
             renderer.setColor(0x000000)
-            renderer.fillRect(0, 0, XSMaxLayout.gameLogicalWidth, XSMaxLayout.gameLogicalHeight)
-            if splashTick < 20, let b = brandImages.first {
-                renderer.drawSprite(b, x: 180, y: 200, anchor: Anchor.hcenter | Anchor.vcenter)
+            renderer.fillRect(0, 0, w, h)
+            if splashTick < 15, let b = brandImages.first {
+                renderer.drawSprite(b, x: w / 2, y: h / 2, anchor: Anchor.hcenter | Anchor.vcenter)
             } else if let s = splashImage {
-                renderer.drawSprite(s, x: 0, y: 0)
+                renderer.drawSprite(s, x: w / 2, y: h / 2, anchor: Anchor.hcenter | Anchor.vcenter)
             }
         case .menu, .loading:
             renderer.setColor(0x140E08)
-            renderer.fillRect(0, 0, XSMaxLayout.gameLogicalWidth, XSMaxLayout.gameLogicalHeight)
+            renderer.fillRect(0, 0, w, h)
             if let s = splashImage {
-                renderer.drawSprite(s, x: 0, y: 0)
+                renderer.drawSprite(s, x: w / 2, y: h / 2, anchor: Anchor.hcenter | Anchor.vcenter)
             }
             if let hdr = menuHeaderBanner {
-                renderer.drawSprite(hdr, x: 0, y: 0)
+                renderer.drawSprite(hdr, x: w / 2, y: 0, anchor: Anchor.hcenter | Anchor.top)
             }
             renderMenuOverlay(g: renderer)
         case .playing:
@@ -521,46 +542,61 @@ public final class MenuCoordinator {
         case .outcome:
             engine.render(to: renderer)
             renderer.setColor(0x1B140C)
-            renderer.fillRect(40, 140, 280, 110)
+            renderer.fillRect(106, 65, 300, 110)
             renderer.setColor(0xD4AF37)
-            renderer.drawRect(40, 140, 280, 110)
+            renderer.drawRect(106, 65, 300, 110)
             let msg = localization.text(engine.outcome == .victory ? 118 : 119)
-            renderer.drawString(fontId: 0, msg, x: 180, y: 170, anchor: Anchor.hcenter | Anchor.top)
-            renderer.drawString(fontId: 1, localization.text(113), x: 180, y: 215, anchor: Anchor.hcenter | Anchor.top)
+            renderer.drawString(fontId: 0, msg, x: w / 2, y: 90, anchor: Anchor.hcenter | Anchor.top)
+            renderer.drawString(fontId: 1, localization.text(113), x: w / 2, y: 136, anchor: Anchor.hcenter | Anchor.top)
         }
         return renderer.surface
     }
 
     private func renderMenuOverlay(g: SoftwareRenderer) {
+        let cx = XSMaxLayout.gameLogicalWidth / 2
         g.setColor(0x1E150B)
-        g.fillRect(24, 112, 312, 246)
+        g.fillRect(56, 22, 400, 198)
         g.setColor(0xB8914E)
-        g.drawRect(24, 112, 312, 246)
+        g.drawRect(56, 22, 400, 198)
 
-        g.drawString(fontId: 0, currentMenu.title, x: 180, y: 118, anchor: Anchor.hcenter | Anchor.top)
+        g.drawString(fontId: 0, currentMenu.title, x: cx, y: 28, anchor: Anchor.hcenter | Anchor.top)
 
         if currentMenu.isScrollText {
-            let maxLines = 11
+            let maxLines = 9
             for row in 0..<maxLines {
                 let idx = currentMenu.scrollOffset + row
                 guard idx < currentMenu.items.count else { break }
-                g.drawString(fontId: 1, currentMenu.items[idx], x: 36, y: 146 + row * 17, anchor: Anchor.left | Anchor.top)
+                g.drawString(fontId: 1, currentMenu.items[idx], x: 68, y: 52 + row * 17, anchor: Anchor.left | Anchor.top)
             }
         } else {
-            for (idx, item) in currentMenu.items.enumerated() where idx < 9 {
-                let iy = 148 + idx * 22
+            let maxVisible = 7
+            let start = menuScrollWindowStart(total: currentMenu.items.count, selected: currentMenu.selectedIndex, window: maxVisible)
+            for slot in 0..<maxVisible {
+                let idx = start + slot
+                guard idx < currentMenu.items.count else { break }
+                let iy = 54 + slot * 21
                 if idx == currentMenu.selectedIndex {
                     g.setColor(0x6E4D1B)
-                    g.fillRect(34, iy - 2, 292, 20)
+                    g.fillRect(68, iy - 2, 376, 19)
                     g.setColor(0xFFD766)
-                    g.drawRect(34, iy - 2, 292, 20)
+                    g.drawRect(68, iy - 2, 376, 19)
                 }
-                g.drawString(fontId: 1, item, x: 180, y: iy, anchor: Anchor.hcenter | Anchor.top)
+                g.drawString(fontId: 1, currentMenu.items[idx], x: cx, y: iy, anchor: Anchor.hcenter | Anchor.top)
             }
         }
 
-        // Bottom LSK / RSK
-        g.drawString(fontId: 1, localization.text(333), x: 8, y: 396, anchor: Anchor.bottom | Anchor.left)
-        g.drawString(fontId: 1, localization.text(331), x: 352, y: 396, anchor: Anchor.bottom | Anchor.right)
+        // Touch-friendly Bottom Buttons
+        g.setColor(0x2A1E0F)
+        g.fillRect(8, 224, 108, 22)
+        g.setColor(0xB8914E)
+        g.drawRect(8, 224, 108, 22)
+        g.drawString(fontId: 1, currentMenu.isScrollText ? "Len" : "Chon", x: 62, y: 228, anchor: Anchor.hcenter | Anchor.top)
+
+        g.setColor(0x2A1E0F)
+        g.fillRect(396, 224, 108, 22)
+        g.setColor(0xB8914E)
+        g.drawRect(396, 224, 108, 22)
+        let rLabel = (screenState == .paused && currentMenu.parent == nil) ? localization.text(11) : (currentMenu.parent != nil ? "Quay lai" : localization.text(331))
+        g.drawString(fontId: 1, rLabel, x: 450, y: 228, anchor: Anchor.hcenter | Anchor.top)
     }
 }

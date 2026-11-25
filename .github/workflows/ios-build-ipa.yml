@@ -233,7 +233,7 @@ jobs:
           BUILD_CONFIG: ${{ inputs.configuration || 'Release' }}
         run: |
           rm -rf "${IOS_DIR}/build"
-          xcodebuild build \
+          xcodebuild \
             -project "$XCODEPROJ" \
             -scheme "$SCHEME" \
             -sdk iphoneos \
@@ -244,7 +244,8 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
             AD_HOC_CODE_SIGNING_ALLOWED=NO \
-            SYMROOT="$PWD/${IOS_DIR}/build"
+            -derivedDataPath "$PWD/${IOS_DIR}/build" \
+            build
 
       - name: Package & Ad-Hoc Sign IPA for iOS 16.1.1 (TrollStore 2 / Sideloadly / AltStore)
         id: pkg
@@ -255,7 +256,7 @@ jobs:
           STRIP_EXT: ${{ inputs.strip_extensions == true && 'true' || 'false' }}
         run: |
           set -euo pipefail
-          PRODUCTS_DIR="${IOS_DIR}/build/${BUILD_CONFIG}-iphoneos"
+          PRODUCTS_DIR="${IOS_DIR}/build/Build/Products/${BUILD_CONFIG}-iphoneos"
           APP_PATH="$(find "$PRODUCTS_DIR" -maxdepth 1 -name '*.app' -print -quit)"
           if [ -z "$APP_PATH" ] || [ ! -d "$APP_PATH" ]; then
             echo "::error::Built .app bundle not found in ${PRODUCTS_DIR}"

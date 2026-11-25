@@ -12,6 +12,8 @@
     "deploymentTarget": "16.0",
     "signingMode": "unsigned-adhoc-trollstore-sideloadly",
     "projectSpec": "apps/age-of-empires-iii/ios-app/project.yml",
-    "status": "in-progress"
+    "status": "ready-for-ci",
+    "rebuildVersion": "1.0.1",
+    "rebuildBuild": "2"
   }
 ]

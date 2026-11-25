@@ -496,7 +496,8 @@ public final class MenuCoordinator {
     }
 
     private func buildAboutMenu(parent: GameMenuNode) -> GameMenuNode {
-        let raw = localization.format(39, [localization.text(1), "1.0.0"])
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.1"
+        let raw = localization.format(39, [localization.text(1), appVersion])
         let wrapped = localization.wrapText(raw, maxWidth: 380, fontId: 1, font: font)
         return GameMenuNode(id: .about, parent: parent, title: localization.text(8), items: wrapped, isScrollText: true)
     }

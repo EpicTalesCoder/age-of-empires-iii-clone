@@ -93,6 +93,21 @@ public final class GameMap {
         return true
     }
 
+    public func hasWalkableAdjacentTile(row: Int, col: Int, tables: GameTables) -> Bool {
+        for dr in -1...1 {
+            for dc in -1...1 where !(dr == 0 && dc == 0) {
+                if isTileWalkable(row: row + dr, col: col + dc, tables: tables) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    public static func worldPxToTile(_ px: Int) -> Int {
+        return Int(floor(Double(px) / Double(tileLogicSize)))
+    }
+
     // Port of e.a(b.j * 48, b.i * 48, tileW, tileH):[I (e.javap.txt:12870-12890, 14013)
     // In J2ME e.a(Graphics), first axis is col (b.j) and second axis is row (b.i):
     // isoX = (colPx - rowPx) / 3, isoY = (rowPx + colPx) / 6

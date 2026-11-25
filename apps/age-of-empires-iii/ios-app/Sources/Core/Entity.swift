@@ -549,47 +549,66 @@ public final class Entity {
         if flags[2] {
             var resR = bytes[15]
             var resC = bytes[16]
-            let rType = max(0, min(2, bytes[6]))
+            var rType = max(0, min(2, bytes[6]))
 
-            // Verify node still exists; if depleted, switch to nearest resource node of same type
-            let curCode = engine.map.terrainAt(row: resR, col: resC)
-            if GameTables.pairLookup(engine.tables.vB, key: curCode) < 0 {
-                if let nextNode = engine.findNearestResourceTile(fromRow: tileRow, fromCol: tileCol, resourceType: rType, maxRadius: 12) {
+            // Verify node still exists and has remaining resources; if depleted, switch to nearest reachable node of same type
+            let curInfo = engine.remainingResource(atRow: resR, col: resC)
+            if curInfo == nil {
+                if let nextNode = engine.findNearestResourceTile(fromRow: tileRow, fromCol: tileCol, resourceType: rType, maxRadius: 8) {
                     resR = nextNode.0
                     resC = nextNode.1
+                    rType = nextNode.2
                     bytes[15] = resR
                     bytes[16] = resC
-                    bytes[6] = nextNode.2
+                    bytes[6] = rType
+                    bytes[25] = 0
                 } else {
+                    if owner == 0 {
+                        engine.showPopup(engine.localization.text(145))
+                    }
                     flags[2] = false
                     ensureAnimation(mode: .idle, engine: engine)
                     return
                 }
+            } else if let info = curInfo {
+                rType = info.type
+                bytes[6] = rType
             }
 
-            // Chebyshev dist <= 1 covers all 8 surrounding tiles!
+            // Chebyshev dist <= 1 covers all 8 surrounding tiles
             let dist = GameMap.tileDistance(r0: tileRow, c0: tileCol, r1: resR, c1: resC)
             if dist <= 1 {
                 facing = GameMap.direction8(fromX: tileRow, y0: tileCol, toX: resR, y1: resC)
                 ensureAnimation(mode: .action, engine: engine)
                 if bytes[24] == 0 {
-                    // Harvest cycle: 10 ticks (0.5s) -> +10 resource directly credited with floating indicator
+                    // Harvest cycle: 10 ticks (0.5s) -> +10 resource directly credited with floating indicator and real tile depletion
                     bytes[24] = 10
                     let harvested = engine.harvestTile(row: resR, col: resC, maxYield: 10)
                     if harvested > 0 {
                         engine.addResource(owner: owner, resourceType: rType, amount: harvested, atRow: tileRow, atCol: tileCol)
                     }
+                    if engine.remainingResource(atRow: resR, col: resC) == nil {
+                        // Node just depleted: immediately retarget nearby cluster or announce completion cleanly
+                        if let nextNode = engine.findNearestResourceTile(fromRow: tileRow, fromCol: tileCol, resourceType: rType, maxRadius: 8) {
+                            bytes[15] = nextNode.0
+                            bytes[16] = nextNode.1
+                            bytes[6] = nextNode.2
+                            bytes[25] = 0
+                        } else {
+                            if owner == 0 { engine.showPopup(engine.localization.text(145)) }
+                            flags[2] = false
+                            ensureAnimation(mode: .idle, engine: engine)
+                        }
+                    }
                 }
             } else if bytes[25] == 0 {
-                // Find walkable adjacent tile around (resR, resC) first so unit arrives at dist <= 1
-                if let adj = Pathfinder.findNearestWalkableTile(map: engine.map, tables: engine.tables, nearRow: resR, nearCol: resC, maxRadius: 2),
-                   let p = Pathfinder.findPath(map: engine.map, tables: engine.tables, startRow: tileRow, startCol: tileCol, goalRow: adj.0, goalCol: adj.1) {
+                if let p = engine.findBestApproachPath(fromRow: tileRow, fromCol: tileCol, targetRow: resR, targetCol: resC, excludingEntity: self) {
                     intArrays[1] = p
                     flags[1] = true
                     bytes[25] = 6
                     ensureAnimation(mode: .walk, engine: engine)
                 } else {
-                    bytes[25] = 10
+                    bytes[25] = 8
                 }
             } else {
                 bytes[25] -= 1

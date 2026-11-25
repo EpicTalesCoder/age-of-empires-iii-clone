@@ -154,4 +154,83 @@ final class AgeOfEmpiresIIITests: XCTestCase {
         XCTAssertEqual(surf.height, 250)
         XCTAssertNotNil(surf.makeCGImage())
     }
+
+    func testFoodWoodGoldHarvestDepletionAndMultiResourceCosts() throws {
+        let assets = makeTestAssets()
+        let tempDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: tempDir) }
+
+        let coord = try MenuCoordinator(assets: assets, saveDirectory: tempDir, skipSplash: true)
+        let engine = coord.engine
+
+        // 1. Verify Food (berries code 5) and Gold (rocks code 6) tap-to-harvest & exact depletion
+        for (targetR, targetC, resIdx, expectedDepletedCode, expectedCap) in [
+            (5, 2, 0, 2, 250),   // Food berry bush -> grass (2)
+            (15, 3, 2, 4, 400),  // Gold stone mine -> mined crater (4) per e.w:[B
+            (11, 7, 1, 2, 180)   // Wood tree -> grass (2)
+        ] {
+            engine.startCampaign(mission: 0)
+            guard let settler = engine.entities.first(where: { $0.owner == 0 && $0.kind == .unit && $0.unitType == 0 }) else {
+                XCTFail("Expected player settler")
+                return
+            }
+            let sIso = GameMap.worldToIso(worldX: (settler.xFixed >> 8) + 24, worldY: (settler.yFixed >> 8) + 24)
+            engine.handleCanvasTap(screenX: sIso.0 - engine.cameraIsoX, screenY: sIso.1 - engine.cameraIsoY - 8)
+            XCTAssertFalse(engine.selectedUnits.isEmpty)
+
+            // Pan playfield if node is behind top HUD bar, then tap slightly off-center (+6,+8 px)
+            let tIso = GameMap.worldToIso(worldX: targetR * GameMap.tileLogicSize, worldY: targetC * GameMap.tileLogicSize)
+            if (tIso.1 - engine.cameraIsoY + 8) < 26 {
+                engine.centerCamera(onWorldRow: targetR * GameMap.tileLogicSize, worldCol: targetC * GameMap.tileLogicSize)
+                engine.clampCamera()
+            }
+            engine.handleCanvasTap(
+                screenX: tIso.0 - engine.cameraIsoX + 6,
+                screenY: tIso.1 - engine.cameraIsoY + 8
+            )
+            XCTAssertTrue(settler.flags[2], "Settler must start gathering resource type \(resIdx)")
+            XCTAssertEqual(settler.bytes[6], resIdx)
+            XCTAssertEqual(engine.remainingResource(atRow: targetR, col: targetC)?.remaining, expectedCap)
+
+            let before = engine.playerResources[0][resIdx]
+            let idx = targetR * engine.map.cols + targetC
+            // Simulate enough ticks to completely deplete this single node (cap / 10 * 10 + walk time)
+            for _ in 0..<700 {
+                engine.updateTick()
+                if engine.map.terrain[idx] == expectedDepletedCode { break }
+            }
+            XCTAssertGreaterThanOrEqual(engine.playerResources[0][resIdx] - before, expectedCap, "Must credit full resource capacity \(expectedCap) for type \(resIdx)")
+            XCTAssertEqual(engine.map.terrain[idx], expectedDepletedCode, "Depleted resource type \(resIdx) must convert to terrain \(expectedDepletedCode)")
+            XCTAssertNil(engine.resourceAmounts[idx], "Depleted tile must be removed from active resourceAmounts")
+            XCTAssertEqual(engine.map.fogGrid[idx] & 8, 0, "Depleted tile must clear resource minimap bit 8")
+        }
+
+        // 2. Verify Settler (100F), House (100W), Pikeman (40F+40W), Musketeer (75F+25G), Fort (600W+500G) cost rules
+        engine.startSkirmish(mapChoice: 0, faction: 0, difficulty: 1)
+        guard let tc = engine.entities.first(where: { $0.owner == 0 && $0.kind == .building && $0.buildingType == 1 }) else {
+            XCTFail("Expected player TC")
+            return
+        }
+        engine.playerResources[0] = [50, 999, 999] // Plenty of Wood/Gold, insufficient Food for Settler (100F)
+        XCTAssertFalse(engine.canAfford(owner: 0, commandId: 8), "Settler must require 100 Food, not Wood")
+        XCTAssertFalse(engine.issueBuildingCommand(tc, commandId: 8))
+        engine.playerResources[0] = [100, 0, 0] // Only Food -> Settler must succeed
+        XCTAssertTrue(engine.issueBuildingCommand(tc, commandId: 8))
+        XCTAssertEqual(engine.playerResources[0][0], 0)
+
+        engine.playerResources[0] = [500, 50, 500]
+        XCTAssertFalse(engine.canAfford(owner: 0, commandId: 1), "House requires 100 Wood")
+        engine.playerResources[0] = [0, 100, 0]
+        XCTAssertTrue(engine.canAfford(owner: 0, commandId: 1))
+        XCTAssertEqual(engine.tables.aSS[9], [40, 40, 0], "Pikeman costs 40F + 40W")
+        XCTAssertEqual(engine.tables.aSS[10], [75, 0, 25], "Musketeer costs 75F + 25G")
+        XCTAssertEqual(engine.tables.aSS[7], [0, 600, 500], "Fort costs 600W + 500G")
+
+        // Verify save/load preserves remaining node amounts and depleted tiles
+        engine.map.terrain[0] = 2
+        engine.resourceAmounts.removeValue(forKey: 0)
+        let saved = engine.serializeState(title: "Test")
+        XCTAssertTrue(engine.deserializeState(data: saved))
+        XCTAssertNil(engine.resourceAmounts[0])
+    }
 }

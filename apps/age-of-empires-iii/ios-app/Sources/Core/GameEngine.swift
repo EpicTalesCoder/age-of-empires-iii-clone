@@ -70,6 +70,7 @@ public final class GameEngine {
 
     // Visual tap ripple marker (screen feedback when tapping map)
     private var tapMarker: (row: Int, col: Int, color: Int, ticks: Int)? = nil
+    private var inspectedResource: (row: Int, col: Int)? = nil
     private var idleCycleIdx: Int = 0
 
     // Scripted campaign & in-game dialog popup
@@ -182,6 +183,7 @@ public final class GameEngine {
         buildPlacementCmd = nil
         rallyModeActive = false
         tapMarker = nil
+        inspectedResource = nil
         homeCityXP = 0
         homeCityShipmentReady = true
 
@@ -203,8 +205,8 @@ public final class GameEngine {
                 if GameMap.isResourceTerrain(code, tables: tables) {
                     map.fogGrid[idx] |= 8
                     let rType = GameTables.pairLookup(tables.vB, key: code)
-                    if rType >= 0 && rType < tables.kS.count {
-                        resourceAmounts[idx] = tables.kS[rType]
+                    if rType >= 0 {
+                        resourceAmounts[idx] = Self.resourceNodeCapacity(forType: rType, tables: tables)
                     }
                 }
             }
@@ -222,7 +224,7 @@ public final class GameEngine {
             setCursor(row: anchor.tileRow, col: anchor.tileCol)
             selectSingleEntity(anchor)
             centerCamera(onWorldRow: anchor.xFixed >> 8, worldCol: anchor.yFixed >> 8)
-            revealFog(centerRow: anchor.tileRow, centerCol: anchor.tileCol, radius: 7)
+            revealFog(centerRow: anchor.tileRow, centerCol: anchor.tileCol, radius: 9)
         } else {
             centerCamera(onWorldRow: (map.rows / 2) * GameMap.tileLogicSize, worldCol: (map.cols / 2) * GameMap.tileLogicSize)
         }
@@ -394,6 +396,11 @@ public final class GameEngine {
                             if strId == 232 && trig.count >= 5 {
                                 let resName = localization.text(196 + max(0, min(2, trig[3])))
                                 msg = localization.format(strId, ["\(trig[4])", resName])
+                            } else if strId == 230 && trig.count >= 5 {
+                                let bldName = localization.text(174 + max(0, min(8, trig[3])))
+                                msg = localization.format(strId, ["\(trig[4])", bldName])
+                            } else if strId == 231 && trig.count >= 5 {
+                                msg = localization.format(strId, ["\(trig[4])"])
                             } else if trig.count >= 4 {
                                 msg = localization.format(strId, ["\(trig[3])"])
                             }
@@ -416,20 +423,74 @@ public final class GameEngine {
 
     // MARK: - Commands & Harvesting
 
+    public static func resourceNodeCapacity(forType rType: Int, tables: GameTables) -> Int {
+        // Playable node capacities matching e.k:[S ratios (Food < Gold, Wood finite per tree) so every tree, bush & rock visibly depletes
+        switch rType {
+        case 0: return 250  // Food (Berry bush): 12.5s single settler
+        case 1: return 180  // Wood (Tree): 9s single settler
+        case 2: return 400  // Gold (Stone/Gold mine): 20s single settler
+        default:
+            if rType >= 0 && rType < tables.kS.count { return min(400, tables.kS[rType]) }
+            return 200
+        }
+    }
+
+    public func resourceTypeName(_ resourceType: Int) -> String {
+        return localization.text(196 + max(0, min(2, resourceType)))
+    }
+
+    public func remainingResource(atRow row: Int, col: Int) -> (type: Int, remaining: Int, capacity: Int)? {
+        guard map.isInBounds(row: row, col: col) else { return nil }
+        let idx = row * map.cols + col
+        let code = map.terrain[idx]
+        let rt = GameTables.pairLookup(tables.vB, key: code)
+        guard rt >= 0 else { return nil }
+        let cap = Self.resourceNodeCapacity(forType: rt, tables: tables)
+        let rem = resourceAmounts[idx] ?? cap
+        guard rem > 0 else { return nil }
+        return (rt, rem, cap)
+    }
+
     public func harvestTile(row: Int, col: Int, maxYield: Int) -> Int {
         guard map.isInBounds(row: row, col: col) else { return 0 }
         let idx = row * map.cols + col
-        let rem = resourceAmounts[idx] ?? 500
+        let code = map.terrain[idx]
+        let rt = GameTables.pairLookup(tables.vB, key: code)
+        guard rt >= 0 else { return 0 }
+        let cap = Self.resourceNodeCapacity(forType: rt, tables: tables)
+        let rem = resourceAmounts[idx] ?? cap
+        guard rem > 0 else { return 0 }
         let take = min(rem, maxYield)
         let left = rem - take
         if left <= 0 {
             resourceAmounts.removeValue(forKey: idx)
-            map.terrain[idx] = 2 // cleared grass tile (walkable)
+            let depletedCode = GameTables.pairLookup(tables.wB, key: code)
+            map.terrain[idx] = depletedCode >= 0 ? depletedCode : 2 // grass (2) or mined crater (4) per e.w:[B
             map.fogGrid[idx] &= ~8
+            if inspectedResource?.row == row && inspectedResource?.col == col {
+                inspectedResource = nil
+            }
         } else {
             resourceAmounts[idx] = left
         }
         return take
+    }
+
+    public func showInsufficientCostPopup(for commandId: Int) {
+        guard commandId >= 0, commandId < tables.aSS.count, tables.aSS[commandId].count >= 3 else {
+            showPopup(localization.text(133))
+            return
+        }
+        let c = tables.aSS[commandId]
+        var parts = [String]()
+        for r in 0..<3 where c[r] > 0 && playerResources[0][r] < c[r] {
+            parts.append("\(c[r]) \(resourceTypeName(r))")
+        }
+        if parts.isEmpty {
+            showPopup(localization.text(133))
+        } else {
+            showPopup("\(localization.text(133)) (can \(parts.joined(separator: ", ")))")
+        }
     }
 
     public func isCommandUnlocked(_ cmd: Int) -> Bool {
@@ -497,7 +558,7 @@ public final class GameEngine {
 
         if commandId >= 18 && commandId <= 21 {
             guard spendCost(owner: owner, commandId: commandId) else {
-                if owner == 0 { showPopup(localization.text(133)) }
+                if owner == 0 { showInsufficientCostPopup(for: commandId) }
                 return false
             }
             switch commandId {
@@ -518,7 +579,7 @@ public final class GameEngine {
         if commandId == 17 && playerAges[owner] >= 2 { return false }
 
         guard spendCost(owner: owner, commandId: commandId) else {
-            if owner == 0 { showPopup(localization.text(133)) }
+            if owner == 0 { showInsufficientCostPopup(for: commandId) }
             return false
         }
 
@@ -604,7 +665,7 @@ public final class GameEngine {
             return false
         }
         guard spendCost(owner: owner, commandId: buildCmd) else {
-            if owner == 0 { showPopup(localization.text(133)) }
+            if owner == 0 { showInsufficientCostPopup(for: buildCmd) }
             return false
         }
         let bld = Entity.makeBuilding(id: nextEntityId, owner: owner, buildingType: buildingType, row: row, col: col, constructed: constructedImmediately, engine: self)
@@ -619,6 +680,9 @@ public final class GameEngine {
             if let builder = workers.first ?? entities.first(where: { $0.owner == owner && $0.kind == .unit && $0.unitType == 0 && !$0.flags[4] }) {
                 builder.flags[4] = true
                 builder.flags[2] = false
+                builder.flags[1] = false
+                builder.intArrays[1] = nil
+                builder.bytes[25] = 0
                 builder.refs[0] = nil
                 builder.refs[1] = bld
             }
@@ -695,17 +759,48 @@ public final class GameEngine {
             for dc in -maxRadius...maxRadius {
                 let rr = fromRow + dr
                 let cc = fromCol + dc
-                guard map.isInBounds(row: rr, col: cc) else { continue }
-                let code = map.terrainAt(row: rr, col: cc)
-                let rt = GameTables.pairLookup(tables.vB, key: code)
-                if rt >= 0 {
-                    if let targetRT = resourceType, targetRT != rt { continue }
-                    let d = abs(dr) + abs(dc)
-                    if d < bestDist { bestDist = d; best = (rr, cc, rt) }
-                }
+                guard let info = remainingResource(atRow: rr, col: cc) else { continue }
+                if let targetRT = resourceType, targetRT != info.type { continue }
+                guard map.hasWalkableAdjacentTile(row: rr, col: cc, tables: tables) else { continue }
+                let d = abs(dr) + abs(dc)
+                if d < bestDist { bestDist = d; best = (rr, cc, info.type) }
             }
         }
         return best
+    }
+
+    public func findBestApproachPath(fromRow: Int, fromCol: Int, targetRow: Int, targetCol: Int, excludingEntity: Entity?) -> [Int]? {
+        var candidates = [(row: Int, col: Int, score: Int)]()
+        for dr in -1...1 {
+            for dc in -1...1 where !(dr == 0 && dc == 0) {
+                let nr = targetRow + dr
+                let nc = targetCol + dc
+                guard map.isTileWalkable(row: nr, col: nc, tables: tables) else { continue }
+                let occupied = entities.contains {
+                    $0.active && $0 !== excludingEntity && $0.kind == .unit && $0.tileRow == nr && $0.tileCol == nc
+                }
+                let dist = abs(nr - fromRow) + abs(nc - fromCol)
+                candidates.append((nr, nc, (occupied ? 1000 : 0) + dist))
+            }
+        }
+        candidates.sort { $0.score < $1.score }
+        for cand in candidates {
+            if cand.row == fromRow && cand.col == fromCol {
+                return [cand.row, cand.col]
+            }
+            if let path = Pathfinder.findPath(
+                map: map,
+                tables: tables,
+                startRow: fromRow,
+                startCol: fromCol,
+                goalRow: cand.row,
+                goalCol: cand.col,
+                maxExpansions: 450
+            ) {
+                return path
+            }
+        }
+        return nil
     }
 
     // MARK: - Landscape Touch & Camera Interaction
@@ -842,11 +937,11 @@ public final class GameEngine {
         let isoX = screenX + cameraIsoX
         let isoY = screenY + cameraIsoY
         let (rPx, cPx) = GameMap.isoToWorld(isoX: isoX, isoY: isoY)
-        let tileR = max(0, min(map.rows - 1, rPx / GameMap.tileLogicSize))
-        let tileC = max(0, min(map.cols - 1, cPx / GameMap.tileLogicSize))
+        let tileR = max(0, min(map.rows - 1, GameMap.worldPxToTile(rPx)))
+        let tileC = max(0, min(map.cols - 1, GameMap.worldPxToTile(cPx)))
 
         setCursor(row: tileR, col: tileC)
-        activateTap(atRow: tileR, col: tileC, hitUnit: tappedUnit)
+        activateTap(atRow: tileR, col: tileC, screenX: screenX, screenY: screenY, hitUnit: tappedUnit)
     }
 
     private func hitTestUnitOnScreen(screenX: Int, screenY: Int) -> Entity? {
@@ -867,10 +962,17 @@ public final class GameEngine {
     }
 
     public func activateCursorAtTile() {
-        activateTap(atRow: cursorEntity.tileRow, col: cursorEntity.tileCol, hitUnit: nil)
+        let cIso = GameMap.worldToIso(worldX: cursorEntity.tileRow * GameMap.tileLogicSize, worldY: cursorEntity.tileCol * GameMap.tileLogicSize)
+        activateTap(
+            atRow: cursorEntity.tileRow,
+            col: cursorEntity.tileCol,
+            screenX: cIso.0 - cameraIsoX,
+            screenY: cIso.1 - cameraIsoY + 8,
+            hitUnit: nil
+        )
     }
 
-    private func activateTap(atRow r: Int, col c: Int, hitUnit: Entity?) {
+    private func activateTap(atRow r: Int, col c: Int, screenX sx: Int, screenY sy: Int, hitUnit: Entity?) {
         // 1. Building placement mode
         if let cmd = buildPlacementCmd {
             let bType = cmd + 1
@@ -883,12 +985,10 @@ public final class GameEngine {
             return
         }
 
-        // 2. Check entity at tap (hit unit first, then tile unit or exact building footprint)
-        let target = hitUnit ?? entityAtTile(row: r, col: c)
-        if let tgt = target {
+        // 2. Check direct unit hit (hit test or tile occupancy)
+        if let tgt = hitUnit ?? unitAtTile(row: r, col: c) {
             if tgt.owner == 0 {
-                // Double tapping same player unit selects all of same type in view
-                if selectedEntity === tgt && tgt.kind == .unit {
+                if selectedEntity === tgt {
                     selectAllUnits(ofType: tgt.unitType)
                     tapMarker = (tgt.tileRow, tgt.tileCol, 0x44CCFF, 10)
                 } else {
@@ -901,37 +1001,85 @@ public final class GameEngine {
                     u.refs[0] = tgt
                     u.flags[2] = false
                     u.flags[4] = false
+                    u.flags[1] = false
+                    u.intArrays[1] = nil
                 }
                 tapMarker = (tgt.tileRow, tgt.tileCol, 0xFF4444, 14)
                 return
             }
         }
 
-        // 3. Gather / Construct / Move with active player units
+        let tappedBuilding = buildingAtTile(row: r, col: c)
         let activeSelUnits = selectedUnits.filter { $0.active && $0.owner == 0 && $0.kind == .unit }
-        if !activeSelUnits.isEmpty {
-            // Check exact tile or immediate 1-tile neighbor for resource node (makes tapping trees/berries effortless on touch!)
-            if activeSelUnits.contains(where: { $0.unitType == 0 }) {
-                if let (resR, resC, rType) = findResourceNearTap(row: r, col: c) {
-                    for s in activeSelUnits where s.unitType == 0 {
-                        s.bytes[15] = resR
-                        s.bytes[16] = resC
-                        s.bytes[6] = rType
-                        s.flags[2] = true
-                        s.flags[4] = false
-                        s.refs[0] = nil
+        let hasSelectedSettlers = activeSelUnits.contains(where: { $0.unitType == 0 })
+
+        // 3. Prioritize exact resource tile or close finger-radius resource match when settlers are selected
+        if hasSelectedSettlers {
+            let directRes = remainingResource(atRow: r, col: c).map { (r, c, $0.type) }
+            let pickedRes = directRes ?? (tappedBuilding == nil ? findResourceNearTap(row: r, col: c, screenX: sx, screenY: sy) : nil)
+            if let (resR, resC, rType) = pickedRes {
+                for s in activeSelUnits where s.unitType == 0 {
+                    s.bytes[15] = resR
+                    s.bytes[16] = resC
+                    s.bytes[6] = rType
+                    s.flags[1] = false
+                    s.intArrays[1] = nil
+                    s.flags[2] = true
+                    s.flags[4] = false
+                    s.refs[0] = nil
+                    s.refs[1] = nil
+                    s.bytes[24] = 0
+                    s.bytes[25] = 0
+                    if GameMap.tileDistance(r0: s.tileRow, c0: s.tileCol, r1: resR, c1: resC) > 1,
+                       let path = findBestApproachPath(fromRow: s.tileRow, fromCol: s.tileCol, targetRow: resR, targetCol: resC, excludingEntity: s) {
+                        s.intArrays[1] = path
+                        s.flags[1] = true
+                        s.bytes[25] = 6
                     }
-                    tapMarker = (resR, resC, 0xFFDD44, 14)
-                    return
                 }
+                inspectedResource = (resR, resC)
+                tapMarker = (resR, resC, 0xFFDD44, 14)
+                return
             }
-            // Move selected units to tapped ground
+        }
+
+        // 4. Select friendly building or attack enemy building
+        if let bld = tappedBuilding {
+            if bld.owner == 0 {
+                selectSingleEntity(bld)
+                tapMarker = (bld.tileRow, bld.tileCol, 0x00FF66, 10)
+            } else if !selectedUnits.isEmpty {
+                for u in selectedUnits where u.active {
+                    u.refs[0] = bld
+                    u.flags[2] = false
+                    u.flags[4] = false
+                    u.flags[1] = false
+                    u.intArrays[1] = nil
+                }
+                tapMarker = (bld.tileRow, bld.tileCol, 0xFF4444, 14)
+            }
+            return
+        }
+
+        // 5. Inspect resource node even if no settler is currently selected
+        if let info = remainingResource(atRow: r, col: c) {
+            inspectedResource = (r, c)
+            tapMarker = (r, c, 0xFFDD44, 14)
+            showPopup("\(resourceTypeName(info.type)): \(info.remaining)/\(info.capacity) (Chon Dan de thu)")
+            return
+        }
+
+        // 6. Move selected units to tapped ground
+        if !activeSelUnits.isEmpty {
+            inspectedResource = nil
             for (idx, u) in activeSelUnits.enumerated() {
                 u.refs[0] = nil
                 u.flags[2] = false
                 u.flags[4] = false
+                u.flags[1] = false
+                u.intArrays[1] = nil
                 let dest = idx == 0 ? (r, c) : (Pathfinder.findNearestWalkableTile(map: map, tables: tables, nearRow: r, nearCol: c, maxRadius: 2) ?? (r, c))
-                if let path = Pathfinder.findPath(map: map, tables: tables, startRow: u.tileRow, startCol: u.tileCol, goalRow: dest.0, goalCol: dest.1) {
+                if let path = Pathfinder.findPath(map: map, tables: tables, startRow: u.tileRow, startCol: u.tileCol, goalRow: dest.0, goalCol: dest.1, maxExpansions: 450) {
                     u.intArrays[1] = path
                     u.flags[1] = true
                 }
@@ -940,17 +1088,32 @@ public final class GameEngine {
         }
     }
 
-    private func findResourceNearTap(row: Int, col: Int) -> (Int, Int, Int)? {
-        let code = map.terrainAt(row: row, col: col)
-        let rt = GameTables.pairLookup(tables.vB, key: code)
-        if rt >= 0 { return (row, col, rt) }
-        // Check top/diagonal tree canopies extending visually upward: in isometric view, tapping a tree canopy often hits (row-1, col-1) or neighbors!
-        for (dr, dc) in [(1, 1), (0, 1), (1, 0), (-1, 0), (0, -1)] {
-            let rr = row + dr, cc = col + dc
-            let nCode = map.terrainAt(row: rr, col: cc)
-            let nRT = GameTables.pairLookup(tables.vB, key: nCode)
-            if nRT >= 0 { return (rr, cc, nRT) }
+    private func findResourceNearTap(row: Int, col: Int, screenX: Int, screenY: Int) -> (Int, Int, Int)? {
+        if let exact = remainingResource(atRow: row, col: col) {
+            return (row, col, exact.type)
         }
+        // Check all 8 neighbors + isometric tree canopy offsets (for 52px tall props), choosing nearest visual node within 24px
+        let offsets = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1), (2, 2)]
+        var best: (r: Int, c: Int, rt: Int, distSq: Int)?
+        for (dr, dc) in offsets {
+            let rr = row + dr, cc = col + dc
+            guard let info = remainingResource(atRow: rr, col: cc) else { continue }
+            let code = map.terrainAt(row: rr, col: cc)
+            let pairIdx = code * 2
+            let isTallProp = (pairIdx >= 0 && pairIdx < tables.PB.count && tables.PB[pairIdx] >= 100)
+            if (dr == 2 || dc == 2) && !isTallProp { continue }
+            let iso = GameMap.worldToIso(worldX: rr * GameMap.tileLogicSize, worldY: cc * GameMap.tileLogicSize)
+            let cx = iso.0 - cameraIsoX
+            let cy = iso.1 - cameraIsoY + (isTallProp ? -6 : 8)
+            let dx = screenX - cx
+            let dy = screenY - cy
+            let dSq = dx * dx + dy * dy
+            let limitSq = isTallProp ? 900 : 576
+            if dSq <= limitSq, (best == nil || dSq < best!.distSq) {
+                best = (rr, cc, info.type, dSq)
+            }
+        }
+        if let b = best { return (b.r, b.c, b.rt) }
         return nil
     }
 
@@ -963,7 +1126,7 @@ public final class GameEngine {
                     buildPlacementCmd = cmd
                     showPopup("Cham ban do de xay: \(commandName(cmd))")
                 } else {
-                    showPopup(localization.text(133))
+                    showInsufficientCostPopup(for: cmd)
                 }
             } else if sel.kind == .building {
                 _ = issueBuildingCommand(sel, commandId: cmd)
@@ -1040,11 +1203,11 @@ public final class GameEngine {
         }
     }
 
-    private func entityAtTile(row: Int, col: Int) -> Entity? {
-        if let unit = entities.first(where: { $0.active && $0.kind == .unit && $0.tileRow == row && $0.tileCol == col }) {
-            return unit
-        }
-        // Check exact building footprint tiles!
+    private func unitAtTile(row: Int, col: Int) -> Entity? {
+        return entities.first { $0.active && $0.kind == .unit && $0.tileRow == row && $0.tileCol == col }
+    }
+
+    private func buildingAtTile(row: Int, col: Int) -> Entity? {
         for bld in entities where bld.active && bld.kind == .building {
             let tiles = buildingFootprintTiles(bld)
             if tiles.contains(where: { $0.0 == row && $0.1 == col }) {
@@ -1052,6 +1215,10 @@ public final class GameEngine {
             }
         }
         return nil
+    }
+
+    private func entityAtTile(row: Int, col: Int) -> Entity? {
+        return unitAtTile(row: row, col: col) ?? buildingAtTile(row: row, col: col)
     }
 
     public func rebuildCommandList() {
@@ -1080,6 +1247,7 @@ public final class GameEngine {
         else if cmd == 21 { return localization.text(191) }
         else if cmd == 22 { return localization.text(192) }
         else if cmd == 23 { return localization.text(194) }
+        else if cmd >= 24 && cmd <= 26 { return localization.text(200 + (cmd - 24)) }
         return localization.text(146)
     }
 
@@ -1111,6 +1279,13 @@ public final class GameEngine {
         for fg in map.fogGrid { w.writeInt32(fg) }
         w.writeIntShort(entities.count)
         for ent in entities { ent.serialize(to: w) }
+        w.writeIntShort(map.terrain.count)
+        for t in map.terrain { w.writeIntByte(t) }
+        w.writeIntShort(resourceAmounts.count)
+        for (idx, rem) in resourceAmounts.sorted(by: { $0.key < $1.key }) {
+            w.writeInt32(idx)
+            w.writeIntShort(rem)
+        }
         return w.data
     }
 
@@ -1158,6 +1333,23 @@ public final class GameEngine {
             }
             self.entities = decoded.map { $0.0 }
             self.nextEntityId = maxId + 1
+            if r.remaining >= 2 {
+                let tCount = Int(try r.readUnsignedShort())
+                if tCount == map.terrain.count {
+                    for i in 0..<tCount { map.terrain[i] = try r.readUnsignedByte() }
+                }
+                if r.remaining >= 2 {
+                    let raCount = Int(try r.readUnsignedShort())
+                    var newAmounts = [Int: Int]()
+                    newAmounts.reserveCapacity(raCount)
+                    for _ in 0..<raCount {
+                        let k = Int(try r.readInt())
+                        let v = Int(try r.readShort())
+                        if v > 0 { newAmounts[k] = v }
+                    }
+                    self.resourceAmounts = newAmounts
+                }
+            }
             self.selectedEntity = self.entities.first(where: { $0.selected }) ?? self.entities.first(where: { $0.owner == 0 })
             self.selectedUnits = self.entities.filter { $0.selected && $0.kind == .unit && $0.owner == 0 }
             recomputePopulations()
@@ -1209,9 +1401,9 @@ public final class GameEngine {
                     }
 
                     let pairBase = code * 2
-                    if pairBase >= 0 && pairBase + 1 < tables.PB.count {
-                        let rawSlice = tables.PB[pairBase]
-                        let trans = tables.PB[pairBase + 1]
+                    if let pair = (pairBase >= 0 && pairBase + 1 < tables.PB.count) ? (tables.PB[pairBase], tables.PB[pairBase + 1]) : nil {
+                        let rawSlice = pair.0
+                        let trans = pair.1
                         if rawSlice < 100 && rawSlice >= 0 && rawSlice < terrainTiles.count {
                             g.drawSprite(terrainTiles[rawSlice], x: sx, y: sy + GameMap.tilePixelH, transform: trans, anchor: Anchor.hcenter | Anchor.bottom)
                         } else if rawSlice >= 100 {
@@ -1225,6 +1417,19 @@ public final class GameEngine {
                         }
                     } else if !terrainTiles.isEmpty {
                         g.drawSprite(terrainTiles[0], x: sx, y: sy + GameMap.tilePixelH, transform: 0, anchor: Anchor.hcenter | Anchor.bottom)
+                    }
+
+                    // Draw live depletion bar when resource node has been partially harvested
+                    if let resInfo = remainingResource(atRow: row, col: col), resInfo.remaining < resInfo.capacity {
+                        let barW = 14
+                        let filled = max(1, (barW - 2) * resInfo.remaining / max(1, resInfo.capacity))
+                        let bx = sx - barW / 2
+                        let by = sy + 13
+                        g.setColor(0x000000)
+                        g.fillRect(bx, by, barW, 3)
+                        let fillColor = resInfo.type == 0 ? 0xEE5533 : (resInfo.type == 1 ? 0x99DD44 : 0xFFD43B)
+                        g.setColor(fillColor)
+                        g.fillRect(bx + 1, by + 1, filled, 1)
                     }
                 }
             }
@@ -1242,8 +1447,13 @@ public final class GameEngine {
 
             switch ent.kind {
             case .floatingText:
-                g.setColor(0xFFE066)
-                g.drawString(fontId: 1, "+\(ent.ints[3])", x: sx, y: sy - 12, anchor: Anchor.hcenter | Anchor.bottom)
+                let rType = max(0, min(2, ent.bytes[6]))
+                let txt = "+\(ent.ints[3])"
+                if rType + 1 < resourcePips.count, let pip = resourcePips[rType + 1] {
+                    g.drawSprite(pip, x: sx - 12, y: sy - 20)
+                }
+                g.setColor(rType == 0 ? 0xFF8866 : (rType == 1 ? 0xA8EE66 : 0xFFE066))
+                g.drawString(fontId: 1, txt, x: sx + 4, y: sy - 12, anchor: Anchor.hcenter | Anchor.bottom)
             case .fx:
                 drawEntitySprite(ent, sx: sx, sy: sy, g: g)
             case .building:
@@ -1367,18 +1577,27 @@ public final class GameEngine {
     }
 
     private func drawHUD(g: SoftwareRenderer) {
-        // Top Resource Bar (y = 0..20, 512px wide)
+        // Top Resource Bar (y = 0..20, 512px wide) with 53.res icons (Food, Wood, Gold, Pop)
         g.setColor(0x1B140C)
         g.fillRect(0, 0, XSMaxLayout.gameLogicalWidth, XSMaxLayout.topBarHeight)
         g.setColor(0x9E7D44)
         g.drawLine(0, XSMaxLayout.topBarHeight, XSMaxLayout.gameLogicalWidth, XSMaxLayout.topBarHeight)
 
         let res = playerResources[0]
-        g.drawString(fontId: 1, "F:\(res[0])", x: 6, y: 2, anchor: Anchor.top | Anchor.left)
-        g.drawString(fontId: 1, "W:\(res[1])", x: 70, y: 2, anchor: Anchor.top | Anchor.left)
-        g.drawString(fontId: 1, "G:\(res[2])", x: 134, y: 2, anchor: Anchor.top | Anchor.left)
-        g.drawString(fontId: 1, "Pop:\(playerPopUsed[0])/\(playerPopCap[0])", x: 196, y: 2, anchor: Anchor.top | Anchor.left)
-        g.drawString(fontId: 1, "Age\(playerAges[0] + 1)", x: 262, y: 2, anchor: Anchor.top | Anchor.left)
+        let topSlots: [(Int, Int, String)] = [
+            (6, 1, "\(res[0])"),
+            (66, 2, "\(res[1])"),
+            (126, 3, "\(res[2])"),
+            (186, 4, "\(playerPopUsed[0])/\(playerPopCap[0])")
+        ]
+        for (sxPos, pipIdx, valueText) in topSlots {
+            if pipIdx < resourcePips.count, let pip = resourcePips[pipIdx] {
+                g.drawSprite(pip, x: sxPos, y: 7)
+            }
+            g.setColor(0xFFFFFF)
+            g.drawString(fontId: 1, valueText, x: sxPos + 9, y: 2, anchor: Anchor.top | Anchor.left)
+        }
+        g.drawString(fontId: 1, "Age\(playerAges[0] + 1)", x: 252, y: 2, anchor: Anchor.top | Anchor.left)
 
         // Touch action buttons on Top-Right bar: [Tat ca], [Dan], [Map], [Menu]
         let topBtns: [(Int, Int, String)] = [(296, 54, "Tat ca"), (352, 50, "Dan"), (404, 50, "Map"), (456, 52, "Menu")]
@@ -1390,13 +1609,32 @@ public final class GameEngine {
             g.drawString(fontId: 1, label, x: bx + bw / 2, y: 3, anchor: Anchor.top | Anchor.hcenter)
         }
 
-        // Toast popup banner
+        // Active / Inspected Resource Node Remaining Chip (Port of e.pseudo.java:3803)
+        let activeNodeCoord: (Int, Int)? = {
+            if let s = selectedEntity, s.kind == .unit, s.unitType == 0, s.flags[2] {
+                return (s.bytes[15], s.bytes[16])
+            }
+            return inspectedResource
+        }()
+        if let (nr, nc) = activeNodeCoord, let info = remainingResource(atRow: nr, col: nc) {
+            g.setColor(0x1B140C)
+            g.fillRect(6, 24, 96, 16)
+            g.setColor(0xB8914E)
+            g.drawRect(6, 24, 96, 16)
+            if info.type + 1 < resourcePips.count, let pip = resourcePips[info.type + 1] {
+                g.drawSprite(pip, x: 10, y: 29)
+            }
+            g.setColor(0xFFE066)
+            g.drawString(fontId: 1, "\(info.remaining)/\(info.capacity)", x: 20, y: 24, anchor: Anchor.top | Anchor.left)
+        }
+
+        // Toast popup banner (shifted clear of minimap and resource badge)
         if let msg = activeMessage {
             g.setColor(0x22180D)
-            g.fillRect(60, 24, 340, 20)
+            g.fillRect(108, 24, 316, 20)
             g.setColor(0xD4AF37)
-            g.drawRect(60, 24, 340, 20)
-            g.drawString(fontId: 1, msg, x: 230, y: 27, anchor: Anchor.top | Anchor.hcenter)
+            g.drawRect(108, 24, 316, 20)
+            g.drawString(fontId: 1, msg, x: 266, y: 27, anchor: Anchor.top | Anchor.hcenter)
         }
 
         // Bottom Landscape Command Touch Bar (y = 206..250, height 44px)
@@ -1409,11 +1647,12 @@ public final class GameEngine {
         if !activeCommandList.isEmpty {
             let cellW = 28
             let startX = 10
+            let bldQueue = (selectedEntity?.kind == .building) ? (selectedEntity?.intArrays[0] ?? []) : []
             for (idx, cmd) in activeCommandList.enumerated() {
                 let bx = startX + idx * cellW
                 let by = barY + 4
                 let canPay = canAfford(owner: 0, commandId: cmd)
-                g.setColor(idx == selectedCmdIndex ? 0x543B15 : (canPay ? 0x261B0E : 0x1D110E))
+                g.setColor(idx == selectedCmdIndex ? 0x543B15 : (canPay ? 0x261B0E : 0x2A1111))
                 g.fillRect(bx - 1, by - 1, 22, 22)
                 g.setColor(idx == selectedCmdIndex ? 0xFFE066 : 0x6E5630)
                 g.drawRect(bx - 1, by - 1, 22, 22)
@@ -1423,24 +1662,54 @@ public final class GameEngine {
                         g.drawSprite(commandIcons[iconIdx], x: bx + 1, y: by + 1)
                     }
                 }
+                // Count queued instances of this command on the selected building
+                var qCount = 0
+                var qi = 0
+                while qi + 1 < bldQueue.count {
+                    if bldQueue[qi] == cmd { qCount += 1 }
+                    qi += 2
+                }
+                if qCount > 0 {
+                    g.setColor(0xFFE066)
+                    g.drawString(fontId: 1, "\(qCount)", x: bx + 13, y: by + 8, anchor: Anchor.top | Anchor.left)
+                }
+            }
+            if bldQueue.count >= 2 {
+                g.setColor(0xFFE066)
+                g.drawString(fontId: 1, "Tao: \(commandName(bldQueue[0]))", x: 426, y: barY + 8, anchor: Anchor.top | Anchor.right)
             }
             if selectedCmdIndex < activeCommandList.count {
                 let cmd = activeCommandList[selectedCmdIndex]
-                var label = commandName(cmd)
+                let nameStr = commandName(cmd)
+                g.setColor(0xFFFFFF)
+                g.drawString(fontId: 1, nameStr, x: 10, y: barY + 27, anchor: Anchor.top | Anchor.left)
+                var cx = 10 + g.bitmapFont.stringWidth(fontId: 1, text: nameStr) + 8
                 if cmd < tables.aSS.count && tables.aSS[cmd].count >= 3 {
                     let c = tables.aSS[cmd]
-                    if c[0] + c[1] + c[2] > 0 {
-                        label += " (\(c[0])F \(c[1])W \(c[2])G)"
+                    for r in 0..<3 where c[r] > 0 {
+                        if r + 1 < resourcePips.count, let pip = resourcePips[r + 1] {
+                            g.drawSprite(pip, x: cx, y: barY + 32)
+                            cx += 8
+                        }
+                        let valStr = "\(c[r])"
+                        let vw = g.bitmapFont.stringWidth(fontId: 1, text: valStr)
+                        if playerResources[0][r] < c[r] {
+                            // Port of e.pseudo.java:6371 (red shortfall box behind unaffordable resource cost)
+                            g.setColor(0x9F0B13)
+                            g.fillRect(cx - 1, barY + 28, vw + 2, 13)
+                        }
+                        g.setColor(0xFFFFFF)
+                        g.drawString(fontId: 1, valStr, x: cx, y: barY + 27, anchor: Anchor.top | Anchor.left)
+                        cx += vw + 8
                     }
                 }
-                g.drawString(fontId: 1, label, x: 10, y: barY + 27, anchor: Anchor.top | Anchor.left)
             }
         } else if let sel = selectedEntity {
             let title = sel.kind == .unit ? localization.text(150 + min(sel.unitType, 7)) : "Cong trinh #\(sel.buildingType)"
             let suffix = selectedUnits.count > 1 ? " x\(selectedUnits.count)" : ""
             g.drawString(fontId: 1, "\(title)\(suffix)  HP:\(sel.hp)/\(sel.maxHP(engine: self))", x: 12, y: barY + 14, anchor: Anchor.top | Anchor.left)
         } else {
-            g.drawString(fontId: 1, "Cham vao dan/nha de dieu khien | Keo de di chuyen ban do", x: 12, y: barY + 14, anchor: Anchor.top | Anchor.left)
+            g.drawString(fontId: 1, "Cham dan/nha de chon | Cham cay/qua/vang de thu hoach", x: 12, y: barY + 14, anchor: Anchor.top | Anchor.left)
         }
 
         // Build Cancel or Quick Action button bottom-right (x: 434..506)
